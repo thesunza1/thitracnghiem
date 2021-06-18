@@ -11,6 +11,6 @@ class test01 extends Controller
     public function index() {
         DB::table('users')->insert(['name'=>'helloo']);
         $users = DB::table('users')->get();
-        echo "gia huy";
+        echo "gia huy 01";
     }
 }
