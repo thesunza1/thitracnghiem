@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Test01 extends Migration
+class CreateThemesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class Test01 extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-
+        Schema::create('themes', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ class Test01 extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('themes');
     }
 }
