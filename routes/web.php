@@ -17,3 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/test','App\Http\Controllers\test01@index');
+Route::get('/themBranch','App\Http\Controllers\BranchsController@testMakeBranchs');
