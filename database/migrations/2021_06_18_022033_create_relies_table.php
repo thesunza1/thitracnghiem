@@ -15,7 +15,8 @@ class CreateReliesTable extends Migration
     {
         Schema::create('relies', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->bigInteger('question_id',false,true)->nullable();
+            $table->string('noidung');
         });
     }
 

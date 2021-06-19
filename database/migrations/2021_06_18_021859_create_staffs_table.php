@@ -17,6 +17,7 @@ class CreateStaffsTable extends Migration
             $table->bigIncrements('id')->primary();
             $table->string('email',60);
             $table->string('password',60);
+            $table->string('name',30);
             $table->string('sdt',13);
             $table->string('address',200);
             $table->bigInteger('branch_id')->unique()->nullable();
