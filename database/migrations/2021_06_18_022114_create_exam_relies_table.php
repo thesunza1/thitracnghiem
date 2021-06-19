@@ -15,7 +15,13 @@ class CreateExamReliesTable extends Migration
     {
         Schema::create('exam_relies', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->bigInteger('examQuestion_id',false,true);
+            $table->bigInteger('rely_id',false,true);
+            $table->integer('choose')->default(0);
+            $table->integer('order')->default(0);
+            $table->foreign('examQuestion_id')->references('id')->on('exam_questions')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('rely_id')->references('id')->on('relys')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 

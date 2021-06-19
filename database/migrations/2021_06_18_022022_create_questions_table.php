@@ -22,7 +22,7 @@ class CreateQuestionsTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->foreign('level_id')->references('id')->on('levels')->onDelete('set null');
             $table->foreign('theme_id')->references('id')->on('themes')->onDelete('set null');
-            $table->foreign('staffCreated_at')->references('id')->on('staffs')->onDelete('set null');
+            $table->foreign('staffCreated_id')->references('id')->on('staffs')->onDelete('set null');
 
         });
     }

@@ -17,6 +17,8 @@ class CreateReliesTable extends Migration
             $table->id();
             $table->bigInteger('question_id',false,true)->nullable();
             $table->string('noidung');
+            $table->integer('answer');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -15,7 +15,11 @@ class CreateExamDetailsTable extends Migration
     {
         Schema::create('exam_details', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->bigInteger('exam_id',false,true);
+            $table->bigInteger('question_id',false,true);
+            $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 
