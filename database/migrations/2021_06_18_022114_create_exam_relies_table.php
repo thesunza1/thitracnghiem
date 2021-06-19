@@ -20,7 +20,7 @@ class CreateExamReliesTable extends Migration
             $table->integer('choose')->default(0);
             $table->integer('order')->default(0);
             $table->foreign('examQuestion_id')->references('id')->on('exam_questions')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('rely_id')->references('id')->on('relys')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('rely_id')->references('id')->on('relies')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

@@ -15,7 +15,7 @@ class CreateExamQuestionsTable extends Migration
     {
         Schema::create('exam_questions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('examStaffs_id',false,true);
+            $table->bigInteger('examStaff_id',false,true);
             $table->bigInteger('question_id',false,true);
             $table->foreign('examStaff_id')->references('id')->on('exam_staffs')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade')->onUpdate('cascade');
