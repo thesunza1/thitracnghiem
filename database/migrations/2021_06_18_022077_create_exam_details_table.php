@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReliesTable extends Migration
+class CreateExamDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateReliesTable extends Migration
      */
     public function up()
     {
-        Schema::create('relies', function (Blueprint $table) {
+        Schema::create('exam_details', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('question_id',false,true)->nullable();
-            $table->string('noidung');
-            $table->integer('answer');
+            $table->bigInteger('exam_id',false,true);
+            $table->bigInteger('question_id',false,true);
+            $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 
@@ -29,6 +30,6 @@ class CreateReliesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('relies');
+        Schema::dropIfExists('exam_details');
     }
 }

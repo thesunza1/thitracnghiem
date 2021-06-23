@@ -15,7 +15,12 @@ class CreateExamStaffsTable extends Migration
     {
         Schema::create('exam_staffs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->bigInteger('staff_id',false,true);
+            $table->bigInteger('exam_id',false,true);
+            $table->float('point');
+            $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 

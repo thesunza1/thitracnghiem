@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExamDetailsTable extends Migration
+class CreateBranchsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateExamDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('exam_details', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('branchs', function (Blueprint $table) {
+            $table->bigIncrements('id')->primary();
+            $table->string('name',100);
+            $table->string('address',200);
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
@@ -26,6 +28,6 @@ class CreateExamDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exam_details');
+        Schema::dropIfExists('branchs');
     }
 }

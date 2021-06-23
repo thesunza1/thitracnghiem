@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Relies extends Model
 {
     use HasFactory;
+    const CREATED_AT = NULL;
+    const UPDATED_AT = NULL;
+
+
+    protected $fillable = ['noidung','answer'];
 }
