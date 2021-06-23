@@ -15,7 +15,8 @@ class CreateThemesTable extends Migration
     {
         Schema::create('themes', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name',30);
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

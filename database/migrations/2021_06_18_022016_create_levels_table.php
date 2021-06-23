@@ -15,7 +15,8 @@ class CreateLevelsTable extends Migration
     {
         Schema::create('levels', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('difficult');
+            $table->float('coefficient');
         });
     }
 

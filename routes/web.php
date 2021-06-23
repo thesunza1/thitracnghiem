@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\adddulieuController;
+use App\Http\Controllers\StaffsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,4 +17,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/test','App\Http\Controllers\test01@index');
+//adddulieucontroller
+Route::get('/themlevel',[adddulieuController::class, 'themlevel']);
+
+Route::get('/thembranch',[adddulieuController::class, 'thembranch']);
+
+Route::get('/themstaff',[adddulieuController::class, 'themstaff']);
+
+Route::get('/themtheme',[adddulieuController::class, 'themtheme']);
+
+Route::get('/themqr',[adddulieuController::class, 'themqr']);
+
+//staffscontroller
+
+route::get('/teststaff',[StaffsController::class,'index']);
