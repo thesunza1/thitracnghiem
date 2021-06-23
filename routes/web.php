@@ -23,6 +23,11 @@ Route::get('/themlevel',[adddulieuController::class, 'themlevel']);
 Route::get('/thembranch',[adddulieuController::class, 'thembranch']);
 
 Route::get('/themstaff',[adddulieuController::class, 'themstaff']);
+
+Route::get('/themtheme',[adddulieuController::class, 'themtheme']);
+
+Route::get('/themqr',[adddulieuController::class, 'themqr']);
+
 //staffscontroller
 
 route::get('/teststaff',[StaffsController::class,'index']);

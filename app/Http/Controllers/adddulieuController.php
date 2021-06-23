@@ -7,6 +7,9 @@ use App\Models\Branchs;
 use App\Models\Themes;
 use App\Models\Levels;
 use App\Models\Staffs;
+use App\Models\Relies;
+use App\Models\Questions;
+use Carbon\Carbon;
 
 class adddulieuController extends Controller
 {
@@ -51,5 +54,33 @@ class adddulieuController extends Controller
         Staffs::insert($data);
     }
 
+    public function themqr() {
+        $data = [
+            //'id' => 1,
+            'content' => 'đây là câu hỏi số 2 ',
+            'level_id' => 1,
+            'theme_id' => 1,
+            'staffcreated_id' => 1,
+            'created_at' => Carbon::now(),
+        ];
+        $question = new Questions($data);
+
+        //$question = Questions::insert($data);
+        $question->save();
+
+        $question->relies()->createMany([
+            [
+                'noidung' => 'cau tra loi 1 ',
+                'answer' => 1,
+            ],
+            [
+                'noidung' => 'cau tra loi 2',
+                'answer' => 0,
+            ],             [
+                'noidung' => 'cau tra loi 3',
+                'answer' => 0,
+            ],        ]);
+
+    }
 
 }
