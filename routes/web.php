@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adddulieuController;
 use App\Http\Controllers\StaffsController;
+use App\Http\Controllers\QuestionsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,4 +31,5 @@ Route::get('/themqr',[adddulieuController::class, 'themqr']);
 
 //staffscontroller
 
-route::get('/teststaff',[StaffsController::class,'index']);
+//questioncontroll
+
