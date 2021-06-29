@@ -16,11 +16,11 @@ class CreateStaffsTable extends Migration
         Schema::create('staffs', function (Blueprint $table) {
             $table->bigIncrements('id')->primary();
             $table->string('email',60);
-            $table->string('password',60);
+            $table->string('password',200);
             $table->string('name',30);
             $table->string('sdt',13);
             $table->string('address',200);
-            $table->bigInteger('branch_id')->unique()->nullable();
+            $table->bigInteger('branch_id')->nullable();
             $table->integer('role')->default(1);
             $table->foreign('branch_id')->references('id')->on('branchs')->onDelete('set null');
         });

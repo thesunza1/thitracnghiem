@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adddulieuController;
 use App\Http\Controllers\StaffsController;
 use App\Http\Controllers\QuestionsController;
+use App\Models\Questions;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,3 +35,14 @@ Route::get('/themqr',[adddulieuController::class, 'themqr']);
 
 //questioncontroll
 
+
+Auth::routes([
+    'reset' => false,
+    'register' => false,
+
+]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/test02',[QuestionsController::class,'test02'] );
