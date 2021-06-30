@@ -52,7 +52,9 @@ class QuestionsController extends Controller
     }
 
     public function add(){
-        return view('questions.add');
+        $levels = Levels::all();
+        $themes = Themes::all();
+        return view('questions.add')->with('levels', $levels)->with('themes', $themes);
     }
 
     public function create(Request $request){

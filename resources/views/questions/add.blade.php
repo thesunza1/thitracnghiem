@@ -9,19 +9,17 @@
             <div class="form-group col-md-3">
                 <label for="topic">Chủ đề</label>
                 <select name="topic" id="topic" class="form-control">
-                    <option value="1">Toán</option>
-                    <option value="2">Hóa</option>
-                    <option value="3">Sinh</option>
-                    <option value="4">Lý</option>
+                    @foreach ($themes as $theme)
+                        <option value="{{ $theme->id}}">{{$theme->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group col-md-3">
                 <label for="topic">Độ khó</label>
                 <select name="level" id="topic" class="form-control">
-                    <option value="1">Khó</option>
-                    <option value="2">Trung bình</option>
-                    <option value="3">Dễ</option>
-                    <option value="4">Úi giời ơi</option>
+                    @foreach ($levels as $level)
+                        <option value="{{ $level->id}}">{{$level->difficult }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group col-md-3">

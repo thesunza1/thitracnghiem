@@ -33,7 +33,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <a class="navbar-brand" href="" style="width:20px; height: auto;"><img src="https://image.shutterstock.com/image-vector/illustration-quiz-icon-on-white-600w-1129762556.jpg" alt="" style="width:40px; height: auto;"></a>
+                        <ul class="navbar-nav ml-5">
+                            <li class="nav-item active">
+                            <a class="nav-link" href="#">Exams</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">My exams</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">Account</a>
+                            </li>
+                        </ul>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
