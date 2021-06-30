@@ -9,7 +9,6 @@ use App\Models\Levels;
 use App\Models\Themes;
 use App\Models\Staffs;
 
-
 class Questions extends Model
 {
     use HasFactory;
@@ -31,5 +30,6 @@ class Questions extends Model
     }
     public function staff() {
         return $this->belongsTo(Staffs::class,'staffcreated_id','id');
+
     }
 }
