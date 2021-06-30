@@ -50,11 +50,11 @@ Route::get('/test02',[QuestionsController::class,'test02'] );
 route::get('/teststaff',[StaffsController::class,'index']);
 
 //Quesion
-Route::get('/questions', [QuestionsController::class, 'index']);
-Route::get('/question/detail/{id}', [QuestionsController::class, 'detail']);
-Route::get('/question/edit/{id}', [QuestionsController::class, 'edit']);
+Route::get('/questions', [QuestionsController::class, 'index'])->name('questions');
+Route::get('/question/detail/{id}', [QuestionsController::class, 'detail'])->name('question.detail');
+Route::get('/question/edit/{id}', [QuestionsController::class, 'edit'])->name('question.edit');
 Route::post('/question/update', [QuestionsController::class, 'update']);
-Route::get('/question/add', [QuestionsController::class, 'add']);
+Route::get('/question/add', [QuestionsController::class, 'add'])->name('question.add');
 Route::post('/question/create', [QuestionsController::class, 'create']);
 
 //Add more answer
