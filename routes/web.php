@@ -64,4 +64,3 @@ Route::post('/answer/is_correct/{id}', [ReliesController::class, 'is_correct']);
 // delete answer
 Route::post('/answer/delete/{id}', [ReliesController::class, 'delete']);
 
-

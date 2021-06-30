@@ -16,9 +16,11 @@ class Questions extends Model
     const UPDATED_AT = NULL;
 
     protected $fillable = ['content','level_id','theme_id','staffcreated_id','created_at'];
+
     public function relies(){
         return $this->hasMany(Relies::class , 'question_id');
     }
+
 
     public function level() {
         return $this->belongsTo(Levels::class,'level_id','id');
@@ -30,6 +32,6 @@ class Questions extends Model
     }
     public function staff() {
         return $this->belongsTo(Staffs::class,'staffcreated_id','id');
-
     }
+
 }

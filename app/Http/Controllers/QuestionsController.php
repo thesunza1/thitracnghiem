@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 class QuestionsController extends Controller
 {
 
+    //
     public function index()
     {
         $questions = Questions::all();
