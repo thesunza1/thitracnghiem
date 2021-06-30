@@ -100,6 +100,7 @@
                         let label = $("<label/>").attr({for:"iscorrect_"+j}).html("Đúng").addClass("mb-3");
                         $(answer).append(input, checkbox, label).appendTo($(b_div));
                     }
+
                     $(div).append($(div2).append(tit, b_div, button)).appendTo("#create_form");
                 }
             }
