@@ -7,19 +7,11 @@ use App\Models\Levels;
 use App\Models\Themes;
 use App\Models\Staffs;
 use Illuminate\Http\Request;
-use App\Models\Questions;
 
 
 class QuestionsController extends Controller
 {
-<<<<<<< HEAD
 
-    public function test02() {
-        $question = Questions::all();
-
-        dd($question[3]->level->id);
-=======
-    //
     public function index()
     {
         $questions = Questions::all();
@@ -90,6 +82,5 @@ class QuestionsController extends Controller
         }
         // dd($request->all());
         return redirect('/questions');
->>>>>>> 08b35d7b3c318bd752396f1bdce4017f67930f33
     }
 }
