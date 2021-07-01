@@ -7,6 +7,8 @@ use App\Http\Controllers\StaffsController;
 use App\Models\Questions;
 
 use App\Http\Controllers\ReliesController;
+use Doctrine\DBAL\Schema\Index;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,3 +66,5 @@ Route::post('/answer/is_correct/{id}', [ReliesController::class, 'is_correct']);
 // delete answer
 Route::post('/answer/delete/{id}', [ReliesController::class, 'delete']);
 
+//staff
+Route::get('/staffs',[StaffsController::class, 'index'])->name('staff.index');
