@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adddulieuController;
+use App\Http\Controllers\ContestsController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\StaffsController;
 use App\Models\Questions;
@@ -63,4 +64,9 @@ Route::post('/answer/add/{id}', [ReliesController::class, 'add']);
 Route::post('/answer/is_correct/{id}', [ReliesController::class, 'is_correct']);
 // delete answer
 Route::post('/answer/delete/{id}', [ReliesController::class, 'delete']);
+
+//Examination
+Route::get('/contests', [ContestsController::class, 'index'])->name('contests');
+Route::get('/contest/add', [ContestsController::class, 'add'])->name('contest.add');
+Route::post('/contest/create', [ContestsController::class, 'create'])->name('contest.create');
 
