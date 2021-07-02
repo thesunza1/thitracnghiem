@@ -40,7 +40,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar fixed-top navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container" style="max-width: 80%;">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}

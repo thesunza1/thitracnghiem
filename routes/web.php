@@ -68,3 +68,8 @@ Route::post('/answer/delete/{id}', [ReliesController::class, 'delete']);
 
 //staff
 Route::get('/staffs',[StaffsController::class, 'index'])->name('staff.index');
+Route::get('/staffs/show/{id}',[StaffsController::class, 'show'])->name('staff.show');
+Route::post('/staffs/update',[StaffsController::class,'update'])->name('staff.update');
+Route::post('/staffs/delete',[StaffsController::class,'drop'])->name('staff.drop');
+Route::post('/staffs/create',[StaffsController::class,'storge'])->name('staff.create');
+
