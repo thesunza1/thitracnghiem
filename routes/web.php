@@ -5,7 +5,7 @@ use App\Http\Controllers\adddulieuController;
 use App\Http\Controllers\ContestsController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\StaffsController;
-use App\Models\Questions;
+use App\Http\Controllers\ExamsController;
 
 use App\Http\Controllers\ReliesController;
 /*
@@ -65,8 +65,15 @@ Route::post('/answer/is_correct/{id}', [ReliesController::class, 'is_correct']);
 // delete answer
 Route::post('/answer/delete/{id}', [ReliesController::class, 'delete']);
 
-//Examination
+//Contest
 Route::get('/contests', [ContestsController::class, 'index'])->name('contests');
 Route::get('/contest/add', [ContestsController::class, 'add'])->name('contest.add');
 Route::post('/contest/create', [ContestsController::class, 'create'])->name('contest.create');
+Route::get('/contest/edit/{id}', [ContestsController::class, 'edit'])->name('contest.edit');
+Route::post('/contest/update/{id}', [ContestsController::class, 'update'])->name('contest.update');
+Route::post('/contest/delete/{id}', [ContestsController::class, 'delete'])->name('contest.delete');
+Route::get('/contest/detail/{id}', [ContestsController::class, 'detail'])->name('contest.detail');
+
+// Exam
+Route::post('/contest/detail/{id}/exam/add',[ExamsController::class, 'add'])->name('exam.add');
 

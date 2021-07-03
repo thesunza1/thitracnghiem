@@ -64,15 +64,15 @@
                                 <tr class="row100">
                                     <td class="column100 column1" data-column="column1">{{$i++}}</td>
                                     <td class="column100 column2" data-column="column2">{{$contest->name}}</td>
-                                    <td class="column100 column3" data-column="column3">{{$contest->testmaker_id}}</td>
+                                    <td class="column100 column3" data-column="column3">{{$contest->staff->name}}</td>
                                     <td class="column100 column4" data-column="column4">{{date('d-m-Y H:i:s',$contest->begintime_at)}}</td>
-                                    <td class="column100 column5" data-column="column5">{{$contest->branchcontest_id}}</td>
+                                    <td class="column100 column5" data-column="column5">{{$contest->branch->name}}</td>
                                     <td class="column100 column6" data-column="column6">{{$contest->created_at}}</td>
                                     <td class="column100 column7 px-2" data-column="column7">
                                         <div class="d-flex">
-                                            <a href="#" class="btn btn-danger mr-1"><i class="fas fa-trash-alt"></i></a>
-                                            <a href="#" class="btn btn-info mr-1"><i class="fas fa-info-circle"></i></a>
-                                            <a href="#" class="btn btn-warning mr-1"><i class="fas fa-cog"></i></a>
+                                            <a href="/contest/delete/{{$contest->id}}" class="btn btn-danger mr-1"><i class="fas fa-trash-alt"></i></a>
+                                            <a href="/contest/detail/{{$contest->id}}" class="btn btn-info mr-1"><i class="fas fa-info-circle"></i></a>
+                                            <a href="/contest/edit/{{$contest->id}}" class="btn btn-warning mr-1"><i class="fas fa-cog"></i></a>
                                         </div>
                                     </td>
                                 </tr>

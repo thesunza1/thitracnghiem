@@ -59,7 +59,7 @@ ul, li {
 input {
   display: block;
 	outline: none;
-	border: none !important;
+	/* border: none !important; */
 }
 
 textarea {
@@ -68,7 +68,7 @@ textarea {
 }
 
 textarea:focus, input:focus {
-  border-color: transparent !important;
+  /* border-color: transparent !important; */
 }
 
 /* ------------------------------------ */
@@ -108,7 +108,7 @@ table {
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   flex-wrap: wrap;
   padding: 33px 30px;
