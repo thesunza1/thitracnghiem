@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adddulieuController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\StaffsController;
-use App\Models\Questions;
+use App\Http\Controllers\BranchsController;
 
 use App\Http\Controllers\ReliesController;
 use Doctrine\DBAL\Schema\Index;
@@ -72,4 +72,12 @@ Route::get('/staffs/show/{id}',[StaffsController::class, 'show'])->name('staff.s
 Route::post('/staffs/update',[StaffsController::class,'update'])->name('staff.update');
 Route::post('/staffs/delete',[StaffsController::class,'drop'])->name('staff.drop');
 Route::post('/staffs/create',[StaffsController::class,'storge'])->name('staff.create');
+//staff
+Route::get('/branchs',[BranchsController::class, 'index'])->name('branch.index');
+Route::get('/branchs/show/{id}',[BranchsController::class, 'show'])->name('branch.show');
+Route::post('/branchs/update',[BranchsController::class,'update'])->name('branch.update');
+Route::post('/branchs/delete',[BranchsController::class,'drop'])->name('branch.drop');
+Route::post('/branchs/create',[BranchsController::class,'storge'])->name('branch.create');
+
+
 
