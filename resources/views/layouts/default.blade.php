@@ -34,6 +34,11 @@
         body{
             font-family: 'Helvetica Neue', Helvetica, Arial !important;
         }
+
+        .container {
+            max-width: 80% !important;
+        }
+
         .btn:focus {
             box-shadow: none;
         }
@@ -81,6 +86,7 @@
 
         /* Show the dropdown menu on hover */
         .dropdown:hover .dropdown-content {display: block;}
+
     </style>
     @yield('style')
 </head>
@@ -99,6 +105,32 @@
                 <ul class="navbar-nav mr-auto">
                     <a class="navbar-brand" href="{{ route('home')}}" style="width:20px; height: auto;"><img src="https://image.shutterstock.com/image-vector/illustration-quiz-icon-on-white-600w-1129762556.jpg" alt="" style="width:40px; height: auto;"></a>
                     <ul class="navbar-nav ml-5">
+
+                        <li class="nav-item active">
+                        <a class="nav-link" href="#">exam</a>
+                        </li>
+                        <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('branch.index') }}">branchs</a>
+                        </li>
+                        <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('staff.index') }}">staffs</a>
+                        </li>
+
+
+
+                        <li class="nav-item">
+                        <a class="nav-link" href="#">My exams</a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a class="nav-link" href="#">themes</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ route("question.index") }}">questions</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="#">Account</a>
+
                         <li class="nav-item pt-1 active dropdown">
                             <a class="nav-link" href="#"class="dropbtn">Admin</a>
                             <div class="dropdown-content">
@@ -117,6 +149,7 @@
                         </li>
                         <li class="nav-item pt-1">
                             <a class="nav-link" href="#">Account</a>
+
                         </li>
                     </ul>
                 </ul>
