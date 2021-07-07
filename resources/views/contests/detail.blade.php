@@ -63,7 +63,7 @@
                     <div class="col-md-6 mb-5">
                         <div class="form-group">
                             <label for="exam_name">Đề thi {{$exam->id}}</label>
-                            <select class="form-control" name="exam_name">
+                            {{-- <select class="form-control" name="exam_name">
                                 @foreach ($themes as $theme)
                                     @if (1)
                                         <option value="{{$theme->id}}" selected>{{$theme->name}}</option>
@@ -71,11 +71,27 @@
                                         <option value="{{$theme->id}}" >{{$theme->name}}</option>
                                     @endif
                                 @endforeach
-                            </select>
+                            </select> --}}
+                            <p>Người phụ trách : {{$exam->staff->name}}</p>
+                            <div>Số câu hỏi : {{$exam->questionnum}}</div>
+                            <div>Thời gian làm bài : {{$exam->examtime_at}}</div>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" onclick="return false;" {{($exam->questionmix) ? "checked" : ""}} >
+                                    <label for="" class="m-0">Trộn câu hỏi</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" onclick="return false;" {{($exam->relymix) ? "checked" : ""}} >
+                                    <label for="" class="m-0">Trộn đáp án</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="">
-                            <a href="#" class="btn btn-success">Đi đến đề thi</a>
-                            <a href="#" class="btn btn-danger ml-auto">X</a>
+                            <a href="#" class="btn btn-success"><i class="fas fa-cogs"></i> Khởi tạo</a>
+                            <a href="#" class="btn btn-warning"><i class="fas fa-cog"></i></a>
+                            <a href="#" class="btn btn-danger ml-auto"><i class="far fa-trash-alt"></i></a>
                         </div>
                     </div>
                 @endforeach

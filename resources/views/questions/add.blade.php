@@ -2,6 +2,7 @@
 
 @section('content')
 <!-- Setup question -->
+<h2 class="text-center pt-3" style="font-weight:500">Thêm câu hỏi</h2>
 <form action="/question/create" method="post" id="create_form">
     @csrf
     <div class="container mt-5">
@@ -42,7 +43,7 @@
 
 <!-- Submit -->
 <div class="container mt-3">
-    <button class="btn btn-success" id="submit_question">Submit</button>
+    <button class="btn btn-success" id="submit_question">Xác nhận thêm</button>
 </div>
 @endsection
 

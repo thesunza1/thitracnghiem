@@ -9,6 +9,7 @@ use App\Models\Staffs;
 use App\Models\Themes;
 use App\Models\Levels;
 use App\Models\Exams;
+use App\Models\ExamThemes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -68,7 +69,7 @@ class ContestsController extends Controller
         $contest->content = $data['content'];
         $contest->testmaker_id = $data['test_maker_id'];
         $contest->save();
-        return Redirect('/contests');
+        return Redirect()->back();
         dd($contest);
     }
 
@@ -89,6 +90,8 @@ class ContestsController extends Controller
     public function delete($id)
     {
         $contest = Contests::find($id);
+        $contest->delete();
+        return redirect()->back();
         dd($contest);
     }
 }

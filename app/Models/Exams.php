@@ -20,4 +20,9 @@ class Exams extends Model
     {
         return $this->hasMany(ExamThemes::class, 'exam_id');
     }
+
+    public function staff()
+    {
+        return $this->belongsTo(Staffs::class, 'issuer_id');
+    }
 }
