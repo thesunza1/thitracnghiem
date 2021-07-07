@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExamThemesTable extends Migration
+class AddNumorderToExamQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateExamThemesTable extends Migration
      */
     public function up()
     {
-        Schema::create('exam_themes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('exam_questions', function (Blueprint $table) {
+            //
+            $table->bigInteger('numorder',false,true);
         });
     }
 
@@ -26,6 +26,9 @@ class CreateExamThemesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exam_themes');
+        Schema::table('exam_questions', function (Blueprint $table) {
+            //
+            $table->bigInteger('numorder',false,true);
+        });
     }
 }

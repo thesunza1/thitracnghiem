@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBranchsTable extends Migration
+class UpdateColumnStaff1 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +14,14 @@ class CreateBranchsTable extends Migration
      */
     public function up()
     {
-        Schema::create('branchs', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        //
+        Schema::table('staffs', function (Blueprint $table) {
+
+            //$table->string('password',200)->change();
+
+
         });
+
     }
 
     /**
@@ -26,6 +31,6 @@ class CreateBranchsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('branchs');
+        //
     }
 }
