@@ -7,10 +7,14 @@ use App\Models\Exams;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+
 
 class Contests extends Model
 {
     use HasFactory;
+
     const UPDATED_AT = NULL;
     // const CREATED_AT = NULL;
     protected $fillable = [
@@ -36,4 +40,5 @@ class Contests extends Model
     {
         return $this->hasMany(Exams::class);
     }
+
 }

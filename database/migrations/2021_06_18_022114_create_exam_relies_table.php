@@ -18,7 +18,8 @@ class CreateExamReliesTable extends Migration
             $table->bigInteger('examQuestion_id',false,true);
             $table->bigInteger('rely_id',false,true);
             $table->integer('choose')->default(0);
-            $table->integer('order')->default(0);
+            // $table->integer('order')->default(0);
+            $table->bigInteger('numorder',false,true);
             $table->foreign('examQuestion_id')->references('id')->on('exam_questions')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('rely_id')->references('id')->on('relies')->onDelete('cascade')->onUpdate('cascade');
 

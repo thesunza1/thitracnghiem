@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Contests;
+
+use Illuminate\Http\Request;
+
 use App\Models\Branchs;
 use App\Models\Staffs;
 use App\Models\Themes;
@@ -15,6 +17,19 @@ use Illuminate\Support\Facades\Redirect;
 
 class ContestsController extends Controller
 {
+
+    //
+    public function home() {
+        $contests = Contests::all();
+
+
+        return view('home')->with('contests',$contests);
+
+
+
+    }
+
+
     public function index()
     {
         $contests = Contests::all();
@@ -93,5 +108,6 @@ class ContestsController extends Controller
         $contest->delete();
         return redirect()->back();
         dd($contest);
+
     }
 }
