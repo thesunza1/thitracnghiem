@@ -25,15 +25,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 //adddulieucontroller
-Route::get('/themlevel',[adddulieuController::class, 'themlevel']);
+// Route::get('/themlevel',[adddulieuController::class, 'themlevel']);
+// Route::get('/themrl',[adddulieuController::class, 'themrl']);
 
-Route::get('/thembranch',[adddulieuController::class, 'thembranch']);
+// Route::get('/thembranch',[adddulieuController::class, 'thembranch']);
 
-Route::get('/themstaff',[adddulieuController::class, 'themstaff']);
+// Route::get('/themstaff',[adddulieuController::class, 'themstaff']);
 
-Route::get('/themtheme',[adddulieuController::class, 'themtheme']);
+// Route::get('/themtheme',[adddulieuController::class, 'themtheme']);
 
-Route::get('/themqr',[adddulieuController::class, 'themqr']);
+// Route::get('/themqr',[adddulieuController::class, 'themqr']);
 
 //staffscontroller
 

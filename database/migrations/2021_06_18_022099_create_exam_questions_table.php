@@ -17,6 +17,7 @@ class CreateExamQuestionsTable extends Migration
             $table->id();
             $table->bigInteger('examStaff_id',false,true);
             $table->bigInteger('question_id',false,true);
+            $table->bigInteger('numorder',false,true);
             $table->foreign('examStaff_id')->references('id')->on('exam_staffs')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade')->onUpdate('cascade');
         });

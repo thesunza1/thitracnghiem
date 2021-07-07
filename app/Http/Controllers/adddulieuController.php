@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Branchs;
 use App\Models\Themes;
+use App\Models\Roles;
+
 use App\Models\Levels;
 use App\Models\Staffs;
 use App\Models\Relies;
@@ -53,7 +55,14 @@ class adddulieuController extends Controller
         ];
         Staffs::insert($data);
     }
+    public function themrl() {
+        $data = [['name' => 'admin'],
+        ['name'=>'staff'],
+        ['name' => 'issuer maker']];
 
+        Roles::insert($data);
+
+    }
     public function themqr() {
         $data = [
             //'id' => 1,
