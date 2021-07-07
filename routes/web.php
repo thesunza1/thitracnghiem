@@ -50,6 +50,7 @@ Route::get('/', [App\Http\Controllers\ContestsController::class, 'index'])->name
 // Route::get('/test02',[QuestionsController::class,'test02'] );
 // route::get('/teststaff',[StaffsController::class,'index']);
 
+
 //Quesion
 Route::get('/questions', [QuestionsController::class, 'index'])->name('questions');
 Route::get('/question/detail/{id}', [QuestionsController::class, 'detail'])->name('question.detail');
