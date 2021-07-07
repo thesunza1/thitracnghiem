@@ -5,6 +5,7 @@ use App\Http\Controllers\adddulieuController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\StaffsController;
 use App\Http\Controllers\BranchsController;
+use App\Http\Controllers\ContestsController;
 
 use App\Http\Controllers\ReliesController;
 use Doctrine\DBAL\Schema\Index;
@@ -45,19 +46,15 @@ Auth::routes([
 
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-Route::get('/test02',[QuestionsController::class,'test02'] );
-route::get('/teststaff',[StaffsController::class,'index']);
+// route::get('/teststaff',[StaffsController::class,'index']);
 
 //Quesion
-Route::get('/questions', [QuestionsController::class, 'index']);
-Route::get('/question/detail/{id}', [QuestionsController::class, 'detail']);
-Route::get('/question/edit/{id}', [QuestionsController::class, 'edit']);
-Route::post('/question/update', [QuestionsController::class, 'update']);
-Route::get('/question/add', [QuestionsController::class, 'add']);
-Route::post('/question/create', [QuestionsController::class, 'create']);
+Route::get('/questions', [QuestionsController::class, 'index'])->name('question.index');
+Route::get('/question/detail/{id}', [QuestionsController::class, 'detail'])->name('question.detail');
+Route::get('/question/edit/{id}', [QuestionsController::class, 'edit'])->name('question.edit');
+Route::post('/question/update', [QuestionsController::class, 'update'])->name('question.update');
+Route::get('/question/add', [QuestionsController::class, 'add'])->name('question.add');
+Route::post('/question/create', [QuestionsController::class, 'create'])->name('question.create');
 
 //Add more answer
 Route::post('/answer/add/{id}', [ReliesController::class, 'add']);
@@ -78,6 +75,9 @@ Route::get('/branchs/show/{id}',[BranchsController::class, 'show'])->name('branc
 Route::post('/branchs/update',[BranchsController::class,'update'])->name('branch.update');
 Route::post('/branchs/delete',[BranchsController::class,'drop'])->name('branch.drop');
 Route::post('/branchs/create',[BranchsController::class,'storge'])->name('branch.create');
+//contest
+Route::get('/home',[ContestsController::class,'home'])->name('contests.home');
+Route::redirect('/', '/home' ); //redirect from / to /home when login in web
 
 
 
