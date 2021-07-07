@@ -19,9 +19,9 @@ use App\Http\Controllers\ReliesController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('contests/home');
+// });
 //adddulieucontroller
 Route::get('/themlevel',[adddulieuController::class, 'themlevel']);
 
@@ -44,11 +44,11 @@ Auth::routes([
 
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\ContestsController::class, 'index'])->name('home');
 
 
-Route::get('/test02',[QuestionsController::class,'test02'] );
-route::get('/teststaff',[StaffsController::class,'index']);
+// Route::get('/test02',[QuestionsController::class,'test02'] );
+// route::get('/teststaff',[StaffsController::class,'index']);
 
 //Quesion
 Route::get('/questions', [QuestionsController::class, 'index'])->name('questions');
