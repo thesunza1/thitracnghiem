@@ -1,5 +1,6 @@
 @extends('layouts.default')
 
+
 @section('style')
     <link rel="stylesheet" href=" {{ asset('css/contests/home.css') }}">
 @endsection
@@ -50,6 +51,7 @@
                         </div>
                         <a class="btn"> xem các bài thi </a>
                     </div>
+
                 </div>
 
 
@@ -63,8 +65,11 @@
 
 
 
+
 @endsection
 
 @section('js-content')
+
+
 
 @endsection
