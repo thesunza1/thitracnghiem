@@ -1,6 +1,7 @@
 @extends('layouts.default')
 
 @section('style')
+
     <link rel="stylesheet" href=" {{ asset('css/contests/home.css') }}">
 @endsection
 
@@ -66,5 +67,6 @@
 @endsection
 
 @section('js-content')
+
 
 @endsection

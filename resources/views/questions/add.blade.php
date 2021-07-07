@@ -2,9 +2,10 @@
 
 @section('content')
 <!-- Setup question -->
+<h2 class="text-center pt-3" style="font-weight:500">Thêm câu hỏi</h2>
 <form action="/question/create" method="post" id="create_form">
     @csrf
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             <div class="form-group col-md-3">
                 <label for="topic">Chủ đề</label>
@@ -42,7 +43,7 @@
 
 <!-- Submit -->
 <div class="container mt-3">
-    <button class="btn btn-success" id="submit_question">Submit</button>
+    <button class="btn btn-success" id="submit_question">Xác nhận thêm</button>
 </div>
 @endsection
 
@@ -81,7 +82,7 @@
 
                     //collapse part
                     let div = $("<div></div>").addClass("collapse p-3 mt-3 container").attr("id","my-collapse-"+i).css("box-shadow","0px 0px 3px grey").css("border-radius","3px");
-                    let div2 = $("<div></div>").attr("id","question_"+i);
+                    let div2 = $("<div></div>").attr("id",i).addClass("q");
                     let tit = $("<h3><b>Câu " +i+ "</b></h3>");
                     // let form = $("<form></form>").attr("method","post").attr("action","#").attr("id","form_question_" +i).addClass("row").append('@csrf');
                     let b_div = $("<div></div>").addClass("row").attr({id: "b_div"});
@@ -107,12 +108,13 @@
             $(document).on('click','.btn-add', function(){
                 let a = $(this).closest(".collapse").find(".answer");
                 let length = a.length + 1;
-                let id = $(a).attr("name");
-                id = id.substr(0,id.length-2) + length + "]";
-                console.log(id);
+                // let id = $(a).attr("name");
+                let num_q = $(this).closest(".q").attr("id");
+                console.log(num_q);
+                let id = "answer["+num_q +"]["+length+"]";
                 let input = $("<input>").attr("type","text").attr("name", id).attr("id",id).attr("placeholder","Đáp án "+arr[length]).addClass("answer_"+length + " form-control answer");
                 let b = length - 1;
-                let checkbox = $("<input/>").attr("type","checkbox").attr({name:"iscorrect["+i+"]["+length+"]", value:"true"}).css({width:"20px", height:"20px", margin:"10px"});
+                let checkbox = $("<input/>").attr("type","checkbox").attr({name:"iscorrect["+num_q+"]["+length+"]", value:"true"}).css({width:"20px", height:"20px", margin:"10px"});
                 let label = $("<label/>").attr({for:"iscorrect_"+j}).html("Đúng").addClass("mb-3");
                 let div = $("<div></div>").addClass("form-group col-md-5").append(input, checkbox, label);
                 console.log($(this).closest("div").siblings("#b_div").append($(div)));
@@ -126,7 +128,9 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $("form").submit();
+            if($("#quantity").val() != "")
+                $("#create_form").submit();
+            console.log($("#quantity").val());
         });
 
         $(document).on('click','.btn-add',function(e){

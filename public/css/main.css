@@ -23,6 +23,7 @@
 }
 
 body, html {
+
 	height: 100vh;
 	font-family: sans-serif;
 }
@@ -30,6 +31,7 @@ body, html {
 .header-text {
     text-align: center;
 }
+
 /* ------------------------------------ */
 a {
 	margin: 0px;
@@ -62,7 +64,9 @@ ul, li {
 input {
   display: block;
 	outline: none;
+
 	border: none !important;
+
 }
 
 textarea {
@@ -71,7 +75,9 @@ textarea {
 }
 
 textarea:focus, input:focus {
+
   border-color: transparent !important;
+
 }
 
 /* ------------------------------------ */
@@ -99,12 +105,16 @@ table {
 .limiter {
   width: 100%;
   margin: 0 auto;
+
   background: rgb(209, 209, 209);
+
 }
 
 .container-table100 {
   width: 100%;
+
   min-height: 90vh;
+
   background: #d1d1d1;
 
   display: -webkit-box;
@@ -119,7 +129,9 @@ table {
 }
 
 .wrap-table100 {
+
   max-width: 80% !important;
+
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -135,6 +147,7 @@ th, td {
 }
 .column100 {
   width: 265px;
+
   /* padding-left: 40px; */
   text-align: center;
 }
@@ -150,6 +163,7 @@ th, td {
   /* padding-left: 40px; */
   text-align: center;
 }
+
 .row100.head th {
   padding-top: 24px;
   padding-bottom: 20px;
@@ -168,8 +182,10 @@ th, td {
 .table100.ver2 td {
   font-family: Montserrat-Regular;
   font-size: 14px;
+
   font-weight: 400;
   color: #474141;
+
   line-height: 1.4;
 }
 
