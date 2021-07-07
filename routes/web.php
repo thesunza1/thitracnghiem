@@ -77,7 +77,7 @@ Route::post('/branchs/update',[BranchsController::class,'update'])->name('branch
 Route::post('/branchs/delete',[BranchsController::class,'drop'])->name('branch.drop');
 Route::post('/branchs/create',[BranchsController::class,'storge'])->name('branch.create');
 //contest
-Route::get('/home',[ContestsController::class,'home'])->name('contests.home');
+Route::get('/home',[ContestsController::class,'home'])->name('home');
 Route::redirect('/', '/home' ); //redirect from / to /home when login in web
 
 
