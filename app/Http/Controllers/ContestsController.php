@@ -26,6 +26,7 @@ class ContestsController extends Controller
         return view('home')->with('contests',$contests);
 
 
+
     }
 
 
