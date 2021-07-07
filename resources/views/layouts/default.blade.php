@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Laravel</title>
-
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -19,27 +18,76 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- css -->
-    <link rel="stylesheet" href="./style.css">
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- css -->
+    <link rel="stylesheet" href="{{url('css/main.css')}}">
+    <link rel="stylesheet" href="{{url('css/util.css')}}">
 
     <!-- datatable -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css">
     <?php date_default_timezone_set("Asia/Ho_Chi_Minh"); ?>
-    @yield('style')
+
     <style>
         body{
             font-family: 'Helvetica Neue', Helvetica, Arial !important;
         }
+        .btn:focus {
+            box-shadow: none;
+        }
+        .form-control:focus {
+            box-shadow: none;
+        }
+        .container{
+            max-width: 80%;
+        }
+        .link-text:hover{
+            color: rgb(194, 188, 188) !important;
+        }
+        /* Dropdown Button */
+        .dropbtn {
+        font-size: 16px;
+        border: none;
+        }
+
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+        position: relative;
+        display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {background-color: #ddd;}
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {display: block;}
     </style>
+    @yield('style')
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm py-0">
         <div class="container" style="max-width: 80%;">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ route('home') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -49,16 +97,26 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                    <a class="navbar-brand" href="" style="width:20px; height: auto;"><img src="https://image.shutterstock.com/image-vector/illustration-quiz-icon-on-white-600w-1129762556.jpg" alt="" style="width:40px; height: auto;"></a>
+                    <a class="navbar-brand" href="{{ route('home')}}" style="width:20px; height: auto;"><img src="https://image.shutterstock.com/image-vector/illustration-quiz-icon-on-white-600w-1129762556.jpg" alt="" style="width:40px; height: auto;"></a>
                     <ul class="navbar-nav ml-5">
-                        <li class="nav-item active">
-                        <a class="nav-link" href="#">Exams</a>
+                        <li class="nav-item pt-1 active dropdown">
+                            <a class="nav-link" href="#"class="dropbtn">Admin</a>
+                            <div class="dropdown-content">
+                                <a href="{{ route('questions')}}">Questions</a>
+                                <a href="{{ route('contests')}}">Examinations</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">My exams</a>
+                        <li class="nav-item pt-1 active dropdown">
+                            <a class="nav-link" href="#"class="dropbtn">Thao tác chung</a>
+                            <div class="dropdown-content">
+                                <a href="{{ route('question.add')}}">Add Question</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Account</a>
+                        <li class="nav-item pt-1">
+                            <a class="nav-link" href="#">My exams</a>
+                        </li>
+                        <li class="nav-item pt-1">
+                            <a class="nav-link" href="#">Account</a>
                         </li>
                     </ul>
                 </ul>
@@ -104,6 +162,46 @@
     @yield('content')
 
 </body>
+<footer>
+    <div class="text-white" style="background-color: black;">
+        <div class="container">
+            <div class="my-3">
+                <a href="#" class="text-decoration-none">Tên sản phẩm</a></div>
+            <div class="row">
+                <div class="col-md-7">
+                <div class="row">
+                    <?php for($i=0;$i<4;$i++): ?>
+                    <div class="col-md-3 d-flex flex-column">
+                        <span style="font-weight:200; color : #eaedf1d9;">Product</span>
+                        <a href="#" class="text-decoration-none link-text text-white" style="font-weight:500">Updates</a>
+                        <a href="#" class="text-decoration-none link-text text-white" style="font-weight:500">Security</a>
+                        <a href="#" class="text-decoration-none link-text text-white" style="font-weight:500">Current Extension</a>
+                    </div>
+                    <?php endfor; ?>
+                </div>
+                </div>
+                <div class="ml-auto col-md-4">
+                <div>
+                    <p style="font-weight:200">Try new products with first top-up</p>
+                    <form action="#">
+                    <div class="input-group bg-dark">
+                        <input type="text" class="form-control" style="background-color: black;" placeholder="Enter Your Email">
+                        <div class="input-group-append">
+                        <span class="btn btn-primary rounded">Get Started</span>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+            <hr style="background-color : #eaedf136; margin-top: 5px;">
+            <span class="d-flex justify-content-between">
+                <span>Sản phẩm của nhóm thực tập</span>
+                <span>18/6/2021, Vị Thanh - VNPT Hậu Giang</span>
+            </span>
+        </div>
+    </div>
+</footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
 @yield('js-content')
 </html>

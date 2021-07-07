@@ -10,7 +10,7 @@
             <table class="table table-striped table-bordered table-hover" id="question_list">
                 <thead class="">
                     <tr>
-                        <th>id</th>
+                        <th>Stt</th>
                         <th>Nội dung</th>
                         <th>Mức độ</th>
                         <th>Chủ đề</th>
@@ -20,13 +20,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php $i = 1; ?>
                     @foreach ($questions as $question)
                     <tr>
-                        <td>{{$question->id}}</td>
+                        <td>{{$i++}}</td>
                         <td>{{$question->content}}</td>
                         <td>{{$question->level->difficult}}</td>
-                        <td>{{$question->theme_id}}</td>
-                        <td>{{$question->staffcreated_id}}</td>
+                        <td>{{$question->theme->name}}</td>
+                        <td>{{$question->staff->name}}</td>
                         <td>{{$question->created_at}}</td>
                         <td class="d-flex">
                             <a href="/question/delete/{{$question->id}}"
