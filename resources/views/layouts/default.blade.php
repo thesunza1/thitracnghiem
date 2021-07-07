@@ -126,7 +126,7 @@
                         <a class="nav-link" href="#">themes</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="{{ route("question.index") }}">questions</a>
+                        <a class="nav-link" href="{{ route("questions") }}">questions</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="#">Account</a>
