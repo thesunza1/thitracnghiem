@@ -26,9 +26,9 @@ use Doctrine\DBAL\Schema\Index;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('contests/home');
+// });
 //adddulieucontroller
 // Route::get('/themlevel',[adddulieuController::class, 'themlevel']);
 // Route::get('/themrl',[adddulieuController::class, 'themrl']);
@@ -52,10 +52,11 @@ Auth::routes([
 
 ]);
 
+
 // route::get('/teststaff',[StaffsController::class,'index']);
 
-//Quesion
 
+//Question
 
 
 

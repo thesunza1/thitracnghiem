@@ -63,15 +63,6 @@
                     <div class="col-md-6 mb-5">
                         <div class="form-group">
                             <label for="exam_name">Đề thi {{$exam->id}}</label>
-                            {{-- <select class="form-control" name="exam_name">
-                                @foreach ($themes as $theme)
-                                    @if (1)
-                                        <option value="{{$theme->id}}" selected>{{$theme->name}}</option>
-                                    @else
-                                        <option value="{{$theme->id}}" >{{$theme->name}}</option>
-                                    @endif
-                                @endforeach
-                            </select> --}}
                             <p>Người phụ trách : {{$exam->staff->name}}</p>
                             <div>Số câu hỏi : {{$exam->questionnum}}</div>
                             <div>Thời gian làm bài : {{$exam->examtime_at}}</div>

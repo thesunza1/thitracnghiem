@@ -7,7 +7,7 @@ use App\Models\Levels;
 use App\Models\Themes;
 use App\Models\Staffs;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class QuestionsController extends Controller
 {
@@ -65,7 +65,7 @@ class QuestionsController extends Controller
             $question->content = $q;
             $question->level_id = $request->level;
             $question->theme_id = $request->topic;
-            $question->staffcreated_id = "1"; //set cứng do chưa có người đăng nhập
+            $question->staffcreated_id = Auth::user()->id;
             $question->save();
 
             $length = count($request->answer[$i]);

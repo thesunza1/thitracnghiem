@@ -25,7 +25,7 @@
             </div>
             <div class="form-group col-md-3">
                 <label for="quantity">Số lượng câu hỏi</label>
-                <input type="number" name="quantity" id="quantity" class="form-control" min="0" max="5" placeholder="Số lượng từ 1 - 5">
+                <input type="number" name="quantity" id="quantity" class="form-control border" min="0" max="5" placeholder="Số lượng từ 1 - 5">
             </div>
             <div class="form-group col-md-3">
                 <label for="quantity">Generate</label>
@@ -94,30 +94,39 @@
                     for(var j = 1; j <= default_number; j++)
                     {
                         let answer = $("<div></div>").addClass("form-group col-md-5");
-                        let input = $("<input/>").attr("type","text").attr("name","answer["+i+"]["+j+"]").addClass("answer_"+i+" form-control answer").attr("id","answer_"+i+"_"+j).attr("placeholder","Đáp án "+ arr[j]).css("background-color","#a58f8f0a").css("border-color","#629bd4");
+                        let input = $("<input/>").attr("type","text").attr("name","answer["+i+"]["+j+"]")
+                        .addClass("answer_"+i+" form-control answer")
+                        .attr("id","answer_"+i+"_"+j).attr("placeholder","Đáp án "+ arr[j])
+                        .css("background-color","#ddd").css("border-color","#629bd4")
+                        ;
+                        let delete_btn = $("<button></button>").addClass("btn text-danger border ml-1 btn-delete btn-delete-"+i).attr({id:i}).html("X").css("display","none");
+                        let div = $("<div/>").addClass("d-flex").append(input, delete_btn);
                         let checkbox = $("<input/>").attr("type","checkbox").attr({name:"iscorrect["+i+"]["+j+"]", value:"true"}).css({width:"20px", height:"20px", margin:"10px"});
                         let label = $("<label/>").attr({for:"iscorrect_"+j}).html("Đúng").addClass("mb-3");
-                        $(answer).append(input, checkbox, label).appendTo($(b_div));
+
+                        $(answer).append(div, checkbox, label).appendTo($(b_div));
                     }
 
                     $(div).append($(div2).append(tit, b_div, button)).appendTo("#create_form");
                 }
             }
-
+            display_last_child_of_btn_delete();
             // Add more answer for each question
             $(document).on('click','.btn-add', function(){
                 let a = $(this).closest(".collapse").find(".answer");
-                let length = a.length + 1;
-                // let id = $(a).attr("name");
-                let num_q = $(this).closest(".q").attr("id");
+                let length = a.length + 1; // thứ tự của câu trả lời này
+                let num_q = $(this).closest(".q").attr("id");// thuộc câu hỏi số [1]
                 console.log(num_q);
                 let id = "answer["+num_q +"]["+length+"]";
-                let input = $("<input>").attr("type","text").attr("name", id).attr("id",id).attr("placeholder","Đáp án "+arr[length]).addClass("answer_"+length + " form-control answer");
+                let input = $("<input>").attr("type","text").attr("name", id).attr("id",id).attr("placeholder","Đáp án "+arr[length]).addClass("answer_"+num_q + " form-control answer").css("background-color","#ddd");
                 let b = length - 1;
                 let checkbox = $("<input/>").attr("type","checkbox").attr({name:"iscorrect["+num_q+"]["+length+"]", value:"true"}).css({width:"20px", height:"20px", margin:"10px"});
                 let label = $("<label/>").attr({for:"iscorrect_"+j}).html("Đúng").addClass("mb-3");
-                let div = $("<div></div>").addClass("form-group col-md-5").append(input, checkbox, label);
+                let delete_btn = $("<button></button>").addClass("btn text-danger border ml-1 btn-delete btn-delete-"+num_q).attr({id:num_q}).html("X").css("display","none");
+                let f_div = $("<div/>").addClass("d-flex").append(input, delete_btn);
+                let div = $("<div></div>").addClass("form-group col-md-5").append(f_div, checkbox, label);
                 console.log($(this).closest("div").siblings("#b_div").append($(div)));
+                display_last_child_of_btn_delete();
             });
         });
 
@@ -139,6 +148,24 @@
         $(document).on('click','.btn-question',function(e){
             e.preventDefault();
         });
+
+        function display_last_child_of_btn_delete() {
+            $(".q").each(function(){
+                let id = $(this).attr("id");
+                $(".btn-delete-"+id).css("display","none");
+                console.log($(".btn-delete-"+id).last().css("display","inline"));
+            });
+        }
+
+        $(document).on('click','.btn-delete', function(e){
+            e.preventDefault();
+            console.log($(this).parents(".form-group").remove());
+            display_last_child_of_btn_delete();
+            let id = $(this).attr("id");
+            $(".answer_"+id).each(function(){
+                console.log($(this).attr("placeholder"));
+            })
+        })
     });
 </script>
 @endsection
