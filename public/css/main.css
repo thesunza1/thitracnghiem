@@ -64,7 +64,8 @@ ul, li {
 input {
     display: block;
 	outline: none;
-	border: none !important;
+	/* border: none !important; */
+    background-color: #edf3e778 !important;
 }
 
 textarea {
@@ -74,7 +75,7 @@ textarea {
 
 textarea:focus, input:focus {
 
-  border-color: transparent !important;
+  /* border-color: transparent !important; */
 
 }
 
