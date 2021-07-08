@@ -52,20 +52,11 @@ Auth::routes([
 
 ]);
 
-<<<<<<< HEAD
-Route::get('/', [App\Http\Controllers\ContestsController::class, 'index'])->name('home');
-=======
-// route::get('/teststaff',[StaffsController::class,'index']);
->>>>>>> 99c9326c9f84f44ba35a3b542b59da8d82987ae8
 
-//Quesion
-
-<<<<<<< HEAD
-// Route::get('/test02',[QuestionsController::class,'test02'] );
 // route::get('/teststaff',[StaffsController::class,'index']);
 
-=======
->>>>>>> 99c9326c9f84f44ba35a3b542b59da8d82987ae8
+
+//Question
 
 
 

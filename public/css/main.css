@@ -62,11 +62,9 @@ ul, li {
 
 /* ------------------------------------ */
 input {
-  display: block;
+    display: block;
 	outline: none;
-
 	border: none !important;
-
 }
 
 textarea {
