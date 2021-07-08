@@ -105,51 +105,21 @@
                 <ul class="navbar-nav mr-auto">
                     <a class="navbar-brand" href="{{ route('home')}}" style="width:20px; height: auto;"><img src="https://image.shutterstock.com/image-vector/illustration-quiz-icon-on-white-600w-1129762556.jpg" alt="" style="width:40px; height: auto;"></a>
                     <ul class="navbar-nav ml-5">
-
-                        <li class="nav-item active">
-                        <a class="nav-link" href="#">exam</a>
+                        <li class="nav-item pt-1">
+                        <a class="nav-link" href="#">Exams</a>
                         </li>
-                        <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('branch.index') }}">branchs</a>
-                        </li>
-                        <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('staff.index') }}">staffs</a>
-                        </li>
-
-
-
-                        <li class="nav-item">
+                        <li class="nav-item pt-1">
                         <a class="nav-link" href="#">My exams</a>
                         </li>
-
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">themes</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="{{ route("questions") }}">questions</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Account</a>
 
                         <li class="nav-item pt-1 active dropdown">
                             <a class="nav-link" href="#"class="dropbtn">Admin</a>
                             <div class="dropdown-content">
                                 <a href="{{ route('questions')}}">Questions</a>
                                 <a href="{{ route('contests')}}">Examinations</a>
+                                <a href="{{ route('staff.index') }}">Staffs</a>
+                                <a href="{{ route('branch.index') }}">Branchs</a>
                             </div>
-                        </li>
-                        <li class="nav-item pt-1 active dropdown">
-                            <a class="nav-link" href="#"class="dropbtn">Thao tác chung</a>
-                            <div class="dropdown-content">
-                                <a href="{{ route('question.add')}}">Add Question</a>
-                            </div>
-                        </li>
-                        <li class="nav-item pt-1">
-                            <a class="nav-link" href="#">My exams</a>
-                        </li>
-                        <li class="nav-item pt-1">
-                            <a class="nav-link" href="#">Account</a>
-
                         </li>
                     </ul>
                 </ul>
