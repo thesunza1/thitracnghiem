@@ -110,4 +110,6 @@ Route::get('/contest/detail/{id}', [ContestsController::class, 'detail'])->name(
 // Exam
 Route::post('/contest/detail/{id}/exam/add',[ExamsController::class, 'add'])->name('exam.add');
 
+//test
 
+Route::get('test03/{id}', [Examscontroller::class, 'test03'] )->name('exam.test03');
