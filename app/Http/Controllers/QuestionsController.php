@@ -83,7 +83,14 @@ class QuestionsController extends Controller
             }
             $i++;
         }
-        // dd($request->all());
+        dd($request->all());
         return redirect('/questions');
+    }
+
+    public function delete($id)
+    {
+        $question = Questions::find($id);
+        $question->delete();
+        return redirect()->back();
     }
 }

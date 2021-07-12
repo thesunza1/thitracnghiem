@@ -91,7 +91,7 @@
         <div class="col-md-6 p-3 border-left" >
             <h3>Thêm đề thi</h3>
             <div>
-                <form action="/contest/detail/{{$contest->id}}/exam/add" method="post">
+                <form action="/contest/detail/{{$contest->id}}/exam/add" method="post" id="form">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -142,13 +142,16 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="q_num_per_theme_level">Số lượng</label>
-                                    <input class="form-control q_num" type="number" name="q_num_per_theme_level[]">
+                                    <input class="form-control q_num" type="number" name="q_num_per_theme_level[]" value="0">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="exam_detail"></div>
-                    <button class="btn btn-primary add_theme_level">Add more Themes and level</button>
+                    <div class="">
+                        <button class="btn btn-primary add_theme_level">Add more level</button>
+                        <button class="btn btn-danger remove_theme_level">Remove level</button>
+                    </div>
                     <div class="my-3">
                         <button class="btn btn-info add_exam">Add more Exams</button>
                     </div>
@@ -179,20 +182,40 @@
             $("#q_num").val(sum_q);
         }
 
+        function check_num_q(){
+            if($(".theme_level").length == 1)
+                $(".remove_theme_level").attr("disabled", true);
+            else
+            $(".remove_theme_level").attr("disabled", false);
+        }
+        check_num_q();
         $(".add_theme_level").click(function(e){
             e.preventDefault();
             $(".theme_level").first().clone().appendTo("#exam_detail");
             sum_q();
+            check_num_q();
         });
-
+        $(".remove_theme_level").click(function(e){
+            e.preventDefault();
+            $(".theme_level").last().remove();
+            sum_q();
+            check_num_q();
+        });
         $(document).on('change','.q_num',function()
         {
             sum_q();
         });
 
         $(".add_theme_level").click(function(){
-            console.log($(".q_num"))
+            // console.log($(".q_num"))
         });
+
+        $(".add_exam").click(function(e){
+            e.preventDefault();
+            if($("#q_num").val() == 0 || $("#q_num").val() == "");
+            else
+                $("#form").submit();
+        })
     });
 </script>
 @endsection

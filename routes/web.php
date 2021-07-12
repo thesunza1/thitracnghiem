@@ -63,7 +63,7 @@ Auth::routes([
 Route::post('/question/update', [QuestionsController::class, 'update'])->name('question.update');
 
 Route::post('/question/create', [QuestionsController::class, 'create'])->name('question.create');
-
+Route::post('/question/delete/{id}', [QuestionsController::class, 'delete'])->name('question.delete');
 Route::get('/questions', [QuestionsController::class, 'index'])->name('questions');
 Route::get('/question/detail/{id}', [QuestionsController::class, 'detail'])->name('question.detail');
 Route::get('/question/edit/{id}', [QuestionsController::class, 'edit'])->name('question.edit');

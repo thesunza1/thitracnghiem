@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group">
                         <label for="content">Nội dung</label>
-                        <input id="content" class="form-control" type="text" name="content" value="{{$question->content}}">
+                        <textarea name="content" id="content" class="form-control">{{$question->content}}</textarea>
                     </div>
                     <div class="row">
                         <?php
@@ -85,7 +85,7 @@
                         <div class="form-group">
                             <label for="answer">Đáp án {{$arr[$i]}}</label>
                             <input id="answer" class="form-control" type="text" name="more_answer">
-                            <input type="checkbox" name="is_correct" id="is_correct">
+                            <input type="checkbox" name="is_correct" id="is_correct" class="mt-2">
                             <label for="is_correct">Đúng</label>
                         </div>
                         <div>

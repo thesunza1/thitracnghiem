@@ -30,7 +30,7 @@
                         <td>{{$question->staff->name}}</td>
                         <td>{{$question->created_at}}</td>
                         <td class="d-flex">
-                            <a href="/question/delete/{{$question->id}}"
+                            <a href="#"
                                 class="btn btn-danger mr-1 delete" id="{{$question->id}}">
                                 <i class="fas fa-trash-alt"></i></a>
                             <a href="/question/detail/{{$question->id}}"
@@ -49,6 +49,10 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
+                    <p>Bạn có chắc muốn xoá câu hỏi này ?</p>
+                    <form action="" method="post">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>
@@ -64,6 +68,7 @@
 
     </div>
 </div>
+
 @endsection
 
 @section('js-content')
@@ -73,12 +78,14 @@
         $("#question_list").DataTable();
 
         //delete button interaction
-        $(".delete").click(function(e){
+        $(document).on('click','.delete', function(e)
+        {
+            // console.log("1");
             e.preventDefault();
             let id = $(this).attr("id");
-            let form = $("<form></form>").attr({action: "/question/delete/"+ id, method: "POST"});
-            let content = $(form).append($("<a/>").attr({href: "/question/delete/"+ id}).addClass("btn btn-danger modal-delete").html('Xóa'));
-            $("#question_delete").find(".modal-body").append($("<p>Bạn có chắc muốn xoá câu hỏi này ?</p>"), content);
+            $("#question_delete").find("form").attr("action", "/question/delete/"+ id).append($("<button>").addClass("btn btn-danger").html('Xác nhận'))
+
+            // $("#question_delete").find(".modal-body").append($(""), content);
             $("#question_delete").modal("show");
         });
         $(document).on('click','.modal-delete', function(e){
@@ -90,7 +97,8 @@
         });
 
         //info button interaction
-        $(".detail").click(function(e){
+        $(document).on('click','.detail', function(e)
+        {
             e.preventDefault();
             let id = $(this).attr("id");
             // console.log(id);
@@ -103,12 +111,12 @@
                     for(var j in msg){
                         arr.push(msg[j]);
                     }
-                    console.log(arr);
+                    // console.log(arr);
                     let div = $("<div></div>").append(
                         $("<lable></lable>").html('Id'),
                         $("<div></div>").html(arr[0]).addClass('border border-dark rounded form-control'),
                         $("<lable></lable>").html('Content'),
-                        $("<div></div>").html(arr[1]).addClass('border border-dark rounded form-control'),
+                        $("<div></div>").html(arr[1]).addClass('border border-dark rounded p-1'),
                         $("<lable></lable>").html('Mức độ'),
                         $("<div></div>").html(arr[2]).addClass('border border-dark rounded form-control'),
                         $("<lable></lable>").html('Chủ đề'),
@@ -126,24 +134,6 @@
         $("#question_detail").on('hide.bs.modal', function (){
             $("#question_detail").find(".modal-body").html('');
         });
-
-        //edit button interaction
-        // $(".edit").click(function (e){
-        //     e.preventDefault();
-        //     let id = $(this).attr("id");
-        //     $.ajax({
-        //         method: "GET",
-        //         url: "/question/detail/"+id,
-        //         dataType: 'json',
-        //         success: function(msg){
-        //             let arr = [];
-        //             for(var j in msg){
-        //                 arr.push(msg[j]);
-        //             }
-        //             console.log(arr);
-        //         }
-        //     })
-        // });
     });
 </script>
 @endsection
