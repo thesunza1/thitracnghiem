@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\Redirect;
 
 class ContestsController extends Controller
 {
-
+    public function __construct()
+    {
+     $this->middleware('auth')   ;
+    }
     //
     public function home() {
         $contests = Contests::all();

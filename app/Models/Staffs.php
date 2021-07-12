@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Branchs;
+use App\Models\Roles;
 
 class Staffs extends Authenticatable
 {
@@ -22,7 +23,7 @@ class Staffs extends Authenticatable
         'sdt' ,
         'address' ,
         'branch_id' ,
-        'role' ,
+        'role_id' ,
 
     ];
      protected $hidden = [
@@ -31,5 +32,8 @@ class Staffs extends Authenticatable
     ];
     public function branch() {
         return $this->belongsTo(Branchs::class, 'branch_id');
+    }
+    public function role() {
+        return $this->belongsTo(Roles::class);
     }
 }
