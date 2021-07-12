@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Branchs;
 use Illuminate\Http\Request;
 use App\Models\Staffs;
+use App\Models\Roles;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
 class StaffsController extends Controller
 {
-
+    public function __construct()
+    {
+     $this->middleware('auth')   ;
+    }
 
     public function index()
     {
@@ -19,8 +23,11 @@ class StaffsController extends Controller
 
         $staffs = Staffs::all();
         $branchs = Branchs::all();
+        $roles= Roles::all();
+
         return view('staffs.home')
             ->with('staffs', $staffs)
+            ->with('roles', $roles)
             ->with('branchs', $branchs);
     }
 
@@ -33,7 +40,6 @@ class StaffsController extends Controller
     }
     public function getdata(Request $request)
     {
-        $data = array();
         $data = $request->all();
         return array($data);
     }
@@ -55,7 +61,7 @@ class StaffsController extends Controller
         $staff->email = $email;
         $staff->sdt = $sdt;
         $staff->address = $address;
-        $staff->role = $role;
+        $staff->role_id = $role;
         $staff->branch_id = $branch;
         if ($password != null)    $staff->password = Hash::make($password);
         $staff->save();
@@ -77,7 +83,7 @@ class StaffsController extends Controller
             'sdt' => $sdt,
             'address' => $address,
             'branch_id' => $branch,
-            'role' => $role,
+            'role_id' => $role,
 
         ]);
 

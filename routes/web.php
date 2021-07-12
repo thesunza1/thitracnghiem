@@ -10,6 +10,7 @@ use App\Http\Controllers\BranchsController;
 
 
 use App\Http\Controllers\ExamsController;
+use App\Http\Controllers\ExamQueRelController;
 
 
 use App\Http\Controllers\ReliesController;
@@ -110,4 +111,10 @@ Route::get('/contest/detail/{id}', [ContestsController::class, 'detail'])->name(
 // Exam
 Route::post('/contest/detail/{id}/exam/add',[ExamsController::class, 'add'])->name('exam.add');
 
+//test
 
+Route::get('test03/{id}', [Examscontroller::class, 'test03'] )->name('exam.test03');
+
+//exam_que_rels
+
+Route::get('test04' , [ExamQueRelController::class,'test04'] );

@@ -58,13 +58,7 @@
                                 <td class="column100 column5" data-column="column5">{{ $staff->address }}</td>
                                 <td class="column100 column6" data-column="column6">{{ $staff->branch->name }}</td>
                                 <td class="column100 column7" data-column="column7">
-                                    @if ($staff->role == 0)
-                                        staff
-                                    @elseif($staff->role == 1)
-                                        issuer
-                                    @else
-                                        admin
-                                    @endif
+                                    {{ $staff->role->name }}
                                 </td>
                                 <td class="column100 column8 " data-column="column8">
 
@@ -168,9 +162,9 @@
                                 <div class="form-group col-md-4">
                                     <label for="ud-role">role</label>
                                     <select id="ud-role" name='role' class="form-control">
-                                        <option class="op-ud-md" value="0">staff</option>
-                                        <option class="op-ud-md" value="1">issuer</option>
-                                        <option class="op-ud-md" value="2">admin</option>
+                                        @foreach($roles as $role)
+                                        <option class="op-ud-md" value="{{ $role->id }}">{{ $role->name }}</option>
+                                        @endforeach
 
                                     </select>
                                 </div>
@@ -247,9 +241,9 @@
                                 <div class="form-group col-md-4">
                                     <label for="cr-role"><b>role</b></label>
                                     <select id="cr-role" name='role' class="form-control">
-                                        <option class="op-cr-md" value="0">staff</option>
-                                        <option class="op-cr-md" value="1">issuer</option>
-                                        <option class="op-cr-md" value="2">admin</option>
+                                        @foreach($roles as $role)
+                                        <option class="op-ud-md" value="{{ $role->id }}">{{ $role->name }}</option>
+                                        @endforeach
 
                                     </select>
                                 </div>

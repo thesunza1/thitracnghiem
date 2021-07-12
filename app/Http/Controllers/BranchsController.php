@@ -10,6 +10,10 @@ use App\Models\Branchs;
 class BranchsController extends Controller
 {
     //
+    public function __construct()
+    {
+     $this->middleware('auth')   ;
+    }
     public function index()
     {
         $branchs = Branchs::all() ;

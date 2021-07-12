@@ -166,7 +166,7 @@
 
 </body>
 <footer>
-    <div class="text-white" style="background-color: black;">
+    <div class="text-white" style="background-color: black;position: relative;">
         <div class="container">
             <div class="my-3">
                 <a href="#" class="text-decoration-none">Tên sản phẩm</a></div>
