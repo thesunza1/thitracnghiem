@@ -24,6 +24,7 @@
     <!-- css -->
     <link rel="stylesheet" href="{{url('css/main.css')}}">
     <link rel="stylesheet" href="{{url('css/util.css')}}">
+    <link rel="stylesheet" href="{{url('css/animate.css')}}">
 
     <!-- datatable -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
@@ -206,6 +207,7 @@
     </div>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="{{url('js/wow.min.js')}}"></script>
 @yield('js-content')
 </html>
 

@@ -1,9 +1,18 @@
 @extends('layouts.default')
 
+@section('style')
+
+@endsection
+
 @section('content')
 <div class="container">
     <div>
         <h3 class="text-center">Danh sách câu hỏi</h3>
+    </div>
+    <div class="row m-0">
+        <div class="col-md-12 col-md-offset-3 text-center">
+            <p class="wow fadeIn" data-wow-duration="2s">View your all questions here.</p>
+        </div>
     </div>
         <a href="/question/add" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Add Question</a>
         <div>
@@ -72,11 +81,10 @@
 @endsection
 
 @section('js-content')
-
 <script>
     $(document).ready(function(){
         $("#question_list").DataTable();
-
+        new WOW().init();
         //delete button interaction
         $(document).on('click','.delete', function(e)
         {

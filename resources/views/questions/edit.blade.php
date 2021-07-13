@@ -1,6 +1,7 @@
 @extends('layouts.default')
 
 @section('style')
+
     <style>
         .delete_answer:hover{
             cursor: pointer;
@@ -13,9 +14,15 @@
 
 @section('content')
     <div class="container">
-        <div class="d-flex pt-5">
+        <div><h3 class="text-center">Thông tin về câu hỏi</h3></div>
+        <div class="row m-0">
+            <div class="col-md-12 col-md-offset-3 text-center">
+                <p class="wow fadeIn" data-wow-duration="2s">Edit your question here.</p>
+            </div>
+        </div>
+        <div class="d-flex pt-3">
             <div class="border border-grey rounded p-2 col-md-8">
-                <div><h3>Thông tin về câu hỏi</h3></div>
+
                 <form action="/question/update" method="post">
                     @csrf
                     <div class="form-group" hidden>
@@ -99,8 +106,10 @@
 @endsection
 
 @section('js-content')
+
     <script>
         $(document).ready(function(){
+            new WOW().init();
             $(".is_correct").change(function(){
                 let val = $(this).is(":checked");
                 let id = $(this).attr("id");
