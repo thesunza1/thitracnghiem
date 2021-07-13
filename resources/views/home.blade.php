@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container" style="height: 80vh">
         <br>
         <div class="header">
             <h1> danh sách cuộc thi </h1>

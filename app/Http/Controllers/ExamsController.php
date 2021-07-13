@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ExamsController extends Controller
 {
+    public function __construct()
+    {
+     $this->middleware('auth')   ;
+    }
     public function add(Request $request, $id)
     {
         $exam = new Exams();
@@ -37,5 +41,19 @@ class ExamsController extends Controller
         }
         return redirect('/contest/detail/' . $id . "#exam");
         dd($exam_theme);
+    }
+
+
+    public function test03($id) {
+        // echo $id ;
+
+        $exams = Exams::where('contest_id', '=', $id)->get() ;
+        // select * from exams where contest_id = 2 ;
+        // dd($exams);
+        // foreach($exams as $a) {
+        //     echo $a->questionmix.' ';
+        // }
+
+        return view('exams.test03')->with('exams',$exams);
     }
 }
