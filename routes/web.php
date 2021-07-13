@@ -11,10 +11,12 @@ use App\Http\Controllers\BranchsController;
 
 use App\Http\Controllers\ExamsController;
 use App\Http\Controllers\ExamQueRelController;
-
+use App\Http\Controllers\ExamDetailsController;
 
 use App\Http\Controllers\ReliesController;
 use Doctrine\DBAL\Schema\Index;
+
+// use DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,6 +113,21 @@ Route::get('/contest/detail/{id}', [ContestsController::class, 'detail'])->name(
 // Exam
 Route::post('/contest/detail/{id}/exam/add',[ExamsController::class, 'add'])->name('exam.add');
 
+Route::post('/exam/init/{id}', function($id){
+    $procedure_name = 'THUCTAP.P_EXAMDETAIL';
+    $bindings = [
+        'v_exam_id' => $id,
+    ];
+    $init = DB::executeProcedure($procedure_name, $bindings);
+
+    // $procedure_name = 'THUCTAP.P_I_EXAMSTAFFS';
+    // $init = DB::executeProcedure($procedure_name, $bindings);
+
+    // $procedure_name = 'THUCTAP.P_I_EXAMQUE_REL';
+    // $init = DB::executeProcedure($procedure_name, $bindings);
+    return redirect()->back();
+    // dd($init);
+})->middleware('auth');
 //test
 
 Route::get('test03/{id}', [Examscontroller::class, 'test03'] )->name('exam.test03');

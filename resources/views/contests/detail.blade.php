@@ -1,5 +1,4 @@
 @extends('layouts.default')
-
 @section('style')
 @endsection
 
@@ -53,6 +52,7 @@
             <textarea name="content" id="content" cols="10" rows="10" readonly>{{$contest->content}}</textarea>
         </div>
     </div>
+    {{-- Exam belongs to this Contest --}}
     <div class="row" style="box-shadow: 0 0 3px darkgrey;">
         <div class="col-md-6 p-3 rounded" id="exam">
             <div>
@@ -79,10 +79,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="">
-                            <a href="#" class="btn btn-success"><i class="fas fa-cogs"></i> Khởi tạo</a>
-                            <a href="#" class="btn btn-warning"><i class="fas fa-cog"></i></a>
-                            <a href="#" class="btn btn-danger ml-auto"><i class="far fa-trash-alt"></i></a>
+                        <div class="d-flex">
+                            @if (App\Models\ExamDetails::where('exam_id', $exam->id)->count() == 0)
+                                <form action="/exam/init/{{$exam->id}}" method="post">
+                                    @csrf
+                                    <a href="#" class="btn btn-success init mr-1"><i class="fas fa-cogs"></i> Khởi tạo</a>
+                                </form>
+                            @else
+                                <a href="#" class="btn btn-info mr-1"><i class="fas fa-sign-out-alt"></i> Đến đề thi</a>
+                            @endif
+                            <a href="#" class="btn btn-warning mr-1"><i class="fas fa-cog"></i></a>
+                            <a href="#" class="btn btn-danger mr-1"><i class="far fa-trash-alt"></i></a>
                         </div>
                     </div>
                 @endforeach
@@ -215,6 +222,11 @@
             if($("#q_num").val() == 0 || $("#q_num").val() == "");
             else
                 $("#form").submit();
+        })
+
+        $(".init").click(function(e){
+            e.preventDefault();
+            $(this).closest("form").submit();
         })
     });
 </script>

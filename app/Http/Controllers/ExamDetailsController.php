@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 use Illuminate\Http\Request;
 
 class ExamDetailsController extends Controller
@@ -11,4 +11,5 @@ class ExamDetailsController extends Controller
     {
      $this->middleware('auth')   ;
     }
+
 }

@@ -56,4 +56,8 @@ class ExamsController extends Controller
 
         return view('exams.test03')->with('exams',$exams);
     }
+
+    public function detail($id){
+
+    }
 }
