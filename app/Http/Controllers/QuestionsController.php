@@ -83,7 +83,7 @@ class QuestionsController extends Controller
             }
             $i++;
         }
-        dd($request->all());
+        // dd($request->all());
         return redirect('/questions');
     }
 

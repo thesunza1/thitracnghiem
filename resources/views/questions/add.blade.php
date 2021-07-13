@@ -34,7 +34,7 @@
         </div>
 
     </div>
-    <div class="container error">
+    <div class="container error" id="error">
 
     </div>
     <!-- Add question -->
@@ -151,33 +151,55 @@
             });
             $('input[name^="question"]').each(function(){
                 // console.log($(this).val())
-                if($(this).val() == "")
+                if($(this).val() == ""){
                     q_valid = (q_valid && false);
+                    $(this).addClass('border-danger');
+                }
                 else
                     q_valid = (q_valid && true);
             })
             $('input[name^="answer"]').each(function(){
                 // console.log($(this).val())
-                if($(this).val() == "")
+                if($(this).val() == ""){
                     a_valid = (a_valid && false);
+                    $(this).addClass('border-danger');
+                }
                 else
                     a_valid = (a_valid && true);
             })
             console.log(a_valid + "-" + q_valid);
             var error;
+            let div = $("<div>").addClass('my-2');
             if(q_valid == false)
-                $(".error").append(
-                    $("<div>").html("Xin kiểm tra lại câu hỏi")
-                    .addClass('text-danger border border-danger p-1 rounded mb-1 wow fadeOut')
-                );
+            {
+                $("#topic").focus();
+                div.append(
+                    $("<span>").html("Xin kiểm tra lại CÂU HỎI")
+                    .addClass('text-danger border border-danger p-1 rounded mb-1 mr-2 wow fadeOut')
+                )
+            }
             if(a_valid == false)
-                $(".error").append(
-                    $("<div>").html("Xin kiểm tra lại câu trả lời")
-                    .addClass('text-danger border border-danger p-1 rounded mb-1 wow fadeOut')
-                );
-            $(".fadeOut").fadeOut(2000);
+            {
+                $("#topic").focus();
+                div.append(
+                    $("<span>").html("Xin kiểm tra lại CÂU TRẢ LỜI")
+                    .addClass('text-danger border border-danger p-1 rounded mb-1 mr-2 wow fadeOut')
+                )
+            }
+            if(q_valid == false || a_valid == false){
+                $(".error").html(div);
+                $(".fadeOut").fadeOut(3000);
+            }
+            else{
+                $("#create_form").submit();
+            }
         });
-
+        $(document).on('click','input[name^="question"]', function(){
+            $(this).removeClass('border-danger');
+        });
+        $(document).on('click','input[name^="answer"]', function(){
+            $(this).removeClass('border-danger');
+        });
         $(document).on('click','.btn-add',function(e){
             e.preventDefault();
         });
