@@ -7,7 +7,7 @@ use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\StaffsController;
 
 use App\Http\Controllers\BranchsController;
-
+// use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\ExamsController;
 use App\Http\Controllers\ExamQueRelController;
@@ -60,7 +60,9 @@ Auth::routes([
 
 
 //Question
-
+//contest
+Route::get('/home', [ContestsController::class, 'home'])->name('home');
+Route::redirect('/', '/home'); //redirect from / to /home when login in web
 Route::middleware(checkIssuerMaker::class)->group(
     function () {
         //questions
@@ -105,17 +107,12 @@ Route::middleware(checkAdmin::class)->group(
         Route::post('/branchs/update', [BranchsController::class, 'update'])->name('branch.update');
         Route::post('/branchs/delete', [BranchsController::class, 'drop'])->name('branch.drop');
         Route::post('/branchs/create', [BranchsController::class, 'storge'])->name('branch.create');
-        //contest
-        Route::get('/home', [ContestsController::class, 'home'])->name('home');
-        Route::redirect('/', '/home'); //redirect from / to /home when login in web
-
-
     }
 );
 
 
 
-
+// Route::get('/staffs', [StaffsController::class, 'index'])->name('staff.index');
 
 
 

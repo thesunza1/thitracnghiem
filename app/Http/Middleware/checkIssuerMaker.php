@@ -16,9 +16,9 @@ class checkIssuerMaker
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user()->id !=1){
-            return redirect('/home');redirect('/home');
-                }
+        if ($request->user()->role_id == 1) {
+            return redirect('/home');
+        }
 
         return $next($request);
     }
