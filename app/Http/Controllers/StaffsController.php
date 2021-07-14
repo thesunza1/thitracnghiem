@@ -10,12 +10,13 @@ use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
+
 class StaffsController extends Controller
 {
-    public function __construct()
-    {
-     $this->middleware('auth')   ;
-    }
+    // public function __construct()
+    // {
+    //  $this->middleware('auth')   ;
+    // }
 
     public function index()
     {
