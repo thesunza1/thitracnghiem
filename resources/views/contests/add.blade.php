@@ -31,7 +31,7 @@
                 <input type="datetime-local" name="begin_time" id="begin_time" class="form-control border">
             </div>
             <div class="form-group col-md-12">
-                <label for="content">Thời gian bắt đầu</label>
+                <label for="content">Ghi chú</label>
                 <textarea name="content" id="content" cols="10" rows="10" class="form-control"></textarea>
             </div>
         </div>
