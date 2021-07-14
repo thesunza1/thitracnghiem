@@ -86,9 +86,9 @@
                                     <a href="#" class="btn btn-success init mr-1"><i class="fas fa-cogs"></i> Khởi tạo</a>
                                 </form>
                             @else
-                                <a href="#" class="btn btn-info mr-1"><i class="fas fa-sign-out-alt"></i> Đến đề thi</a>
+                                <a href="{{route('exam.detail', ['id'=>$exam->id])}}" class="btn btn-info mr-1"><i class="fas fa-sign-out-alt"></i> Đến đề thi</a>
                             @endif
-                            <a href="#" class="btn btn-warning mr-1"><i class="fas fa-cog"></i></a>
+                            <a href="{{route('exam.edit', ['id' => $exam->id])}}" class="btn btn-warning mr-1"><i class="fas fa-cog"></i></a>
                             <a href="#" class="btn btn-danger mr-1"><i class="far fa-trash-alt"></i></a>
                         </div>
                     </div>

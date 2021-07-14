@@ -128,10 +128,8 @@ Route::post('/exam/init/{id}', function($id){
     return redirect()->back();
     // dd($init);
 })->middleware('auth');
-//test
 
-Route::get('test03/{id}', [Examscontroller::class, 'test03'] )->name('exam.test03');
+Route::get('/exam/detail/{id}', [Examscontroller::class, 'detail'])->name('exam.detail');
+Route::get('/exam/edit/{id}', [Examscontroller::class, 'edit'])->name('exam.edit');
 
-//exam_que_rels
 
-Route::get('test04' , [ExamQueRelController::class,'test04'] );
