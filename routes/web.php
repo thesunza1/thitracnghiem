@@ -95,6 +95,6 @@ Route::middleware(checkAdmin::class)->group(
         Route::post('/branchs/create', [BranchsController::class, 'storge'])->name('branch.create');
     }
 );
-
+//
 
 
