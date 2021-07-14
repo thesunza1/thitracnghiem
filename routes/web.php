@@ -14,6 +14,7 @@ use App\Http\Controllers\ExamQueRelController;
 
 
 use App\Http\Controllers\ReliesController;
+use App\Http\Controllers\test01;
 use App\Http\Middleware\checkAdmin;
 use App\Http\Middleware\checkIssuerMaker;
 use Doctrine\DBAL\Schema\Index;
@@ -29,24 +30,6 @@ use Doctrine\DBAL\Schema\Index;
 |
 */
 
-// Route::get('/', function () {
-//     return view('contests/home');
-// });
-//adddulieucontroller
-// Route::get('/themlevel',[adddulieuController::class, 'themlevel']);
-// Route::get('/themrl',[adddulieuController::class, 'themrl']);
-
-// Route::get('/thembranch',[adddulieuController::class, 'thembranch']);
-
-// Route::get('/themstaff',[adddulieuController::class, 'themstaff']);
-
-// Route::get('/themtheme',[adddulieuController::class, 'themtheme']);
-
-// Route::get('/themqr',[adddulieuController::class, 'themqr']);
-
-//staffscontroller
-
-//questioncontroll
 
 
 Auth::routes([
@@ -56,13 +39,21 @@ Auth::routes([
 ]);
 
 
-// route::get('/teststaff',[StaffsController::class,'index']);
 
-
-//Question
-//contest
+//contest home direction
 Route::get('/home', [ContestsController::class, 'home'])->name('home');
 Route::redirect('/', '/home'); //redirect from / to /home when login in web
+// Exam
+Route::post('/contest/detail/{id}/exam/add', [ExamsController::class, 'add'])->name('exam.add');
+
+//test
+Route::get('test03/{id}', [Examscontroller::class, 'test03'])->name('exam.test03');
+//exam_que_rels
+Route::get('test04', [ExamQueRelController::class, 'test04']);
+//test
+Route::get('testdethi',[test01::class,'testdethi']);
+
+//check issuer make
 Route::middleware(checkIssuerMaker::class)->group(
     function () {
         //questions
@@ -72,14 +63,8 @@ Route::middleware(checkIssuerMaker::class)->group(
         Route::get('/question/detail/{id}', [QuestionsController::class, 'detail'])->name('question.detail');
         Route::get('/question/edit/{id}', [QuestionsController::class, 'edit'])->name('question.edit');
         Route::get('/question/add', [QuestionsController::class, 'add'])->name('question.add');
-
-        //Add more answer
         Route::post('/answer/add/{id}', [ReliesController::class, 'add']);
-
-        //Change correct answer
         Route::post('/answer/is_correct/{id}', [ReliesController::class, 'is_correct']);
-
-        // delete answer
         Route::post('/answer/delete/{id}', [ReliesController::class, 'delete']);
 
         //Contest
@@ -93,6 +78,7 @@ Route::middleware(checkIssuerMaker::class)->group(
     }
 );
 
+//check admin
 Route::middleware(checkAdmin::class)->group(
     function () {
         //staff
@@ -112,18 +98,3 @@ Route::middleware(checkAdmin::class)->group(
 
 
 
-// Route::get('/staffs', [StaffsController::class, 'index'])->name('staff.index');
-
-
-
-
-// Exam
-Route::post('/contest/detail/{id}/exam/add', [ExamsController::class, 'add'])->name('exam.add');
-
-//test
-
-Route::get('test03/{id}', [Examscontroller::class, 'test03'])->name('exam.test03');
-
-//exam_que_rels
-
-Route::get('test04', [ExamQueRelController::class, 'test04']);

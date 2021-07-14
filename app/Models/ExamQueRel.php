@@ -13,11 +13,11 @@ class ExamQueRel extends Model
 {
     use HasFactory;
 
-    public function examstaffs() {
+    public function examstaff() {
         return $this->belongsTo(ExamStaffs::class, 'exam_staff_id');
     }
 
-    public function questions() {
+    public function question() {
         return $this->belongsTo(Questions::class,'question_id') ;
     }
 
