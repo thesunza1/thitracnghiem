@@ -19,7 +19,6 @@ class ExamQueRel extends Model
 
     public function questions() {
         return $this->belongsTo(Questions::class,'question_id') ;
-
     }
 
     public function relies() {
