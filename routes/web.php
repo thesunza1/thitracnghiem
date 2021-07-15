@@ -43,6 +43,10 @@ Auth::routes([
 //contest home direction
 Route::get('/home', [ContestsController::class, 'home'])->name('home');
 Route::redirect('/', '/home'); //redirect from / to /home when login in web
+
+//show exam for contest
+Route::get('/exam/index/{id}', [ExamsController::class, 'index'])->name('exam.index');
+
 // Exam
 Route::post('/contest/detail/{id}/exam/add', [ExamsController::class, 'add'])->name('exam.add');
 

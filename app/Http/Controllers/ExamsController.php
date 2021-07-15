@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Exams;
 use App\Models\ExamThemes;
+use App\Models\Contests;
 use Illuminate\Support\Facades\Auth;
 
 class ExamsController extends Controller
@@ -13,6 +14,15 @@ class ExamsController extends Controller
     {
      $this->middleware('auth')   ;
     }
+
+    public function index($id) {
+        $exams = Exams::where('contest_id',$id)->get();
+        $contest = Contests::find($id);
+
+        return view('exams.index')->with('exams', $exams)
+        ->with('contest', $contest);
+    }
+
     public function add(Request $request, $id)
     {
         $exam = new Exams();
