@@ -64,17 +64,23 @@ Route::middleware(checkIssuerMaker::class)->group(
                 'v_exam_id' => $id,
             ];
             $init = DB::executeProcedure($procedure_name, $bindings);
-
-            // $procedure_name = 'THUCTAP.P_I_EXAMSTAFFS';
-            // $init = DB::executeProcedure($procedure_name, $bindings);s
-
-            // $procedure_name = 'THUCTAP.P_I_EXAMQUE_REL';
-            // $init = DB::executeProcedure($procedure_name, $bindings);
             return redirect()->back();
             // dd($init);
         });
         Route::get('/exam/detail/{id}', [Examscontroller::class, 'detail'])->name('exam.detail');
         Route::get('/exam/edit/{id}', [Examscontroller::class, 'edit'])->name('exam.edit');
+        Route::post('/exam/duplicate/{id}', function($id){
+            $bindings = [
+                'v_exam_id' => $id,
+            ];
+            $procedure_name = 'THUCTAP.P_I_EXAMSTAFFS';
+            $init = DB::executeProcedure($procedure_name, $bindings);
+
+            $procedure_name = 'THUCTAP.P_I_EXAMQUE_REL';
+            $init = DB::executeProcedure($procedure_name, $bindings);
+            return redirect()->back();
+            // dd($init);
+        });
     }
 );
 
