@@ -38,7 +38,7 @@
             <h3 class="text-center">Danh sách câu hỏi của đề thi</h3>
         </div>
         <div class="py-2">
-            <button class="btn btn-danger">Tạo đề</button>
+            <button class="btn btn-danger">Chia đề</button>
         </div>
         @foreach ($questions as $question)
         <?php
