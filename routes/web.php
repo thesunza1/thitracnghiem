@@ -127,7 +127,7 @@ Route::post('/exam/init/{id}', function($id){
     // $init = DB::executeProcedure($procedure_name, $bindings);
     return redirect()->back();
     // dd($init);
-})->middleware('auth');
+});
 
 Route::get('/exam/detail/{id}', [Examscontroller::class, 'detail'])->name('exam.detail');
 Route::get('/exam/edit/{id}', [Examscontroller::class, 'edit'])->name('exam.edit');
