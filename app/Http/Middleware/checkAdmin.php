@@ -16,8 +16,8 @@ class checkAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user()->role_id !=3){
-            return route('home');
+        if ($request->user()->role_id != 2) {
+            return redirect('/home');
         }
         return $next($request);
     }
