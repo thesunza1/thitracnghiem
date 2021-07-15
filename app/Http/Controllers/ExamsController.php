@@ -16,8 +16,9 @@ class ExamsController extends Controller
     }
 
     public function detail($id){
+        $exam = Exams::find($id);
         $questions = ExamDetails::where('exam_id', $id)->get();
-        return view('exams/detail')->with('questions', $questions);
+        return view('exams/detail')->with('questions', $questions)->with('exam', $exam);
     }
 
     public function add(Request $request, $id)

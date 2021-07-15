@@ -38,7 +38,9 @@
             <h3 class="text-center">Danh sách câu hỏi của đề thi</h3>
         </div>
         <div class="py-2">
-            <button class="btn btn-danger">Chia đề</button>
+            <form action="{{route('exam.duplicate', ['id' => $exam->id])}}" method="post">
+                <button class="btn btn-danger duplicate">Chia đề</button>
+            </form>
         </div>
         @foreach ($questions as $question)
         <?php
