@@ -54,6 +54,11 @@ Route::redirect('/', '/home'); //redirect from / to /home when login in web
 
 
 
+
+
+
+
+
 // //test
 // Route::get('test03/{id}', [Examscontroller::class, 'test03'])->name('exam.test03');
 // //exam_que_rels
@@ -107,6 +112,10 @@ Route::middleware(checkIssuerMaker::class)->group(
             return redirect()->back();
             // dd($init);
         });
+      
+      
+        //show exam for contest
+       Route::get('/exam/index/{id}', [ExamsController::class, 'index'])->name('exam.index');
     }
 );
 
