@@ -87,7 +87,7 @@ Route::middleware(checkIssuerMaker::class)->group(
             // dd($init);
         })->name('exam.init');
         Route::get('/exam/detail/{id}', [Examscontroller::class, 'detail'])->name('exam.detail');
-        Route::get('/exam/edit/{id}', [Examscontroller::class, 'edit'])->name('exam.edit');
+        Route::post('/exam/delete/{id}', [Examscontroller::class, 'delete'])->name('exam.delete');
         Route::post('/exam/duplicate/{id}', function($id){
             $bindings = [
                 'v_exam_id' => $id,
@@ -97,9 +97,10 @@ Route::middleware(checkIssuerMaker::class)->group(
 
             $procedure_name = 'THUCTAP.P_I_EXAMQUE_REL';
             $init = DB::executeProcedure($procedure_name, $bindings);
-            return redirect()->back();
-            // dd($init);
+            // return redirect()->back();
+            dd($init);
         })->name('exam.duplicate');
+        Route::get('/exam/alltest/{id}',[ExamsController::class,'alltest'])->name('exam.alltest');
     }
 );
 

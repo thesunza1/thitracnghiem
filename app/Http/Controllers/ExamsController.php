@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Exams;
 use App\Models\ExamThemes;
 use App\Models\ExamDetails;
+use App\Models\ExamQueRel;
+use App\Models\ExamStaffs;
 use Illuminate\Support\Facades\Auth;
 
 class ExamsController extends Controller
@@ -63,5 +65,16 @@ class ExamsController extends Controller
         // }
 
         return view('exams.test03')->with('exams',$exams);
+    }
+
+    public function delete($id){
+        $exam = Exams::find($id);
+        $exam->delete();
+        return redirect()->back();
+    }
+
+    public function alltest($id) {
+        $exams = ExamStaffs::where('exam_id', $id)->get();
+        return view('exams/alltest')->with('exams', $exams);
     }
 }
