@@ -21,7 +21,9 @@ class CreateStaffsTable extends Migration
             $table->string('sdt',13);
             $table->string('address',200);
             $table->bigInteger('branch_id')->nullable();
-            $table->integer('role')->default(1);
+            $table->integer('role_id');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null')->onUpdate('cascade');
+
             $table->foreign('branch_id')->references('id')->on('branchs')->onDelete('set null');
         });
     }

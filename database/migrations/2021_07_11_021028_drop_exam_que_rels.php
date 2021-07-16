@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateColumnStaff1 extends Migration
+class DropExamQueRels extends Migration
 {
     /**
      * Run the migrations.
@@ -15,13 +14,7 @@ class UpdateColumnStaff1 extends Migration
     public function up()
     {
         //
-        Schema::table('staffs', function (Blueprint $table) {
-
-            //$table->string('password',200)->change();
-
-
-        });
-
+        Schema::dropIfExists('exam_que_rels');
     }
 
     /**

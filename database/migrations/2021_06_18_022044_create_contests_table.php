@@ -16,11 +16,12 @@ class CreateContestsTable extends Migration
         Schema::create('contests', function (Blueprint $table) {
             $table->id();
             $table->string('name',60);
-            $table->bigInteger('issuer_id',false,true)->nullable();
+            $table->bigInteger('testMaker_id',false,true)->nullable();
             $table->bigInteger('branchContest_id',false,true)->nullable();
+            $table->text('content')->nullable();
             $table->timestamp('beginTime_at');
             $table->timestamp('created_at');
-            $table->foreign('issuer_id')->references('id')->on('staffs')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('testMaker_id')->references('id')->on('staffs')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('branchContest_id')->references('id')->on('branchs')->onDelete('set null')->onUpdate('cascade');
 
         });

@@ -7,11 +7,15 @@ use App\Models\Levels;
 use App\Models\Themes;
 use App\Models\Staffs;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class QuestionsController extends Controller
 {
 
+    public function __construct()
+    {
+     $this->middleware('auth')   ;
+    }
     //
     public function index()
     {
@@ -65,7 +69,7 @@ class QuestionsController extends Controller
             $question->content = $q;
             $question->level_id = $request->level;
             $question->theme_id = $request->topic;
-            $question->staffcreated_id = "1"; //set cứng do chưa có người đăng nhập
+            $question->staffcreated_id = Auth::user()->id;
             $question->save();
 
             $length = count($request->answer[$i]);
@@ -85,5 +89,12 @@ class QuestionsController extends Controller
         }
         // dd($request->all());
         return redirect('/questions');
+    }
+
+    public function delete($id)
+    {
+        $question = Questions::find($id);
+        $question->delete();
+        return redirect()->back();
     }
 }

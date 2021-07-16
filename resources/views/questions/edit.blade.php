@@ -1,6 +1,7 @@
 @extends('layouts.default')
 
 @section('style')
+
     <style>
         .delete_answer:hover{
             cursor: pointer;
@@ -13,9 +14,15 @@
 
 @section('content')
     <div class="container">
-        <div class="d-flex pt-5">
+        <div><h3 class="text-center">Thông tin về câu hỏi</h3></div>
+        <div class="row m-0">
+            <div class="col-md-12 col-md-offset-3 text-center">
+                <p class="wow fadeIn" data-wow-duration="2s">Edit your question here.</p>
+            </div>
+        </div>
+        <div class="d-flex pt-3">
             <div class="border border-grey rounded p-2 col-md-8">
-                <div><h3>Thông tin về câu hỏi</h3></div>
+
                 <form action="/question/update" method="post">
                     @csrf
                     <div class="form-group" hidden>
@@ -53,7 +60,7 @@
                     </div>
                     <div class="form-group">
                         <label for="content">Nội dung</label>
-                        <input id="content" class="form-control" type="text" name="content" value="{{$question->content}}">
+                        <textarea name="content" id="content" class="form-control">{{$question->content}}</textarea>
                     </div>
                     <div class="row">
                         <?php
@@ -85,7 +92,7 @@
                         <div class="form-group">
                             <label for="answer">Đáp án {{$arr[$i]}}</label>
                             <input id="answer" class="form-control" type="text" name="more_answer">
-                            <input type="checkbox" name="is_correct" id="is_correct">
+                            <input type="checkbox" name="is_correct" id="is_correct" class="mt-2">
                             <label for="is_correct">Đúng</label>
                         </div>
                         <div>
@@ -99,8 +106,10 @@
 @endsection
 
 @section('js-content')
+
     <script>
         $(document).ready(function(){
+            new WOW().init();
             $(".is_correct").change(function(){
                 let val = $(this).is(":checked");
                 let id = $(this).attr("id");
