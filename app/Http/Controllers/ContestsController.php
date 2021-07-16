@@ -24,12 +24,7 @@ class ContestsController extends Controller
     //
     public function home() {
         $contests = Contests::all();
-
-
         return view('home')->with('contests',$contests);
-
-
-
     }
 
 
