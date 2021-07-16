@@ -7,7 +7,7 @@ use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\StaffsController;
 
 use App\Http\Controllers\BranchsController;
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\ExamsController;
 use App\Http\Controllers\ExamQueRelController;
@@ -92,7 +92,7 @@ Route::middleware(checkIssuerMaker::class)->group(
         Route::get('/exam/edit/{id}', [Examscontroller::class, 'edit'])->name('exam.edit');
 
 
-        Route::post('/exam/init/{id}', function ($id) {
+        Route::get('/exam/init/{id}', function ($id) {
             $procedure_name = 'THUCTAP.P_EXAMDETAIL';
             $bindings = [
                 'v_exam_id' => $id,
@@ -104,7 +104,7 @@ Route::middleware(checkIssuerMaker::class)->group(
 
             // $procedure_name = 'THUCTAP.P_I_EXAMQUE_REL';
             // $init = DB::executeProcedure($procedure_name, $bindings);
-            return redirect()->back();
+            //return redirect()->back();
             // dd($init);
         });
     }
