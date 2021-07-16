@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Exams;
 use App\Models\ExamThemes;
 use App\Models\Contests;
+use App\Models\ExamDetails;
 use Illuminate\Support\Facades\Auth;
 
 class ExamsController extends Controller
@@ -15,12 +16,18 @@ class ExamsController extends Controller
      $this->middleware('auth')   ;
     }
 
+
     public function index($id) {
         $exams = Exams::where('contest_id',$id)->get();
         $contest = Contests::find($id);
 
         return view('exams.index')->with('exams', $exams)
         ->with('contest', $contest);
+
+    public function detail($id){
+        $questions = ExamDetails::where('exam_id', $id)->get();
+        return view('exams/detail')->with('questions', $questions);
+
     }
 
     public function add(Request $request, $id)

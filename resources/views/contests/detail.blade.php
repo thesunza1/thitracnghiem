@@ -1,5 +1,4 @@
 @extends('layouts.default')
-
 @section('style')
 @endsection
 
@@ -53,6 +52,7 @@
             <textarea name="content" id="content" cols="10" rows="10" readonly>{{$contest->content}}</textarea>
         </div>
     </div>
+    {{-- Exam belongs to this Contest --}}
     <div class="row" style="box-shadow: 0 0 3px darkgrey;">
         <div class="col-md-6 p-3 rounded" id="exam">
             <div>
@@ -79,10 +79,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="">
-                            <a href="#" class="btn btn-success"><i class="fas fa-cogs"></i> Khởi tạo</a>
-                            <a href="#" class="btn btn-warning"><i class="fas fa-cog"></i></a>
-                            <a href="#" class="btn btn-danger ml-auto"><i class="far fa-trash-alt"></i></a>
+                        <div class="d-flex">
+                            @if (App\Models\ExamDetails::where('exam_id', $exam->id)->count() == 0)
+                                <form action="/exam/init/{{$exam->id}}" method="post">
+                                    @csrf
+                                    <a href="#" class="btn btn-success init mr-1"><i class="fas fa-cogs"></i> Khởi tạo</a>
+                                </form>
+                            @else
+                                <a href="{{route('exam.detail', ['id'=>$exam->id])}}" class="btn btn-info mr-1"><i class="fas fa-sign-out-alt"></i> Đến đề thi</a>
+                            @endif
+                            <a href="{{route('exam.edit', ['id' => $exam->id])}}" class="btn btn-warning mr-1"><i class="fas fa-cog"></i></a>
+                            <a href="#" class="btn btn-danger mr-1"><i class="far fa-trash-alt"></i></a>
                         </div>
                     </div>
                 @endforeach
@@ -91,7 +98,7 @@
         <div class="col-md-6 p-3 border-left" >
             <h3>Thêm đề thi</h3>
             <div>
-                <form action="/contest/detail/{{$contest->id}}/exam/add" method="post">
+                <form action="/contest/detail/{{$contest->id}}/exam/add" method="post" id="form">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -142,13 +149,16 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="q_num_per_theme_level">Số lượng</label>
-                                    <input class="form-control q_num" type="number" name="q_num_per_theme_level[]">
+                                    <input class="form-control q_num" type="number" name="q_num_per_theme_level[]" value="0">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="exam_detail"></div>
-                    <button class="btn btn-primary add_theme_level">Add more Themes and level</button>
+                    <div class="">
+                        <button class="btn btn-primary add_theme_level">Add more level</button>
+                        <button class="btn btn-danger remove_theme_level">Remove level</button>
+                    </div>
                     <div class="my-3">
                         <button class="btn btn-info add_exam">Add more Exams</button>
                     </div>
@@ -179,20 +189,45 @@
             $("#q_num").val(sum_q);
         }
 
+        function check_num_q(){
+            if($(".theme_level").length == 1)
+                $(".remove_theme_level").attr("disabled", true);
+            else
+            $(".remove_theme_level").attr("disabled", false);
+        }
+        check_num_q();
         $(".add_theme_level").click(function(e){
             e.preventDefault();
             $(".theme_level").first().clone().appendTo("#exam_detail");
             sum_q();
+            check_num_q();
         });
-
+        $(".remove_theme_level").click(function(e){
+            e.preventDefault();
+            $(".theme_level").last().remove();
+            sum_q();
+            check_num_q();
+        });
         $(document).on('change','.q_num',function()
         {
             sum_q();
         });
 
         $(".add_theme_level").click(function(){
-            console.log($(".q_num"))
+            // console.log($(".q_num"))
         });
+
+        $(".add_exam").click(function(e){
+            e.preventDefault();
+            if($("#q_num").val() == 0 || $("#q_num").val() == "");
+            else
+                $("#form").submit();
+        })
+
+        $(".init").click(function(e){
+            e.preventDefault();
+            $(this).closest("form").submit();
+        })
     });
 </script>
 @endsection

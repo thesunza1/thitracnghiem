@@ -90,4 +90,11 @@ class QuestionsController extends Controller
         // dd($request->all());
         return redirect('/questions');
     }
+
+    public function delete($id)
+    {
+        $question = Questions::find($id);
+        $question->delete();
+        return redirect()->back();
+    }
 }

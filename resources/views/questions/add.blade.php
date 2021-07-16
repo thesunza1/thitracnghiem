@@ -3,6 +3,11 @@
 @section('content')
 <!-- Setup question -->
 <h2 class="text-center pt-3" style="font-weight:500">Thêm câu hỏi</h2>
+<div class="row m-0">
+    <div class="col-md-12 text-center">
+        <p class="wow fadeIn" data-wow-duration="2s">View your all questions here.</p>
+    </div>
+</div>
 <form action="/question/create" method="post" id="create_form">
     @csrf
     <div class="container mt-5">
@@ -34,7 +39,9 @@
         </div>
 
     </div>
+    <div class="container error" id="error">
 
+    </div>
     <!-- Add question -->
     <div class="container" id="generated_question">
         <div id="order_questions"></div>
@@ -48,8 +55,11 @@
 @endsection
 
 @section('js-content')
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 <script>
     $(document).ready(function(){
+        new WOW().init();
         var max_questions = 5;
         var questions = 0;
         var i = 1;
@@ -87,7 +97,11 @@
                     // let form = $("<form></form>").attr("method","post").attr("action","#").attr("id","form_question_" +i).addClass("row").append('@csrf');
                     let b_div = $("<div></div>").addClass("row").attr({id: "b_div"});
                     let button = $("<div>").addClass("pp").append($("<button></button>").addClass("btn btn-info btn-add").attr({id:'more_answer_'+ i}).html("Thêm đáp án"));
-                    let question = $("<div></div>").addClass("form-group col-md-12").append($("<input>").attr("type","text").attr("name","question["+i+ "]").attr("id","question"+i).attr("placeholder","Câu hỏi").addClass("form-control").css("background-color","#cfd4ff8f").css("border-color","#629bd4")).appendTo($(b_div));
+                    let question = $("<div></div>").addClass("form-group col-md-12").append($("<input>").attr("type","text").attr("name","question[]")
+                    .attr("id","question"+i).attr("placeholder","Câu hỏi")
+                    .addClass("form-control").css("background-color","#cfd4ff8f")
+                    .attr("required", true)
+                    .css("border-color","#629bd4")).appendTo($(b_div));
 
                     // generate 4 default question
                     var default_number = 4;
@@ -95,6 +109,7 @@
                     {
                         let answer = $("<div></div>").addClass("form-group col-md-5");
                         let input = $("<input/>").attr("type","text").attr("name","answer["+i+"]["+j+"]")
+                        // let input = $("<input/>").attr("type","text").attr("name","answer[][]")
                         .addClass("answer_"+i+" form-control answer")
                         .attr("id","answer_"+i+"_"+j).attr("placeholder","Đáp án "+ arr[j])
                         .css("background-color","#ddd").css("border-color","#629bd4")
@@ -118,7 +133,7 @@
                 let num_q = $(this).closest(".q").attr("id");// thuộc câu hỏi số [1]
                 console.log(num_q);
                 let id = "answer["+num_q +"]["+length+"]";
-                let input = $("<input>").attr("type","text").attr("name", id).attr("id",id).attr("placeholder","Đáp án "+arr[length]).addClass("answer_"+num_q + " form-control answer").css("background-color","#ddd");
+                let input = $("<input>").attr("type","text").attr("name", id).attr("id",id).attr("placeholder","Đáp án "+arr[length]).addClass("answer_"+num_q + " form-control answer").css("background-color","#ddd").css('border-color','#629bd4');
                 let b = length - 1;
                 let checkbox = $("<input/>").attr("type","checkbox").attr({name:"iscorrect["+num_q+"]["+length+"]", value:"true"}).css({width:"20px", height:"20px", margin:"10px"});
                 let label = $("<label/>").attr({for:"iscorrect_"+j}).html("Đúng").addClass("mb-3");
@@ -130,18 +145,74 @@
             });
         });
 
-        //Submit forms of questions
+        // Submit forms of questions
         $("#submit_question").click(function(){
+            var q_valid = true;
+            var a_valid = true;
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            if($("#quantity").val() != "")
+            $('input[name^="question"]').each(function(){
+                // console.log($(this).val())
+                if($(this).val() == ""){
+                    q_valid = (q_valid && false);
+                    $(this).addClass('border-danger');
+                }
+                else
+                    q_valid = (q_valid && true);
+            })
+            $('input[name^="answer"]').each(function(){
+                // console.log($(this).val())
+                if($(this).val() == ""){
+                    a_valid = (a_valid && false);
+                    $(this).addClass('border-danger');
+                }
+                else
+                    a_valid = (a_valid && true);
+            })
+            console.log(a_valid + "-" + q_valid);
+            var error;
+            let div = $("<div>").addClass('my-2');
+            if(q_valid == false)
+            {
+                $("#topic").focus();
+                div.append(
+                    $("<span>").html("Xin kiểm tra lại CÂU HỎI")
+                    .addClass('text-danger border border-danger p-1 rounded mb-1 mr-2 fadeOut')
+                )
+            }
+            if(a_valid == false)
+            {
+                $("#topic").focus();
+                div.append(
+                    $("<span>").html("Xin kiểm tra lại CÂU TRẢ LỜI")
+                    .addClass('text-danger border border-danger p-1 rounded mb-1 mr-2 fadeOut')
+                )
+            }
+            if($("#quantity").val() == "")
+            {
+                $("#topic").focus();
+                div.append(
+                    $("<span>").html("Xin kiểm tra lại Số lượng câu hỏi")
+                    .addClass('text-danger border border-danger p-1 rounded mb-1 mr-2 fadeOut')
+                )
+            }
+            if(q_valid == false || a_valid == false || $("#quantity").val() == ""){
+                $(".error").html(div);
+                $(".fadeOut").fadeOut(3000);
+            }
+            else{
                 $("#create_form").submit();
-            console.log($("#quantity").val());
+            }
         });
-
+        $(document).on('click','input[name^="question"]', function(){
+            $(this).removeClass('border-danger');
+        });
+        $(document).on('click','input[name^="answer"]', function(){
+            $(this).removeClass('border-danger');
+        });
         $(document).on('click','.btn-add',function(e){
             e.preventDefault();
         });
