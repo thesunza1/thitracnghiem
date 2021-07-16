@@ -23,7 +23,7 @@ class ExamsController extends Controller
 
         return view('exams.index')->with('exams', $exams)
         ->with('contest', $contest);
-
+    }
     public function detail($id){
         $questions = ExamDetails::where('exam_id', $id)->get();
         return view('exams/detail')->with('questions', $questions);
