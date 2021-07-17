@@ -7,6 +7,8 @@ use App\Models\Exams;
 use App\Models\ExamThemes;
 use App\Models\Contests;
 use App\Models\ExamDetails;
+use App\Models\ExamQueRel;
+use App\Models\ExamStaffs;
 use Illuminate\Support\Facades\Auth;
 
 class ExamsController extends Controller
@@ -25,9 +27,9 @@ class ExamsController extends Controller
         ->with('contest', $contest);
     }
     public function detail($id){
+        $exam = Exams::find($id);
         $questions = ExamDetails::where('exam_id', $id)->get();
-        return view('exams/detail')->with('questions', $questions);
-
+        return view('exams/detail')->with('questions', $questions)->with('exam', $exam);
     }
 
     public function add(Request $request, $id)
@@ -72,5 +74,23 @@ class ExamsController extends Controller
         // }
 
         return view('exams.test03')->with('exams',$exams);
+    }
+
+    public function delete($id){
+        $exam = Exams::find($id);
+        $exam->delete();
+        return redirect()->back();
+    }
+
+    public function alltest($id) {
+        $exams = ExamStaffs::where('exam_id', $id)->get();
+        return view('exams/alltest')->with('exams', $exams);
+    }
+
+    public function taking($id)
+    {
+        $exam_staff = ExamStaffs::where('exam_id', $id)->where('staff_id', Auth::user()->id)->get();
+        $exam = Exams::find($id);
+        return view('exams/taking')->with('exam', $exam)->with('exam_staff', $exam_staff);
     }
 }

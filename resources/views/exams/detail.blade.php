@@ -38,7 +38,14 @@
             <h3 class="text-center">Danh sách câu hỏi của đề thi</h3>
         </div>
         <div class="py-2">
-            <button class="btn btn-danger">Tạo đề</button>
+            @if(App\Models\ExamStaffs::where('exam_id', $exam->id)->count() == 0)
+                <form action="{{route('exam.duplicate', ['id' => $exam->id])}}" method="post">
+                    @csrf
+                    <button class="btn btn-danger duplicate" onclick="function(){$(this).find('form').submit();}">Chia đề</button>
+                </form>
+            @else
+                <a href="{{route('exam.alltest', ['id' =>$exam->id])}}" class="btn btn-success">Xem danh sách đã chia</a>
+            @endif
         </div>
         @foreach ($questions as $question)
         <?php
@@ -53,13 +60,13 @@
                 <div class="question bg-white" id="question-{{$q->id}}" data="{{$q->id}}">
                     {{$q->content}}
                 </div>
-                <div class="d-none" id="answer-{{$q->id}}">
+                <div id="answer-{{$q->id}}" class="d-none">
                     <div class="answer-field" >
                         <div>
                             @foreach ($q->relies as $answer)
                                 <span class="answer {{($answer->answer) ? "bg-success" : "bg-white"}}" style="display:flex;">
                                     <div class="d-flex align-items-center">
-                                        <input type="radio" name="answer[][]" class="" id="answer-{{$answer->id}}">
+                                        <input type="radio" name="answer[][]" class="" id="answer{{$answer->id}}">
                                         <label for="answer{{$answer->id}}" class="m-0 pl-1">{{$arr[$j++] . ". " . $answer->noidung}}</label>
                                     </div>
                                 </span>
@@ -82,6 +89,7 @@
 
         $(".question").click(function(){
             $("#answer-"+ $(this).attr("data")).toggleClass('d-none');
+            // console.log($("#answer-"+ $(this).attr("data")))
         });
     });
 </script>

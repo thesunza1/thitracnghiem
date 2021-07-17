@@ -19,7 +19,6 @@ class checkIssuerMaker
         if ($request->user()->role_id == 1) {
             return redirect('/home');
         }
-
         return $next($request);
     }
 }
