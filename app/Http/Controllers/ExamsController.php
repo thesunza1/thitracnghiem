@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Exams;
 use App\Models\ExamThemes;
+use App\Models\Contests;
 use App\Models\ExamDetails;
 use App\Models\ExamQueRel;
 use App\Models\ExamStaffs;
@@ -17,6 +18,14 @@ class ExamsController extends Controller
      $this->middleware('auth')   ;
     }
 
+
+    public function index($id) {
+        $exams = Exams::where('contest_id',$id)->get();
+        $contest = Contests::find($id);
+
+        return view('exams.index')->with('exams', $exams)
+        ->with('contest', $contest);
+    }
     public function detail($id){
         $exam = Exams::find($id);
         $questions = ExamDetails::where('exam_id', $id)->get();
@@ -76,5 +85,12 @@ class ExamsController extends Controller
     public function alltest($id) {
         $exams = ExamStaffs::where('exam_id', $id)->get();
         return view('exams/alltest')->with('exams', $exams);
+    }
+
+    public function taking($id)
+    {
+        $exam_staff = ExamStaffs::where('exam_id', $id)->where('staff_id', Auth::user()->id)->get();
+        $exam = Exams::find($id);
+        return view('exams/taking')->with('exam', $exam)->with('exam_staff', $exam_staff);
     }
 }

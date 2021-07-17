@@ -22,9 +22,11 @@ Auth::routes([
 
 ]);
 
+
 //home
 Route::get('/home',[ContestsController::class,'home'])->name('home');
 Route::redirect('/', '/home' ); //redirect from / to /home when login in web
+
 
 // //test
 // Route::get('test03/{id}', [Examscontroller::class, 'test03'])->name('exam.test03');
@@ -52,12 +54,14 @@ Route::middleware(checkAdmin::class)->group(
     }
 );
 
+
 //check issuer make
 Route::middleware(checkIssuerMaker::class)->group(
     function () {
-        //questions
+
         Route::post('/question/update', [QuestionsController::class, 'update'])->name('question.update');
         Route::post('/question/create', [QuestionsController::class, 'create'])->name('question.create');
+        Route::post('/question/delete/{id}', [QuestionsController::class, 'delete'])->name('question.delete');
         Route::get('/questions', [QuestionsController::class, 'index'])->name('questions');
         Route::get('/question/detail/{id}', [QuestionsController::class, 'detail'])->name('question.detail');
         Route::get('/question/edit/{id}', [QuestionsController::class, 'edit'])->name('question.edit');
@@ -104,4 +108,6 @@ Route::middleware(checkIssuerMaker::class)->group(
     }
 );
 
-
+//show exam for contest
+Route::get('/exam/index/{id}', [ExamsController::class, 'index'])->name('exam.index');
+Route::get('/exam/taking/{id}', [ExamsController::class, 'taking'])->name('exam.taking');
