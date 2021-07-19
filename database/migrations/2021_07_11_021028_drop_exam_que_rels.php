@@ -14,7 +14,7 @@ class DropExamQueRels extends Migration
     public function up()
     {
         //
-        Schema::dropIfExists('exam_que_rels');
+       // Schema::dropIfExists('exam_que_rels');
     }
 
     /**

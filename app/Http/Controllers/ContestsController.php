@@ -12,6 +12,7 @@ use App\Models\Themes;
 use App\Models\Levels;
 use App\Models\Exams;
 use App\Models\ExamThemes;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -105,7 +106,7 @@ class ContestsController extends Controller
         $contest = Contests::find($id);
         $contest->delete();
         return redirect()->back();
-        dd($contest);
+        // dd($contest);
 
     }
 }

@@ -8,6 +8,7 @@
 @section('content')
 <div class="">
     <div>
+        <br>
         <h3 class="text-center">Danh sách kì thi</h3>
     </div>
     <a href="{{route('contest.add')}}" class="btn btn-success mb-3 offset-md-2"><i class="fas fa-plus"></i> Add Contest</a>
