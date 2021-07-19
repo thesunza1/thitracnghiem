@@ -111,3 +111,4 @@ Route::middleware(checkIssuerMaker::class)->group(
 //show exam for contest
 Route::get('/exam/index/{id}', [ExamsController::class, 'index'])->name('exam.index');
 Route::get('/exam/taking/{id}', [ExamsController::class, 'taking'])->name('exam.taking');
+Route::post('/test/{t_id}/q/{q_id}/a/{a_id}', [ReliesController::class, 'choose'])->name('exam.choose');

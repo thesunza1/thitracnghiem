@@ -34,7 +34,7 @@
                     <?php endif; ?>
                     <div class="answer-field" >
                         <span class="answer border p-2 mb-1" style="display:flex;align-items: center">
-                            <input type="radio" name="answer[{{$temp}}]" class="mr-1" id="{{$question->relies_id}}" data="{{$question->question_id}}">
+                            <input type="radio" name="answer[{{$temp}}]" class="mr-1 {{($question->chose == 1) ? 'checked' :''}}" id="{{$question->relies_id}}" data="{{$question->question_id}}">
                             <label for="{{$question->relies_id}}" class="m-0">{{$arr[$j++] . ". " .$question->relies->noidung}}</label>
                         </span>
                     </div>
@@ -50,7 +50,10 @@
         <h4 class="py-2">Thời gian : <span id="timer"></span></h4>
         <div class="row p-1">
             <?php for($i = 1; $i <= $exam->questionnum; $i++): ?>
-                <span class="col-md-1 p-1 m-1 border border-dark text-center"><a href="#question_<?php echo $i ?>"><?php echo $i ?></a></span>
+                <?php
+                    $j = ceil($i/$number_of_questions_per_page);
+                ?>
+                <span class="col-md-1 p-1 m-1 border border-dark text-center"><a href="<?php echo '?page='.$j.'#question_'.$i ?>"><?php echo $i ?></a></span>
             <?php endfor;?>
         </div>
         <form action="/exam/handin/{{$exam_staff[0]->id}}" method="post">
@@ -63,6 +66,8 @@
 @section('js-content')
 <script>
     $(document).ready(function(){
+        $(".checked").attr("checked",true);
+
         $(".answer-field").click(function(){
             let name = $(this).find('input').attr('name');
             let id_answer = $(this).find('input').attr('id');
@@ -70,8 +75,26 @@
             let id_exam = <?php echo $exam_staff[0]->id ?>;
             $('input[name="'+name+'"]').attr("checked",false);
             $(this).find('input').attr("checked",true);
-            console.log('id_quiz - id_answer - id_exam');
+            console.log('id_quiz - id_answer - id_test');
             console.log(id_question + ' - ' + id_answer + ' - ' + id_exam);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: '/test/'+id_exam+'/q/'+id_question+'/a/'+id_answer,
+                data:{
+                    "_token": "{{ csrf_token() }}"
+                },
+                dataType: 'json',
+                success: function(msg){
+                    console.log(msg)
+                },error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
         });
 
         // timer
