@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Questions;
+use App\Models\ExamQueRel;
 use App\Models\Relies;
 
 class ReliesController extends Controller
@@ -43,6 +44,18 @@ class ReliesController extends Controller
     {
         $answer = Relies::find($id);
         $answer->delete();
+    }
 
+    public function choose($t_id, $q_id, $a_id){
+        $que_rels = ExamQueRel::where('exam_staff_id','=',$t_id)->where('question_id','=', $q_id)->get();
+        $que_rels->each(function($item, $key){
+            $item->chose = -1;
+            $item->save();
+        });
+
+        $que_rel = ExamQueRel::where('exam_staff_id',$t_id)->where('question_id', $q_id)->where('relies_id', $a_id)->first();
+        $que_rel->chose = 1;
+        $que_rel->save();
+        echo "ok";
     }
 }

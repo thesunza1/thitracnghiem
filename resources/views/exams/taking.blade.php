@@ -5,44 +5,60 @@
         .answer-field:hover{
             background-color: rgb(91, 255, 132);
         }
+        .handin:hover{
+            border-color: rgba(0, 136, 248, 0.753)!important;
+        }
     </style>
 @endsection
 
 @section('content')
 <div class="container">
-    <!-- question tracker and timer -->
-    <div class="col-md-3 border border-dark fixed-top ml-5" style="margin-top:85px;">
-        <h4 class="py-2">Thời gian : <span id="timer"></span></h4>
-        <div class="row p-1">
-            <?php for($i = 1; $i <= $exam->questionnum; $i++): ?>
-                <span class="col-md-1 p-1 border border-dark"><a href="#question_<?php echo $i ?>"><?php echo $i ?></a></span>
-            <?php endfor;?>
-        </div>
-    </div>
+
     <!-- questions -->
     <div class="offset-md-4 col-md-8">
         <div class="bg-question bd p-2">
             <?php
                 $order = 0;
+                $number_of_questions_per_page = 10;
                 $arr = ['0','A','B','C','D','E','F','G','H','I','J','K','L','M','O'];
-                $questions = App\Models\ExamQueRel::where('exam_staff_id', $exam_staff[0]->id)->get();
+                $num = App\Models\ExamQueRel::where('order_question','<=', $number_of_questions_per_page)->where('exam_staff_id', $exam_staff[0]->id)->count();
+                // $questions = App\Models\ExamQueRel::where('exam_staff_id', $exam_staff[0]->id)->get();
+                $questions = App\Models\ExamQueRel::where('exam_staff_id', $exam_staff[0]->id)->paginate($num);
             ?>
             @foreach ($questions as $question)
                 <?php $temp = $question->order_question;?>
                 <div class="question_{{$question->order_question}}">
                     <?php if($order != $temp):$order = $temp;$question_id = $question->question_id ;$j = 1;?>
                         <h3 id="question_{{$question->order_question}}">Câu {{$question->order_question}}</h3>
-                        <div class="question border border-dark p-2 bg-white mb-3">{{$question->question->content}}</div>
+                        <div class="question border border-dark p-2 bg-white mb-3" id="{{$question->question_id}}">{{$question->question->content}}</div>
                     <?php endif; ?>
                     <div class="answer-field" >
                         <span class="answer border p-2 mb-1" style="display:flex;align-items: center">
-                            <input type="radio" name="answer[{{$temp}}]" class="mr-1" id="{{$question->relies_id}}">
+                            <input type="radio" name="answer[{{$temp}}]" class="mr-1 {{($question->chose == 1) ? 'checked' :''}}" id="{{$question->relies_id}}" data="{{$question->question_id}}">
                             <label for="{{$question->relies_id}}" class="m-0">{{$arr[$j++] . ". " .$question->relies->noidung}}</label>
                         </span>
                     </div>
                 </div>
             @endforeach
         </div>
+        {{-- <div>
+            {{ $questions->links() }}
+        </div> --}}
+    </div>
+    <!-- question tracker and timer -->
+    <div class="col-md-3 border border-dark fixed-top ml-5 pb-1" style="margin-top:85px;">
+        <h4 class="py-2">Thời gian : <span id="timer"></span></h4>
+        <div class="row p-1">
+            <?php for($i = 1; $i <= $exam->questionnum; $i++): ?>
+                <?php
+                    $j = ceil($i/$number_of_questions_per_page);
+                ?>
+                <span class="col-md-1 p-1 m-1 border border-dark text-center"><a href="<?php echo '?page='.$j.'#question_'.$i ?>"><?php echo $i ?></a></span>
+            <?php endfor;?>
+        </div>
+        <form action="/exam/handin/{{$exam_staff[0]->id}}" method="post">
+            <button class="btn border handin"><i class="fas fa-file-import"></i> Nộp bài</button>
+        </form>
     </div>
 </div>
 @endsection
@@ -50,10 +66,35 @@
 @section('js-content')
 <script>
     $(document).ready(function(){
+        $(".checked").attr("checked",true);
+
         $(".answer-field").click(function(){
             let name = $(this).find('input').attr('name');
+            let id_answer = $(this).find('input').attr('id');
+            let id_question = $(this).find('input').attr('data');
+            let id_exam = <?php echo $exam_staff[0]->id ?>;
             $('input[name="'+name+'"]').attr("checked",false);
             $(this).find('input').attr("checked",true);
+            console.log('id_quiz - id_answer - id_test');
+            console.log(id_question + ' - ' + id_answer + ' - ' + id_exam);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: '/test/'+id_exam+'/q/'+id_question+'/a/'+id_answer,
+                data:{
+                    "_token": "{{ csrf_token() }}"
+                },
+                dataType: 'json',
+                success: function(msg){
+                    console.log(msg)
+                },error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
         });
 
         // timer
@@ -78,7 +119,6 @@
         var time = 60*10;
         // $("#timer").html("10:00");
         display = document.querySelector('#timer');
-        console.log(display);
         startTimer(time, display);
 
     });
