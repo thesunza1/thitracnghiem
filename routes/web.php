@@ -76,7 +76,8 @@ Route::middleware(checkIssuerMaker::class)->group(
         Route::post('/contest/create', [ContestsController::class, 'create'])->name('contest.create');
         Route::get('/contest/edit/{id}', [ContestsController::class, 'edit'])->name('contest.edit');
         Route::post('/contest/update/{id}', [ContestsController::class, 'update'])->name('contest.update');
-        Route::post('/contest/delete/{id}', [ContestsController::class, 'delete'])->name('contest.delete');
+        // Route::post('/contest/delete/{id}', [ContestsController::class, 'delete'])->name('contest.delete');
+        Route::get('/contest/delete/{id}', [ContestsController::class, 'delete'])->name('contest.delete');
         Route::get('/contest/detail/{id}', [ContestsController::class, 'detail'])->name('contest.detail');
 
         // Exam

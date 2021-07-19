@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Branchs;
 use App\Models\Roles;
+use App\Models\ExamStaffs;
+
 
 class Staffs extends Authenticatable
 {
@@ -35,5 +37,8 @@ class Staffs extends Authenticatable
     }
     public function role() {
         return $this->belongsTo(Roles::class);
+    }
+    public function examstaffs(){
+        return $this->hasMany(ExamStaffs::class);
     }
 }
