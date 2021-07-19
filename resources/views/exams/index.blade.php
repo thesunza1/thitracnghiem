@@ -46,6 +46,7 @@
                         <td class="column100 column8 " data-column="column8">
 
 
+
                             @if ($exam->examstaffs->where('staff_id',Auth::user()->id)[0]->point == -1)
                                 @if (time() < $exam->contest->begintime_at)
                                 <a class="btn btn-success mr-1 ud-btn" name="id" value='{{ $exam->id }}'
@@ -59,6 +60,7 @@
                                 <a class="btn btn-info  mr-1 ud-btn" name="id" value='{{ $exam->id }}' href="#">
                                     xem điểm  </i></a>
                             @endif
+
 
 
                         </td>
