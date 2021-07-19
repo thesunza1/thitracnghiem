@@ -49,7 +49,7 @@
                             </div>
 
                         </div>
-                        <a class="btn"> xem các bài thi </a>
+                        <a class="btn" href="{{ route('exam.index', ['id' => $contest->id]) }}"> xem các bài thi </a>
                     </div>
 
                 </div>

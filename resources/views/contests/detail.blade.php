@@ -81,15 +81,18 @@
                         </div>
                         <div class="d-flex">
                             @if (App\Models\ExamDetails::where('exam_id', $exam->id)->count() == 0)
-                                <form action="/exam/init/{{$exam->id}}" method="post">
+                                <form action="{{route('exam.init', ['id' => $exam->id])}}" method="post">
                                     @csrf
                                     <a href="#" class="btn btn-success init mr-1"><i class="fas fa-cogs"></i> Khởi tạo</a>
                                 </form>
                             @else
                                 <a href="{{route('exam.detail', ['id'=>$exam->id])}}" class="btn btn-info mr-1"><i class="fas fa-sign-out-alt"></i> Đến đề thi</a>
                             @endif
-                            <a href="{{route('exam.edit', ['id' => $exam->id])}}" class="btn btn-warning mr-1"><i class="fas fa-cog"></i></a>
-                            <a href="#" class="btn btn-danger mr-1"><i class="far fa-trash-alt"></i></a>
+                            {{-- <a href="{{route('exam.edit', ['id' => $exam->id])}}" class="btn btn-warning mr-1"><i class="fas fa-cog"></i></a> --}}
+                            <form action="{{route('exam.delete', ['id' => $exam->id])}}" method="post">
+                                @csrf
+                                <button class="btn btn-danger mr-1" onclick="function(){$(this).find('form').submit();}"><i class="far fa-trash-alt"></i></button>
+                            </form>
                         </div>
                     </div>
                 @endforeach
@@ -160,7 +163,7 @@
                         <button class="btn btn-danger remove_theme_level">Remove level</button>
                     </div>
                     <div class="my-3">
-                        <button class="btn btn-info add_exam">Add more Exams</button>
+                        <button class="btn btn-info add_exam">Create Exam</button>
                     </div>
                 </form>
 

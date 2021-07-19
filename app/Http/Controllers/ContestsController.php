@@ -22,14 +22,9 @@ class ContestsController extends Controller
      $this->middleware('auth')   ;
     }
     //
-    public function home() {
-        $contests = Contests::all();
-
-
+    public function home(Request $request) {
+        $contests = Contests::where('branchcontest_id', $request->user()->branch_id )->get();
         return view('home')->with('contests',$contests);
-
-
-
     }
 
 
