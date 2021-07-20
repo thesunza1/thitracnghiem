@@ -13,7 +13,7 @@ class Exams extends Model
     const UPDATED_AT = NULL;
     public function contest()
     {
-        return $this->belongsTo(Contest::class,'contest_id');
+        return $this->belongsTo(Contests::class,'contest_id');
     }
 
     public function exam_themes()

@@ -105,6 +105,7 @@ Route::middleware(checkIssuerMaker::class)->group(
             dd($init);
         })->name('exam.duplicate');
         Route::get('/exam/alltest/{id}',[ExamsController::class,'alltest'])->name('exam.alltest');
+        Route::get('/test/{id}',[ExamsController::class,'test_detail'])->name('exam.test_detail');
     }
 );
 

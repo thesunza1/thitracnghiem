@@ -40,6 +40,7 @@
                         <td class="column100 column7" data-column="column7">{{ $exam->examtime_at }}</td>
 
                         <td class="column100 column8 " data-column="column8">
+
                             @if(App\Models\ExamStaffs::where('exam_id', $exam->id)->count() == 0)
                                 <a class="btn btn-warning mr-1 ud-btn" name="id" value='{{ $exam->id }}' href="#">
                                     bắt đầu thi </i></a>
