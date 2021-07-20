@@ -1,14 +1,49 @@
 @extends('layouts.default')
 
 @section('style')
-    <style>
-        .answer-field:hover{
-            background-color: rgb(91, 255, 132);
-        }
-        .handin:hover{
-            border-color: rgba(0, 136, 248, 0.753)!important;
-        }
-    </style>
+<style>
+    body {
+        background-color: whitesmoke;
+    }
+
+    .answer-field {
+        background-color: white;
+    }
+
+    .num-box {
+        background-color: white;
+        box-shadow: 0px 0px 10px gray !important;
+        border: none !important;
+        border-radius: 20px;
+    }
+
+    .num-box span {
+        border-radius: 15%;
+        height: 40px;
+        line-height: 30px;
+        width: 40px;
+        align-items: center;
+        box-shadow: 0px 0px 1px gray !important;
+    }
+
+    div.question {
+        border-color: rgb(10, 66, 197) !important;
+        border-radius: 5px;
+        box-shadow: 0px 0px 2px rgb(10, 144, 197);
+    }
+
+    .answer-field .answer {
+        border-radius: 8px;
+    }
+
+    .answer-field:hover {
+        background-color: rgb(119, 187, 137);
+    }
+
+    .handin:hover {
+        border-color: rgba(0, 136, 248, 0.753) !important;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -26,40 +61,47 @@
                 $questions = App\Models\ExamQueRel::where('exam_staff_id', $exam_staff[0]->id)->paginate($num);
             ?>
             @foreach ($questions as $question)
-                <?php $temp = $question->order_question;?>
-                <div class="question_{{$question->order_question}}">
-                    <?php if($order != $temp):$order = $temp;$question_id = $question->question_id ;$j = 1;?>
-                        <h3 id="question_{{$question->order_question}}">Câu {{$question->order_question}}</h3>
-                        <div class="question border border-dark p-2 bg-white mb-3" id="{{$question->question_id}}">{{$question->question->content}}</div>
-                    <?php endif; ?>
-                    <div class="answer-field" >
-                        <span class="answer border p-2 mb-1" style="display:flex;align-items: center">
-                            <input type="radio" name="answer[{{$temp}}]" class="mr-1 {{($question->chose == 1) ? 'checked' :''}}" id="{{$question->relies_id}}" data="{{$question->question_id}}">
-                            <label for="{{$question->relies_id}}" class="m-0">{{$arr[$j++] . ". " .$question->relies->noidung}}</label>
-                        </span>
-                    </div>
+            <?php $temp = $question->order_question;?>
+            <br>
+            <div class="question_{{$question->order_question}}">
+                <?php if($order != $temp):$order = $temp;$question_id = $question->question_id ;$j = 1;?>
+                <h3 id="question_{{$question->order_question}}">Câu {{$question->order_question}}:</h3>
+                <br>
+                <div class="question border p-2 bg-white mb-3" id="{{$question->question_id}}">
+                    {{$question->question->content}}</div>
+                <?php endif; ?>
+                <div class="answer-field">
+                    <span class="answer border p-2 mb-1" style="display:flex;align-items: center">
+                        <input type="radio" name="answer[{{$temp}}]"
+                            class="mr-1 {{($question->chose == 1) ? 'checked' :''}}" id="{{$question->relies_id}}"
+                            data="{{$question->question_id}}">
+                        <label for="{{$question->relies_id}}"
+                            class="m-0">{{$arr[$j++] . ". " .$question->relies->noidung}}</label>
+                    </span>
                 </div>
+            </div>
             @endforeach
         </div>
         {{-- <div>
             {{ $questions->links() }}
-        </div> --}}
-    </div>
-    <!-- question tracker and timer -->
-    <div class="col-md-3 border border-dark fixed-top ml-5 pb-1" style="margin-top:85px;">
-        <h4 class="py-2">Thời gian : <span id="timer"></span></h4>
-        <div class="row p-1">
-            <?php for($i = 1; $i <= $exam->questionnum; $i++): ?>
-                <?php
+    </div> --}}
+</div>
+<!-- question tracker and timer -->
+<div class="col-md-3 border border-dark fixed-top ml-5 pb-1 num-box" style="margin-top:85px;">
+    <h4 class="py-2">Thời gian : <span id="timer"></span></h4>
+    <div class="row p-1">
+        <?php for($i = 1; $i <= $exam->questionnum; $i++): ?>
+        <?php
                     $j = ceil($i/$number_of_questions_per_page);
                 ?>
-                <span class="col-md-1 p-1 m-1 border border-dark text-center"><a href="<?php echo '?page='.$j.'#question_'.$i ?>"><?php echo $i ?></a></span>
-            <?php endfor;?>
-        </div>
-        <form action="/exam/handin/{{$exam_staff[0]->id}}" method="post">
-            <button class="btn border handin"><i class="fas fa-file-import"></i> Nộp bài</button>
-        </form>
+        <span class="col-md-1 p-1 m-1 border border-gray text-center"><a
+                href="<?php echo '?page='.$j.'#question_'.$i ?>"><?php echo $i ?></a></span>
+        <?php endfor;?>
     </div>
+    <form action="/exam/handin/{{$exam_staff[0]->id}}" method="post">
+        <button class="btn border handin"><i class="fas fa-file-import"></i> Nộp bài</button>
+    </form>
+</div>
 </div>
 @endsection
 

@@ -8,6 +8,9 @@
 <link href="{{ asset('css/util.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+@php
+    date_default_timezone_set("Asia/Ho_Chi_Minh");
+@endphp
 <div class="limiter">
     <br>
     <div class="header-text">
@@ -48,7 +51,8 @@
 
 
                             @if ($exam->examstaffs->where('staff_id',Auth::user()->id)[0]->point == -1)
-                                @if (time() < $exam->contest->begintime_at)
+
+                                @if (time() > $exam->contest->begintime_at)
                                 <a class="btn btn-success mr-1 ud-btn" name="id" value='{{ $exam->id }}'
                                     href="{{route('exam.taking', ['id' => $exam->id])}}">
                                     bắt đầu thi </i></a>
