@@ -57,7 +57,8 @@
             <?php endfor;?>
         </div>
         <form action="/exam/handin/{{$exam_staff[0]->id}}" method="post">
-            <button class="btn border handin"><i class="fas fa-file-import"></i> Nộp bài</button>
+            @csrf
+            <button class="btn border handin" onclick="function(){$(this).find('form').submit()}"><i class="fas fa-file-import"></i> Nộp bài</button>
         </form>
     </div>
 </div>

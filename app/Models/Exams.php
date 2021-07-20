@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Models\Contests;
 use App\Models\ExamThemes;
+use App\Models\ExamStaffs;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,5 +25,8 @@ class Exams extends Model
     public function staff()
     {
         return $this->belongsTo(Staffs::class, 'issuer_id');
+    }
+    public function examstaffs() {
+        return $this->hasMany(ExamStaffs::class,'exam_id' );
     }
 }

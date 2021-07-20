@@ -89,8 +89,14 @@ class ExamsController extends Controller
 
     public function taking($id)
     {
-        $exam_staff = ExamStaffs::where('exam_id', $id)->where('staff_id', Auth::user()->id)->get();
+        $exam_staff = ExamStaffs::where('exam_id', $id)->where('staff_id', Auth::user()->id)->first();
         $exam = Exams::find($id);
+        $time = $exam->examtime_at;
+        $exam_staff->time_limit = date('Y-m-d H:i:s', time() + ($time*60));
+        // dd($exam_staff);
+        $exam_staff->save();
+
+        $exam_staff = ExamStaffs::where('exam_id', $id)->where('staff_id', Auth::user()->id)->get();
         return view('exams/taking')->with('exam', $exam)->with('exam_staff', $exam_staff);
     }
 
