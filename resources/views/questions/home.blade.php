@@ -7,6 +7,7 @@
 @section('content')
 <div class="container">
     <div>
+        <br>
         <h3 class="text-center">Danh sách câu hỏi</h3>
     </div>
     <div class="row m-0">
@@ -42,9 +43,9 @@
                             <a href="#"
                                 class="btn btn-danger mr-1 delete" id="{{$question->id}}">
                                 <i class="fas fa-trash-alt"></i></a>
-                            <a href="/question/detail/{{$question->id}}"
+                            {{-- <a href="/question/detail/{{$question->id}}"
                                 class="btn btn-info mr-1 detail" id="{{$question->id}}">
-                                <i class="fas fa-info-circle"></i></a>
+                                <i class="fas fa-info-circle"></i></a> --}}
                             <a href="/question/edit/{{$question->id}}"
                                 class="btn btn-warning mr-1 edit" target="_blank" id="{{$question->id}}">
                                 <i class="fas fa-cog"></i></a>

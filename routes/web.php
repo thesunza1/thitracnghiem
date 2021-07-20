@@ -76,7 +76,8 @@ Route::middleware(checkIssuerMaker::class)->group(
         Route::post('/contest/create', [ContestsController::class, 'create'])->name('contest.create');
         Route::get('/contest/edit/{id}', [ContestsController::class, 'edit'])->name('contest.edit');
         Route::post('/contest/update/{id}', [ContestsController::class, 'update'])->name('contest.update');
-        Route::post('/contest/delete/{id}', [ContestsController::class, 'delete'])->name('contest.delete');
+        // Route::post('/contest/delete/{id}', [ContestsController::class, 'delete'])->name('contest.delete');
+        Route::get('/contest/delete/{id}', [ContestsController::class, 'delete'])->name('contest.delete');
         Route::get('/contest/detail/{id}', [ContestsController::class, 'detail'])->name('contest.detail');
 
         // Exam
@@ -101,8 +102,8 @@ Route::middleware(checkIssuerMaker::class)->group(
 
             $procedure_name = 'THUCTAP.P_I_EXAMQUE_REL';
             $init = DB::executeProcedure($procedure_name, $bindings);
-            // return redirect()->back();
-            dd($init);
+            return redirect()->back();
+            //dd($init);
         })->name('exam.duplicate');
         Route::get('/exam/alltest/{id}',[ExamsController::class,'alltest'])->name('exam.alltest');
     }
@@ -111,4 +112,9 @@ Route::middleware(checkIssuerMaker::class)->group(
 //show exam for contest
 Route::get('/exam/index/{id}', [ExamsController::class, 'index'])->name('exam.index');
 Route::get('/exam/taking/{id}', [ExamsController::class, 'taking'])->name('exam.taking');
+
+
+
+
 Route::post('/test/{t_id}/q/{q_id}/a/{a_id}', [ReliesController::class, 'choose'])->name('exam.choose');
+

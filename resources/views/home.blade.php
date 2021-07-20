@@ -26,7 +26,7 @@
                             </div>
                             <div class="container__text__timing_time">
                                 <h2>ngày thi</h2>
-                                <p> {{ $contest->begintime_at }}</p>
+                                <p> {{ date('d-m-Y H:i:s',$contest->begintime_at) }}</p>
                             </div>
                             <div class="container__text__timing_time">
                                 <h2>người tạo </h2>
