@@ -118,3 +118,4 @@ Route::get('/exam/taking/{id}', [ExamsController::class, 'taking'])->name('exam.
 
 Route::post('/test/{t_id}/q/{q_id}/a/{a_id}', [ReliesController::class, 'choose'])->name('exam.choose');
 
+
