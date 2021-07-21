@@ -8,6 +8,9 @@
 <link href="{{ asset('css/util.css') }}" rel="stylesheet">
 @endsection
 @section('content')
+@php
+    date_default_timezone_set("Asia/Ho_Chi_Minh");
+@endphp
 <div class="limiter">
     <br>
     <div class="header-text">

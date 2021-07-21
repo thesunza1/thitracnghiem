@@ -7,6 +7,7 @@
 
 @section('content')
 <div class="container">
+
     <div class="row pt-4">
         @foreach ($exams as $exam)
             <div class="col-md-3 border p-1">

@@ -4,7 +4,7 @@
  <style>
     .bg-question{
     padding : 10px;
-    background-color : grey;
+    background-color : whitesmoke;
     }
     .question{
     border : 1px solid black;
@@ -54,7 +54,7 @@
             $arr= ['0','A',  'B', 'C', 'D', 'E', 'F'];
         ?>
             <div class="bg-question bd">
-                <h3 class="text-white">
+                <h3 class="text-black">
                   Câu {{$i++}}
                 </h3>
                 <div class="question bg-white" id="question-{{$q->id}}" data="{{$q->id}}">
