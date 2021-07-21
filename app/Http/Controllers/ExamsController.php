@@ -105,6 +105,14 @@ class ExamsController extends Controller
         }
     }
 
+    public function result($id){
+        $exam = ExamStaffs::where('exam_id', $id)->where('staff_id', Auth::user()->id)->get()->first();
+        $id = $exam->id;
+        $tests = ExamQueRel::where('exam_staff_id', $id)->orderBy('order_question')->orderBy('order_relies')->get();
+        $exam = ExamStaffs::find($id);
+        return view('exams/test_detail')->with('tests', $tests)->with('exam', $exam);
+    }
+
     public function test_detail($id){
         $tests = ExamQueRel::where('exam_staff_id', $id)->orderBy('order_question')->orderBy('order_relies')->get();
         $exam = ExamStaffs::find($id);

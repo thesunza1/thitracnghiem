@@ -14,10 +14,14 @@
             <h3>Bài thi của {{$exam->staff->name}}</h3>
             <h4>Kì thi : {{App\Models\Exams::find($exam->exam_id)->contest->name}}</h4>
         </div>
+        <div class='d-flex'>
+            <h3>Kết quả : <span class='result'></span></h3>
+            <h3 class='pl-5'>Số điểm : {{$exam->point}}</h3>
+        </div>
         @foreach ($tests as $data)
         <?php $temp = $data->order_question;?>
         <?php if($order != $temp):$order = $temp;$question_id = $data->question_id ;$j = 1;?>
-            <h4 class='pt-3 pb-1'>Câu {{$order}} : {{$data->question->content}}</h4>
+            <h4 class='pt-3 pb-1 question'>Câu {{$order}} : {{$data->question->content}}</h4>
         <?php endif; ?>
         {{-- <p style='padding-left :50px'>{{$arr[$j++] .". ". $data->relies->noidung}}</p> --}}
         <div class="answer-field">
@@ -44,6 +48,9 @@
         //     console.log('id_quiz - id_answer - id_test');
         //     console.log(id_question + ' - ' + id_answer + ' - ' + id_exam);
         // });
+        let correct = $('.checked').parents('.border-success').length;
+        let total = $('.question').length;
+        $('.result').html(correct + '/' + total);
     });
 </script>
 @endsection
