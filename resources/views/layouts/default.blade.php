@@ -50,10 +50,6 @@
             box-shadow: none;
         }
 
-        .container {
-            max-width: 80%;
-        }
-
         .link-text:hover {
             color: rgb(194, 188, 188) !important;
         }

@@ -56,7 +56,7 @@
                 <span class="col-md-1 p-1 m-1 border border-dark text-center"><a href="<?php echo '?page='.$j.'#question_'.$i ?>"><?php echo $i ?></a></span>
             <?php endfor;?>
         </div>
-        <form action="/exam/handin/{{$exam_staff[0]->id}}" method="post">
+        <form action="/exam/handin/{{$exam->id}}" method="post">
             @csrf
             <button class="btn border handin" onclick="function(){$(this).find('form').submit()}"><i class="fas fa-file-import"></i> Nộp bài</button>
         </form>

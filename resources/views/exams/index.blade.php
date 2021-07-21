@@ -58,7 +58,7 @@
                                     @endif
                                 @endif
                             @else
-                                <a class="btn btn-info  mr-1 ud-btn" name="id" value='{{ $exam->id }}' href="#">
+                                <a class="btn btn-info  mr-1 ud-btn" name="id" value='{{ $exam->id }}' href="{{route('exam.result', ['id' => $exam->id])}}">
                                     xem điểm  </i></a>
                             @endif
                         </td>

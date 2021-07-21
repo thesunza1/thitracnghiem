@@ -115,13 +115,18 @@ Route::get('/exam/index/{id}', [ExamsController::class, 'index'])->name('exam.in
 Route::get('/exam/taking/{id}', [ExamsController::class, 'taking'])->name('exam.taking');
 Route::post('/test/{t_id}/q/{q_id}/a/{a_id}', [ReliesController::class, 'choose'])->name('exam.choose');
 Route::post('/exam/handin/{id}', function($id){
+    $exam_staff = App\Models\ExamStaffs::where('exam_id', $id)->where('staff_id', Auth::user()->id)->first();
+    $estaff_id = $exam_staff->id;
     $bindings = [
         'v_exam_id' => $id,
-        'v_estaff_id' => Auth::user()->id
+        'v_estaff_id' => $estaff_id
     ];
     $procedure_name = 'THUCTAP.P_CACL_POINT';
     $init = DB::executeProcedure($procedure_name, $bindings);
-    // return redirect('/exam/index/'. $id);
+
+    $exam = App\Models\Exams::find($id)->first();
+    return redirect()->route('exam.index', ['id' => $exam->contest_id]);
     dd($bindings);
 })->name('exam.handin');
+Route::get('/exam/result/{id}', [ExamsController::class, 'result'])->name('exam.result');
 
