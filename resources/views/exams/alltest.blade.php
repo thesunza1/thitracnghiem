@@ -7,20 +7,17 @@
 
 @section('content')
 <div class="container">
-    @foreach ($exams as $exam)
-        <h1>Đề thi cho {{$exam->staff->name}}</h1>
-        <?php
-            $order = 0;
-            $arr = ['0','A','B','C','D','E','F','G','H','I','J','K','L','M','O'];
-        ?>
-        @foreach (App\Models\ExamQueRel::where('exam_staff_id', $exam->id)->orderBy('order_question')->orderBy('order_relies')->get() as $data)
-            <?php $temp = $data->order_question;?>
-            <?php if($order != $temp):$order = $temp;$question_id = $data->question_id ;$j = 1;?>
-                <h5>Câu {{$order}} : {{$data->question->content}}</h5>
-            <?php endif; ?>
-            <p style='padding-left :50px'>{{$arr[$j++] .". ". $data->relies->noidung}}</p>
+
+    <div class="row pt-4">
+        @foreach ($exams as $exam)
+            <div class="col-md-3 border p-1">
+                <h3 class='toggle-detail'>Đề thi cho {{$exam->staff->name}}</h3>
+                <a href="/test/{{$exam->id}}" class="btn btn-success">
+                    <i class="fas fa-sign-in-alt"></i> Đi đến
+                </a>
+            </div>
         @endforeach
-    @endforeach
+    </div>
 </div>
 @endsection
 
