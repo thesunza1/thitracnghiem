@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Branchs;
 use Illuminate\Http\Request;
+use App\Http\Requests\StaffPostRequest;
 use App\Models\Staffs;
 use App\Models\Roles;
 use Carbon\Carbon;
@@ -17,6 +18,7 @@ class StaffsController extends Controller
     // {
     //  $this->middleware('auth')   ;
     // }
+
 
     public function index()
     {
@@ -44,7 +46,7 @@ class StaffsController extends Controller
         $data = $request->all();
         return array($data);
     }
-    public function update(Request $request)
+    public function update(StaffPostRequest $request)
     {
         // get email, password , name , sdt , address , role
         $id = $request->id;
@@ -68,7 +70,7 @@ class StaffsController extends Controller
         $staff->save();
         return redirect(route('staff.index'));
     }
-    public function storge(Request $request)
+    public function storge(StaffPostRequest $request)
     {
         $name = $request->name;
         $password = $request->password;

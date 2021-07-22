@@ -130,3 +130,4 @@ Route::post('/exam/handin/{id}', function($id){
 })->name('exam.handin');
 Route::get('/exam/result/{id}', [ExamsController::class, 'result'])->name('exam.result');
 
+
