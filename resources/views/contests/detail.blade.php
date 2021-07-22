@@ -9,11 +9,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="contest">Tên kì thi</label>
-                    <input id="contest" class="form-control border" readonly type="text" name="contest" value="{{$contest->name}}">
+                    <input id="contest" class="form-control border" readonly type="text" name="contest"
+                        value="{{$contest->name}}">
                 </div>
                 <div class="col-md-6">
                     <label for="begintime_at">Thời gian bắt đầu</label>
-                    <input id="begintime_at" class="form-control border" readonly type="datetime-local" name="begintime_at" value="{{date("Y-m-d\TH:i", $contest->begintime_at)}}">
+                    <input id="begintime_at" class="form-control border" readonly type="datetime-local"
+                        name="begintime_at" value="{{date("Y-m-d\TH:i", $contest->begintime_at)}}">
                 </div>
             </div>
         </div>
@@ -23,11 +25,11 @@
                     <label for="test_maker_id">Người ra đề</label>
                     <select name="test_maker_id" id="test_maker_id" class="form-control" readonly>
                         @foreach ($staffs as $staff)
-                            @if ($contest->testmaker_id == $staff->id)
-                            <option value="{{ $staff->id}}" selected>{{$staff->name }}</option>
-                            @else
-                            <option value="{{ $staff->id}}">{{$staff->name }}</option>
-                            @endif
+                        @if ($contest->testmaker_id == $staff->id)
+                        <option value="{{ $staff->id}}" selected>{{$staff->name }}</option>
+                        @else
+                        <option value="{{ $staff->id}}">{{$staff->name }}</option>
+                        @endif
                         @endforeach
                     </select>
                 </div>
@@ -35,11 +37,11 @@
                     <label for="branch">Chi nhánh</label>
                     <select name="branch" id="branch" class="form-control" readonly>
                         @foreach ($branchs as $branch)
-                            @if ($contest->branchcontest_id == $branch->id)
-                                <option value="{{$branch->id}}" selected>{{$branch->name }}</option>
-                            @else
-                                <option value="{{$branch->id}}">{{$branch->name }}</option>
-                            @endif
+                        @if ($contest->branchcontest_id == $branch->id)
+                        <option value="{{$branch->id}}" selected>{{$branch->name }}</option>
+                        @else
+                        <option value="{{$branch->id}}">{{$branch->name }}</option>
+                        @endif
 
                         @endforeach
                     </select>
@@ -60,45 +62,57 @@
             </div>
             <div class="row">
                 @foreach ($exams as $exam)
-                    <div class="col-md-6 mb-5">
-                        <div class="form-group">
-                            <label for="exam_name">Đề thi {{$exam->id}}</label>
-                            <p>Người phụ trách : {{$exam->staff->name}}</p>
-                            <div>Số câu hỏi : {{$exam->questionnum}}</div>
-                            <div>Thời gian làm bài : {{$exam->examtime_at}}</div>
-                            <div>
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" onclick="return false;" {{($exam->questionmix) ? "checked" : ""}} >
-                                    <label for="" class="m-0">Trộn câu hỏi</label>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" onclick="return false;" {{($exam->relymix) ? "checked" : ""}} >
-                                    <label for="" class="m-0">Trộn đáp án</label>
-                                </div>
+                <div class="col-md-6 mb-5">
+                    <div class="form-group">
+                        <label for="exam_name">Đề thi {{$exam->id}}</label>
+                        <p>Người phụ trách : {{$exam->staff->name}}</p>
+                        <div>Số câu hỏi : {{$exam->questionnum}}</div>
+                        <div>Thời gian làm bài : {{$exam->examtime_at}}</div>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" onclick="return false;"
+                                    {{($exam->questionmix) ? "checked" : ""}}>
+                                <label for="" class="m-0">Trộn câu hỏi</label>
                             </div>
                         </div>
-                        <div class="d-flex">
-                            @if (App\Models\ExamDetails::where('exam_id', $exam->id)->count() == 0)
-                                <form action="{{route('exam.init', ['id' => $exam->id])}}" method="post">
-                                    @csrf
-                                    <a href="#" class="btn btn-success init mr-1"><i class="fas fa-cogs"></i> Khởi tạo</a>
-                                </form>
-                            @else
-                                <a href="{{route('exam.detail', ['id'=>$exam->id])}}" class="btn btn-info mr-1"><i class="fas fa-sign-out-alt"></i> Đến đề thi</a>
-                            @endif
-                            {{-- <a href="{{route('exam.edit', ['id' => $exam->id])}}" class="btn btn-warning mr-1"><i class="fas fa-cog"></i></a> --}}
-                            <form action="{{route('exam.delete', ['id' => $exam->id])}}" method="post">
-                                @csrf
-                                <button class="btn btn-danger mr-1" onclick="function(){$(this).find('form').submit();}"><i class="far fa-trash-alt"></i></button>
-                            </form>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" onclick="return false;" {{($exam->relymix) ? "checked" : ""}}>
+                                <label for="" class="m-0">Trộn đáp án</label>
+                            </div>
                         </div>
                     </div>
+                    <div class="d-flex">
+                        @if (Auth::user()->role->name == 'admin' || $exam->issuer_id == Auth::user()->id)
+                        @if (App\Models\ExamDetails::where('exam_id', $exam->id)->count() == 0)
+                        <form action="{{route('exam.init', ['id' => $exam->id])}}" method="post">
+                            @csrf
+                            <a href="#" class="btn btn-success init mr-1"><i class="fas fa-cogs"></i> Khởi tạo</a>
+                        </form>
+                        @else
+                        <a href="{{route('exam.detail', ['id'=>$exam->id])}}" class="btn btn-info mr-1"><i
+                                class="fas fa-sign-out-alt"></i> Đến đề thi</a>
+                        @endif
+
+                        @else
+                            <a href="#" class="btn btn-success mr-1"><i class="fas fa-cogs"></i> you must be it issuer of admin</a>
+                        @endif
+                        {{-- <a href="{{route('exam.edit', ['id' => $exam->id])}}" class="btn btn-warning mr-1"><i
+                            class="fas fa-cog"></i></a> --}}
+                        @if (Auth::user()->role->name == 'admin' || $exam->issuer_id == Auth::user()->id)
+                        <form action="{{route('exam.delete', ['id' => $exam->id])}}" method="post">
+                            @csrf
+                            <button class="btn btn-danger mr-1" onclick="function(){$(this).find('form').submit();}"><i
+                                    class="far fa-trash-alt"></i></button>
+                        </form>
+                        @endif
+
+                    </div>
+                </div>
                 @endforeach
             </div>
         </div>
-        <div class="col-md-6 p-3 border-left" >
+        <div class="col-md-6 p-3 border-left">
             <h3>Thêm đề thi</h3>
             <div>
                 <form action="/contest/detail/{{$contest->id}}/exam/add" method="post" id="form">
@@ -134,7 +148,7 @@
                                     <label for="theme">Chủ đề</label>
                                     <select name="theme[]" id="theme" class="form-control">
                                         @foreach ($themes as $theme)
-                                            <option value="{{$theme->id}}">{{ $theme->name }}</option>
+                                        <option value="{{$theme->id}}">{{ $theme->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -144,7 +158,7 @@
                                     <label for="level">Độ khó</label>
                                     <select name="level[]" id="level" class="form-control">
                                         @foreach ($levels as $level)
-                                            <option value="{{$level->id}}">{{ $level->difficult}}</option>
+                                        <option value="{{$level->id}}">{{ $level->difficult}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -152,7 +166,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="q_num_per_theme_level">Số lượng</label>
-                                    <input class="form-control q_num" type="number" name="q_num_per_theme_level[]" value="0">
+                                    <input class="form-control q_num" type="number" name="q_num_per_theme_level[]"
+                                        value="0">
                                 </div>
                             </div>
                         </div>
@@ -176,7 +191,9 @@
 @endsection
 
 @section('js-content')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.8.2/tinymce.min.js" integrity="sha512-laacsEF5jvAJew9boBITeLkwD47dpMnERAtn4WCzWu/Pur9IkF0ZpVTcWRT/FUCaaf7ZwyzMY5c9vCcbAAuAbg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.8.2/tinymce.min.js"
+    integrity="sha512-laacsEF5jvAJew9boBITeLkwD47dpMnERAtn4WCzWu/Pur9IkF0ZpVTcWRT/FUCaaf7ZwyzMY5c9vCcbAAuAbg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $(document).ready(function(){
         tinymce.init({
