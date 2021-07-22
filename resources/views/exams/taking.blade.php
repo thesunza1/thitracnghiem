@@ -43,6 +43,9 @@
     .handin:hover {
         border-color: rgba(0, 136, 248, 0.753) !important;
     }
+    .bg-grey{
+        background-color: rgb(253, 213, 213);
+    }
 </style>
 @endsection
 
@@ -65,7 +68,7 @@
             <br>
             <div class="question_{{$question->order_question}}">
                 <?php if($order != $temp):$order = $temp;$question_id = $question->question_id ;$j = 1;?>
-                <h3 id="question_{{$question->order_question}}">Câu {{$question->order_question}}:</h3>
+                <h3 id="question_{{$question->order_question}}" class='question'>Câu {{$question->order_question}}:</h3>
                 <br>
                 <div class="question border p-2 bg-white mb-3" id="{{$question->question_id}}">
                     {{$question->question->content}}</div>
@@ -92,16 +95,23 @@
     <div class="row p-1">
         <?php for($i = 1; $i <= $exam->questionnum; $i++): ?>
         <?php
-                    $j = ceil($i/$number_of_questions_per_page);
-                ?>
-                <span class="col-md-1 p-1 m-1 border border-dark text-center"><a href="<?php echo '?page='.$j.'#question_'.$i ?>"><?php echo $i ?></a></span>
-            <?php endfor;?>
-        </div>
-        <form action="/exam/handin/{{$exam->id}}" method="post" id="handinform">
-            @csrf
-            <button class="btn border handin" onclick="function(){$(this).find('form').submit()}"><i class="fas fa-file-import"></i> Nộp bài</button>
-        </form>
+            $j = ceil($i/$number_of_questions_per_page);
+        ?>
+            <span class="col-md-1 p-1 m-1 border border-dark text-center
+                @foreach(App\Models\ExamQueRel::where('exam_staff_id', $exam_staff[0]->id)->where('order_question', $i)->get() as $question)
+                    @if($question->chose == 1)
+                        <?php echo 'bg-grey' ?>
+                    @endif
+                @endforeach
+            ">
+                <a href="<?php echo '?page='.$j.'#question_'.$i ?>"><?php echo $i ?></a></span>
+        <?php endfor;?>
     </div>
+    <form action="/exam/handin/{{$exam->id}}" method="post" id="handinform">
+        @csrf
+        <button class="btn border handin" onclick="function(){$(this).find('form').submit()}"><i class="fas fa-file-import"></i> Nộp bài</button>
+    </form>
+</div>
 </div>
 </div>
 @endsection
@@ -154,7 +164,7 @@
 
                 if (--timer < 0) {
                     // timer = duration;
-                    $('#handinform').submit();
+                    // $('#handinform').submit();
                 }
             }, 1000);
         }
