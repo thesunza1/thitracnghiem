@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class ExamStaffs extends Model
 {
     use HasFactory;
+    const UPDATED_AT = NULL;
+
+    protected $casts = [
+        'time_limit' => 'timestamp'
+    ];
     public function staff()
     {
         return $this->belongsTo(Staffs::class, 'staff_id');
