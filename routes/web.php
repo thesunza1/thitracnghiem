@@ -124,9 +124,9 @@ Route::post('/exam/handin/{id}', function($id){
     $procedure_name = 'THUCTAP.P_CACL_POINT';
     $init = DB::executeProcedure($procedure_name, $bindings);
 
-    $exam = App\Models\Exams::find($id)->first();
+    $exam = App\Models\Exams::find($id);
     return redirect()->route('exam.index', ['id' => $exam->contest_id]);
-    dd($bindings);
+    // dd($bindings);
 })->name('exam.handin');
 Route::get('/exam/result/{id}', [ExamsController::class, 'result'])->name('exam.result');
 

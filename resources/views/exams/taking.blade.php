@@ -48,17 +48,17 @@
 
 @section('content')
 <div class="container">
-
     <!-- questions -->
     <div class="offset-md-4 col-md-8">
         <div class="bg-question bd p-2">
             <?php
+                $end_time = $exam_staff[0]->time_limit;
                 $order = 0;
                 $number_of_questions_per_page = 10;
                 $arr = ['0','A','B','C','D','E','F','G','H','I','J','K','L','M','O'];
-                $num = App\Models\ExamQueRel::where('order_question','<=', $number_of_questions_per_page)->where('exam_staff_id', $exam_staff[0]->id)->count();
+                $num = App\Models\ExamQueRel::where('order_question','<=', $number_of_questions_per_page)->where('exam_staff_id', $exam_staff[0]->id)->orderBy('order_question')->orderBy('order_relies')->count();
                 // $questions = App\Models\ExamQueRel::where('exam_staff_id', $exam_staff[0]->id)->get();
-                $questions = App\Models\ExamQueRel::where('exam_staff_id', $exam_staff[0]->id)->paginate($num);
+                $questions = App\Models\ExamQueRel::where('exam_staff_id', $exam_staff[0]->id)->orderBy('order_question')->orderBy('order_relies')->paginate($num);
             ?>
             @foreach ($questions as $question)
             <?php $temp = $question->order_question;?>
@@ -97,14 +97,11 @@
                 <span class="col-md-1 p-1 m-1 border border-dark text-center"><a href="<?php echo '?page='.$j.'#question_'.$i ?>"><?php echo $i ?></a></span>
             <?php endfor;?>
         </div>
-        <form action="/exam/handin/{{$exam->id}}" method="post">
+        <form action="/exam/handin/{{$exam->id}}" method="post" id="handinform">
             @csrf
             <button class="btn border handin" onclick="function(){$(this).find('form').submit()}"><i class="fas fa-file-import"></i> Nộp bài</button>
         </form>
     </div>
-    <form action="/exam/handin/{{$exam_staff[0]->id}}" method="post">
-        <button class="btn border handin"><i class="fas fa-file-import"></i> Nộp bài</button>
-    </form>
 </div>
 </div>
 @endsection
@@ -156,16 +153,20 @@
                 display.textContent = minutes + ":" + seconds;
 
                 if (--timer < 0) {
-                    timer = duration;
+                    // timer = duration;
+                    $('#handinform').submit();
                 }
             }, 1000);
         }
-
+        let end_time = <?php echo $end_time; ?>;
+        console.log('end_time', end_time);
+        console.log('end_time', Math.floor(Date.now() / 1000));
+        let time_left = end_time - Math.floor(Date.now() / 1000);
         //time
         var time = 60*10;
         // $("#timer").html("10:00");
         display = document.querySelector('#timer');
-        startTimer(time, display);
+        startTimer(time_left, display);
 
     });
 </script>
