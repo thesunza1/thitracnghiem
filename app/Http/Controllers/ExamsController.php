@@ -92,17 +92,26 @@ class ExamsController extends Controller
         $exam_staff = ExamStaffs::where('exam_id', $id)->where('staff_id', Auth::user()->id)->first();
         if($exam_staff->point == '-1'){
             $exam = Exams::find($id);
-            $time = $exam->examtime_at;
-            $exam_staff->time_limit = date('Y-m-d H:i:s', time() + ($time*60));
-            // dd($exam_staff);
-            $exam_staff->save();
-
+            if($exam_staff->time_limit == NULL){
+                $time = $exam->examtime_at;
+                $exam_staff->time_limit = date('Y-m-d H:i:s', time() + ($time*60));
+                // dd($exam_staff);
+                $exam_staff->save();
+            }
             $exam_staff = ExamStaffs::where('exam_id', $id)->where('staff_id', Auth::user()->id)->get();
             return view('exams/taking')->with('exam', $exam)->with('exam_staff', $exam_staff);
         }
         else{
             return redirect()->route('exam.result', ['id' => $id]);
         }
+    }
+
+    public function result($id){
+        $exam = ExamStaffs::where('exam_id', $id)->where('staff_id', Auth::user()->id)->get()->first();
+        $id = $exam->id;
+        $tests = ExamQueRel::where('exam_staff_id', $id)->orderBy('order_question')->orderBy('order_relies')->get();
+        $exam = ExamStaffs::find($id);
+        return view('exams/test_detail')->with('tests', $tests)->with('exam', $exam);
     }
 
     public function test_detail($id){
