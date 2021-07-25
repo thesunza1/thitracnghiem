@@ -11,6 +11,8 @@ use App\Models\Staffs;
 use App\Models\Themes;
 use App\Models\Levels;
 use App\Models\Exams;
+use App\Models\Contest_specials;
+use App\Models\Contest_specicals;
 use App\Models\ExamThemes;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -49,17 +51,24 @@ class ContestsController extends Controller
 
     public function create(Request $request)
     {
+        // dd($request->all());
         $data = $this->getValues($request);
         $contest = new Contests();
         $contest->name = $data['contest'];
-        $contest->branchcontest_id = $data['branch'];
         $time = str_replace("T"," ", $data['begin_time']);
         $time = date_create($time.":00");
         $contest->begintime_at = $time;
         $contest->content = $data['content'];
         $contest->testmaker_id = Auth::user()->id;
-        // dd($contest);
         $contest->save();
+        // dd($data['staff_name']);
+        foreach($request->staff_name as $staff){
+            $participant = new Contest_specials();
+            if($staff != null){
+                $participant->staff_id = $staff;
+                $contest->contest_specials()->save($participant);
+            }
+        }
         return Redirect('/contests');
     }
 

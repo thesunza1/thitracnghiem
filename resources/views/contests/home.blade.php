@@ -69,7 +69,7 @@
                         <td class="column100 column3" data-column="column3">{{$contest->staff->name}}</td>
                         <td class="column100 column4" data-column="column4">
                             {{date('d-m-Y H:i:s',$contest->begintime_at)}}</td>
-                        <td class="column100 column5" data-column="column5">{{$contest->branch->name}}</td>
+                        <td class="column100 column5" data-column="column5">...</td>
                         <td class="column100 column6" data-column="column6">{{$contest->created_at}}</td>
                         <td class="column100 column7 px-2" data-column="column7">
                             <div class="d-flex">
