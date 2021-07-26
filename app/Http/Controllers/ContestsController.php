@@ -60,6 +60,7 @@ class ContestsController extends Controller
         $contest->begintime_at = $time;
         $contest->content = $data['content'];
         $contest->testmaker_id = Auth::user()->id;
+        $contest->special_staff = 1;
         $contest->save();
         // dd($data['staff_name']);
         foreach($request->staff_name as $staff){

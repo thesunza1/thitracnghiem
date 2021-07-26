@@ -36,6 +36,10 @@
         .item:hover{
             background-color: rgb(224, 223, 223);
         }
+        .btn-all{
+            background-color: rgb(255, 64, 64);
+            color: white;
+        }
     </style>
 @endsection
 
@@ -49,7 +53,7 @@
     <form action="/contest/create" method="post" id="create_form">
         <div class="row">
             @csrf
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-5">
                 <label for="contest">Kì thi</label>
                 <input type="text" name="contest" id="contest" class="form-control border" placeholder="Tên kì thi..." >
             </div>
@@ -58,7 +62,7 @@
                 <input type="datetime-local" name="begin_time" id="begin_time" class="form-control border">
             </div>
             <div class='col-md-12 row'>
-                <div class="form-group col-md-5 p-0">
+                <div class="form-group col-md-5 pr-0">
                     <label for="">Chi nhánh</label>
                     <div class="border rounded branch_name">
                         @foreach ($branchs as $branch)
@@ -68,6 +72,7 @@
                                         <span class='p-2'>{{$branch->name}}</span>
                                         <span class='p-1 border border-danger rounded all-belong-to-branch'>ALL</span>
                                         <span class='p-1 border border-danger rounded none-belong-to-branch'>NONE</span>
+                                        <span class='pl-5'><span class='ratio'>0</span>/{{$branch->staffs->count()}}</span>
                                         <i class="fas fa-caret-left float-right pr-2 caret"></i>
                                     </div>
                                     <div class='text-center staff d-none'>
@@ -83,8 +88,11 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="form-group col-md-5">
-                    <label for="">Thí sinh</label>
+                <div class="form-group col-md-5 pl-4">
+                    {{-- <label for="">Thí sinh <span class="badge"></span></label> --}}
+                    <button type="button" class="btn btn-primary">
+                        Thí sinh <span class="badge badge-light">4</span>
+                      </button>
                     <div class='border selected_staff'>
                     </div>
                     <div class="d-none">
@@ -134,7 +142,16 @@
                 console.log(today);
             }
             set_today_as_min();
-
+            function check_selected_item(){
+                if($('.item').length){
+                    $('.badge').html($('.item').length);
+                    console.log($('.item').length);
+                }else{
+                    $('.badge').html('0');
+                    console.log($('.item').length);
+                }
+            }
+            check_selected_item();
             $("#contest_create").click(function(){
                 $("#create_form").submit();
             });
@@ -151,6 +168,9 @@
 
             $('.staff_name').click(function(e){
                 e.stopPropagation();
+                let check = true;
+                let count = 0;
+                let now = $(this);
                 let id = $(this).attr('value');
                 let name = $(this).find('span').html();
                 if($(this).find('i').hasClass('fa-plus')){
@@ -158,32 +178,66 @@
                     .removeClass('selected_staff_item').addClass('item m-0 p-1 item'+id);
                     $(template).find('input').attr({value: id, id: id})
                     $(template).find('label').html(name).addClass('pl-1');
-                    $(template).appendTo('.selected_staff')
+                    $(template).appendTo('.selected_staff');
+                    count++;
                 }
                 else if($(this).find('i').hasClass('fa-minus')){
                     $('.item'+id).remove();
+                    check = false;
                 }
                 $(this).find('.fas').toggleClass('fa-plus fa-minus text-danger text-success');
+                if($(now).siblings('.staff_name').length){
+                    $(now).siblings('.staff_name').each(function(){
+                        if($(this).find('.fas').hasClass('fa-minus') && $(now).find('.fas').hasClass('fa-minus')){
+                            check = check && true;
+                            count++;
+                        }
+                        else{
+                            check = check && false;
+                        }
+                    });
+                }
+                check_selected_item();
+                $(now).parents('.branch').find('.ratio').html(count);
+                (check)
+                ? $(now).parents('.branch').find('.all-belong-to-branch').addClass('btn-all')
+                : $(now).parents('.branch').find('.all-belong-to-branch').removeClass('btn-all');
             });
-
+            //check all staff of this branch
             function all_branch(e){
                 e.stopPropagation();
-
+                let check = true;
+                let now;
                 $(this).parents('.branch').find('.staff_name').each(function(){
-                    let now = $(this);
-                    if($(this).find('.fas').hasClass('fa-plus'))
+                    now = $(this);
+                    if($(this).find('.fas').hasClass('fa-plus')){
+                        check = check && true;
                         $(now).click();
+                    }else{
+                        check = check && false;
+                    }
                 });
+                $(now).parents('.branch').find('.all-belong-to-branch').addClass('btn-all')
             }
+
+            //uncheck all staff of this branch
             function none_branch(e){
                 e.stopPropagation();
-
+                let check = true;
+                let now;
                 $(this).parents('.branch').find('.staff_name').each(function(){
-                    let now = $(this);
-                    if($(this).find('.fas').hasClass('fa-minus'))
+                    now = $(this);
+                    if($(this).find('.fas').hasClass('fa-minus')){
+                        check = check && true;
                         $(now).click();
+                    }else{
+                        check = check && false;
+                    }
                 });
+                $(now).parents('.branch').find('.all-belong-to-branch').removeClass('btn-all');
             }
+
+            // bind event
             $('.all-belong-to-branch').on('click', all_branch);
             $('.none-belong-to-branch').on('click', none_branch);
 
