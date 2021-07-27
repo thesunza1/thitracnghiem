@@ -102,8 +102,8 @@ Route::middleware(checkIssuerMaker::class)->group(
 
             $procedure_name = 'THUCTAP.P_I_EXAMQUE_REL';
             $init = DB::executeProcedure($procedure_name, $bindings);
+            // dd($init);
             return redirect()->back();
-            //dd($init);
         })->name('exam.duplicate');
         Route::get('/exam/alltest/{id}',[ExamsController::class,'alltest'])->name('exam.alltest');
         Route::get('/test/{id}',[ExamsController::class,'test_detail'])->name('exam.test_detail');

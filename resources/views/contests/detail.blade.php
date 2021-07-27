@@ -33,7 +33,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <label for="branch">Chi nhánh</label>
                     <select name="branch" id="branch" class="form-control" readonly>
                         @foreach ($branchs as $branch)
@@ -45,7 +45,7 @@
 
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
             </div>
 
         </div>
