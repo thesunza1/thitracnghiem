@@ -11,6 +11,7 @@ use App\Models\Staffs;
 use App\Models\Themes;
 use App\Models\Levels;
 use App\Models\Exams;
+use App\Models\Contest_specials;
 use App\Models\ExamThemes;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +21,13 @@ class ContestsController extends Controller
 {
     public function __construct()
     {
-     $this->middleware('auth')   ;
+     $this->middleware('auth');
     }
     //
     public function home(Request $request) {
-        $contests = Contests::where('branchcontest_id', $request->user()->branch_id )->get();
-        return view('home')->with('contests',$contests);
+        // $contests = Contests::where('branchcontest_id', $request->user()->branch_id )->get();
+        $special_contests = Contest_specials::where('staff_id', Auth::user()->id)->get();
+        return view('home')->with('contests',$special_contests);
     }
 
 
@@ -49,17 +51,25 @@ class ContestsController extends Controller
 
     public function create(Request $request)
     {
+        // dd($request->all());
         $data = $this->getValues($request);
         $contest = new Contests();
         $contest->name = $data['contest'];
-        $contest->branchcontest_id = $data['branch'];
         $time = str_replace("T"," ", $data['begin_time']);
         $time = date_create($time.":00");
         $contest->begintime_at = $time;
         $contest->content = $data['content'];
         $contest->testmaker_id = Auth::user()->id;
-        // dd($contest);
+        $contest->special_staff = 1;
         $contest->save();
+        // dd($data['staff_name']);
+        foreach($request->staff_name as $staff){
+            $participant = new Contest_specials();
+            if($staff != null){
+                $participant->staff_id = $staff;
+                $contest->contest_specials()->save($participant);
+            }
+        }
         return Redirect('/contests');
     }
 
@@ -73,10 +83,24 @@ class ContestsController extends Controller
 
     public function update($id, Request $request)
     {
+        // $length = count($request->staff_name) - 1;
+        $special_contests = Contest_specials::where('contest_id', $id)->get();
+        foreach($special_contests as $contest){
+            $contest->delete();
+        }
+        foreach($request->staff_name as $staff){
+            $participant = new Contest_specials();
+            if($staff != null){
+                $participant->contest_id = $id;
+                $participant->staff_id = $staff;
+                $participant->save();
+            }
+        }
+        // dd($length . '-' . $special_contests->count());
+
         $data = $this->getValues($request);
         $contest = Contests::find($id);
         $contest->name = $data['contest'];
-        $contest->branchcontest_id = $data['branch'];
         $time = str_replace("T"," ", $data['begintime_at']);
         $time = date_create($time.":00");
         $contest->begintime_at = $time;
@@ -84,7 +108,7 @@ class ContestsController extends Controller
         $contest->testmaker_id = $data['test_maker_id'];
         $contest->save();
         return Redirect()->back();
-        dd($contest);
+        // dd($contest);
     }
 
     public function detail($id)
