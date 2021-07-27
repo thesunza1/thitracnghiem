@@ -93,7 +93,7 @@
                     <button type="button" class="btn btn-primary">
                         Thí sinh <span class="badge badge-light">4</span>
                       </button>
-                    <div class='border selected_staff'>
+                    <div class='border selected_staff row'>
                     </div>
                     <div class="d-none">
                         <div class="form-group d-flex align-items-center selected_staff_item">
@@ -175,7 +175,7 @@
                 let name = $(this).find('span').html();
                 if($(this).find('i').hasClass('fa-plus')){
                     let template = $('.selected_staff_item').clone()
-                    .removeClass('selected_staff_item').addClass('item m-0 p-1 item'+id);
+                    .removeClass('selected_staff_item').addClass('item col-md-3 m-0 p-1 item'+id);
                     $(template).find('input').attr({value: id, id: id})
                     $(template).find('label').html(name).addClass('pl-1');
                     $(template).appendTo('.selected_staff');
@@ -188,6 +188,7 @@
                 $(this).find('.fas').toggleClass('fa-plus fa-minus text-danger text-success');
                 if($(now).siblings('.staff_name').length){
                     $(now).siblings('.staff_name').each(function(){
+                        // console.log($(this));
                         if($(this).find('.fas').hasClass('fa-minus') && $(now).find('.fas').hasClass('fa-minus')){
                             check = check && true;
                             count++;
