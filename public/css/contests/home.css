@@ -38,7 +38,7 @@ div.header h1 {
     position: relative;
     /* grid-template-columns: 600px; */
     border-radius: 5px;
-    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.356);
+    box-shadow: 0 15px 20px rgb(125 125 125);
     background-image: url('https://img.freepik.com/free-vector/abstract-blue-geometric-shapes-background_1035-17545.jpg?size=626&ext=jpg');
     background-repeat: no-repeat;
     background-size: cover;
