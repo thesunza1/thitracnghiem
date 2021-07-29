@@ -15,7 +15,6 @@ class Contests extends Model
 {
     use HasFactory;
 
-
     const UPDATED_AT = NULL;
     // const CREATED_AT = NULL;
     protected $dates = ['created_at','begintime_at'];
@@ -43,4 +42,7 @@ class Contests extends Model
         return $this->hasMany(Exams::class);
     }
 
+    public function contest_specials(){
+        return $this->hasMany(Contest_specials::class, 'contest_id');
+    }
 }

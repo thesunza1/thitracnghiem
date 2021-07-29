@@ -12,4 +12,8 @@ class Branchs extends Model
 
     const UPDATED_AT = null;
 
+    public function staffs(){
+        return $this->hasMany(Staffs::class, 'branch_id');
+    }
+
 }

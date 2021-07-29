@@ -29,7 +29,7 @@
 
 
                         <th class="column100 column7" data-column="column7">time</th>
-                        <th class="column100 column4" data-column="column4">branch</th>
+                        {{-- <th class="column100 column4" data-column="column4">branch</th> --}}
                         <th class="column100 column8" data-column="column8">action</th>
                     </tr>
 
@@ -45,7 +45,7 @@
                         <td class="column100 column3" data-column="column3">{{ $exam->questionnum }}</td>
 
                         <td class="column100 column7" data-column="column7">{{ $exam->examtime_at }}</td>
-                        <td class="column100 column4" data-column="column4">{{ $exam->contest->branch->name }}</td>
+                        {{-- <td class="column100 column4" data-column="column4">{{ $exam->contest->branch->name }}</td> --}}
                         <td class="column100 column8 " data-column="column8">
                             {{-- {{dd(App\Models\ExamStaffs::where('staff_id', Auth::user()->id)->where('exam_id', $exam->id)->first())}} --}}
                             @if (App\Models\ExamStaffs::where('staff_id', Auth::user()->id)->where('exam_id', $exam->id)->first()->point == '-1')
@@ -53,10 +53,15 @@
                                 <a class="btn btn-warning mr-1 ud-btn" name="id" value='{{ $exam->id }}' href="#">
                                     chưa tới thời gian thi </i></a>
                                 @else
-                                    @if(App\Models\ExamStaffs::where('exam_id', $exam->id)->count() !== 0)
+                                    <?php $exam_staff =  App\Models\ExamStaffs::where('exam_id', $exam->id)->first();?>
+                                    @if($exam_staff->count() !== 0)
                                     <a class="btn btn-success mr-1 ud-btn" name="id" value='{{ $exam->id }}'
                                         href="{{route('exam.taking', ['id' => $exam->id])}}">
+                                        @if($exam_staff->time_limit == null)
                                         bắt đầu thi </i>
+                                        @else
+                                        tiếp tục thi </i>
+                                        @endif
                                     </a>
                                     @endif
                                 @endif

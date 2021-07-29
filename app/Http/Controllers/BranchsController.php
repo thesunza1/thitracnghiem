@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Branchs;
+use App\Http\Requests\BranchPostRequest;
 
 
 
@@ -32,7 +33,7 @@ class BranchsController extends Controller
         $data = $request->all();
         return $data;
     }
-    public function update(Request $request){
+    public function update(BranchPostRequest $request){
 
         $branch = Branchs::find($request->id) ;
         $branch->name = $request->name;
@@ -43,7 +44,7 @@ class BranchsController extends Controller
 
         return redirect(route('branch.index'));
     }
-    public function storge(Request $request)
+    public function storge(BranchPostRequest $request)
     {
         $date = str_replace('T',' ',$request->created);
         $date = date_create($date.':00');
