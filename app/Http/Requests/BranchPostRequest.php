@@ -26,7 +26,7 @@ class BranchPostRequest extends FormRequest
         return [
             'name' => 'required|min:2',
             'address' => 'required|min:10',
-            'created_at' => 'required',
+            'created' => 'required',
 
         ];
     }
