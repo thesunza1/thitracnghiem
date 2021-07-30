@@ -75,11 +75,12 @@
                 </div>
             </div>
             @if($exams = App\Models\Exams::where('contest_id', $contest->id)->get()->count() > 0)
-                <p class="p-2">Trạng thái : Đã tạo đề mẫu</p>
+                <p class="py-1"><strong class='text-info'>Trạng thái</strong> : Đã tạo đề mẫu</p>
                 @foreach (App\Models\Exams::where('contest_id', $contest->id)->get() as $exam)
                     @if(App\Models\ExamStaffs::where('exam_id', $exam->id)->count() !== 0)
-                        <p class='p-1'>Lưu ý : Ko thể thay đổi thí sinh(vì đã chia đề)</p>
+                        <p class='py-1'><strong class='text-danger'>Lưu ý</strong> : Ko thể thay đổi thí sinh(vì đã chia đề)</p>
                         <?php $modifiable = 0; ?>
+                        @break
                     @else
                         <p class='p-1'>Lưu ý : Có thể thay đổi thí sinh</p>
                         <?php $modifiable = true; ?>
@@ -258,7 +259,7 @@
                 let template = $('.selected_staff_item').clone()
                 .removeClass('selected_staff_item').addClass('item col-md-4 m-0 p-1 item'+id);
                 $(template).find('input').attr({value: id, id: id})
-                $(template).find('label').html(name).addClass('pl-1');
+                $(template).find('label').html(name + '(' + id + ')').addClass('pl-1');
                 $(template).appendTo('.selected_staff');
             }
             else if($(this).find('i').hasClass('fa-minus')){
@@ -305,7 +306,7 @@
          *  allow modify selected_staff field
          **/
         if(modifiable){
-            // bind event that
+            // bind event
             $('.staff_name').on('click', staff_name_on_click);
             $('.all-belong-to-branch').on('click', all_branch);
             $('.none-belong-to-branch').on('click', none_branch);
