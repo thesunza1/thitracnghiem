@@ -2,6 +2,12 @@
 
 @section('style')
 
+<style>
+    .dataTable {
+        border-radius: 15px;
+        box-shadow: 0px 0px 25px #dccccc;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -15,46 +21,45 @@
             <p class="wow fadeIn" data-wow-duration="2s">View your all questions here.</p>
         </div>
     </div>
-        <a href="/question/add" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Add Question</a>
-        <div>
-            <table class="table table-striped table-bordered table-hover" id="question_list">
-                <thead class="">
-                    <tr>
-                        <th>Stt</th>
-                        <th>Nội dung</th>
-                        <th>Mức độ</th>
-                        <th>Chủ đề</th>
-                        <th>Người tạo</th>
-                        <th>Ngày tạo</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1; ?>
-                    @foreach ($questions as $question)
-                    <tr>
-                        <td>{{$i++}}</td>
-                        <td>{{$question->content}}</td>
-                        <td>{{$question->level->difficult}}</td>
-                        <td>{{$question->theme->name}}</td>
-                        <td>{{$question->staff->name}}</td>
-                        <td>{{$question->created_at}}</td>
-                        <td class="d-flex">
-                            <a href="#"
-                                class="btn btn-danger mr-1 delete" id="{{$question->id}}">
-                                <i class="fas fa-trash-alt"></i></a>
-                            {{-- <a href="/question/detail/{{$question->id}}"
-                                class="btn btn-info mr-1 detail" id="{{$question->id}}">
-                                <i class="fas fa-info-circle"></i></a> --}}
-                            <a href="/question/edit/{{$question->id}}"
-                                class="btn btn-warning mr-1 edit" target="_blank" id="{{$question->id}}">
-                                <i class="fas fa-cog"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+    <a href="/question/add" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Add Question</a>
+    <div>
+        <table class="table table-striped table-bordered table-hover" id="question_list">
+            <thead class="">
+                <tr>
+                    <th>Stt</th>
+                    <th>Nội dung</th>
+                    <th>Mức độ</th>
+                    <th>Chủ đề</th>
+                    <th>Người tạo</th>
+                    <th>Ngày tạo</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $i = 1; ?>
+                @foreach ($questions as $question)
+                <tr>
+                    <td style="text-align: center">{{$i++}}</td>
+                    <td>{{$question->content}}</td>
+                    <td>{{$question->level->difficult}}</td>
+                    <td>{{$question->theme->name}}</td>
+                    <td>{{$question->staff->name}}</td>
+                    <td>{{$question->created_at}}</td>
+                    <td class="d-flex">
+                        <a href="#" class="btn btn-danger mr-1 delete" id="{{$question->id}}">
+                            <i class="fas fa-trash-alt"></i></a>
+                        {{-- <a href="/question/detail/{{$question->id}}"
+                        class="btn btn-info mr-1 detail" id="{{$question->id}}">
+                        <i class="fas fa-info-circle"></i></a> --}}
+                        <a href="/question/edit/{{$question->id}}" class="btn btn-warning mr-1 edit" target="_blank"
+                            id="{{$question->id}}">
+                            <i class="fas fa-cog"></i></a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     <div id="question_delete" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

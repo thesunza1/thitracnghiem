@@ -6,6 +6,13 @@
 <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 <link href="{{ asset('css/staffs/home.css') }}" rel="stylesheet">
 <link href="{{ asset('css/util.css') }}" rel="stylesheet">
+<style>
+    .table100 {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
+    }
+</style>
 @endsection
 @section('content')
 @php
