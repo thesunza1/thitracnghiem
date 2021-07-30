@@ -116,10 +116,12 @@
                         ;
                         let delete_btn = $("<button></button>").addClass("btn text-danger border ml-1 btn-delete btn-delete-"+i).attr({id:i}).html("X").css("display","none");
                         let div = $("<div/>").addClass("d-flex").append(input, delete_btn);
-                        let checkbox = $("<input/>").attr("type","checkbox").attr({name:"iscorrect["+i+"]["+j+"]", value:"true"}).css({width:"20px", height:"20px", margin:"10px"});
-                        let label = $("<label/>").attr({for:"iscorrect_"+j}).html("Đúng").addClass("mb-3");
 
-                        $(answer).append(div, checkbox, label).appendTo($(b_div));
+                        let checkbox = $("<input/>").attr("type","checkbox").attr({name:"iscorrect["+i+"]["+j+"]", value:"true", id:"iscorrect["+i+"]["+j+"]"}).css({width:"20px", height:"20px", margin:"10px"});
+                        let label = $("<label/>").attr({for:"iscorrect["+i+"]["+j+"]"}).html("Đúng").addClass("mb-0");
+                        let correct_div = $("<div/>").addClass("d-flex align-items-center").append(checkbox, label)
+
+                        $(answer).append(div, correct_div).appendTo($(b_div));
                     }
 
                     $(div).append($(div2).append(tit, b_div, button)).appendTo("#create_form");
@@ -133,13 +135,18 @@
                 let num_q = $(this).closest(".q").attr("id");// thuộc câu hỏi số [1]
                 console.log(num_q);
                 let id = "answer["+num_q +"]["+length+"]";
-                let input = $("<input>").attr("type","text").attr("name", id).attr("id",id).attr("placeholder","Đáp án "+arr[length]).addClass("answer_"+num_q + " form-control answer").css("background-color","#ddd").css('border-color','#629bd4');
                 let b = length - 1;
+
                 let checkbox = $("<input/>").attr("type","checkbox").attr({name:"iscorrect["+num_q+"]["+length+"]", value:"true"}).css({width:"20px", height:"20px", margin:"10px"});
-                let label = $("<label/>").attr({for:"iscorrect_"+j}).html("Đúng").addClass("mb-3");
+                let label = $("<label/>").attr({for:"iscorrect_"+j}).html("Đúng").addClass("mb-0");
+                let correct_div = $("<div/>").addClass("d-flex align-items-center").append(checkbox, label)
+
+                let input = $("<input>").attr("type","text").attr("name", id).attr("id",id).attr("placeholder","Đáp án "+arr[length]).addClass("answer_"+num_q + " form-control answer").css("background-color","#ddd").css('border-color','#629bd4');
                 let delete_btn = $("<button></button>").addClass("btn text-danger border ml-1 btn-delete btn-delete-"+num_q).attr({id:num_q}).html("X").css("display","none");
                 let f_div = $("<div/>").addClass("d-flex").append(input, delete_btn);
-                let div = $("<div></div>").addClass("form-group col-md-5").append(f_div, checkbox, label);
+
+                let div = $("<div></div>").addClass("form-group col-md-5").append(f_div, correct_div);
+
                 console.log($(this).closest("div").siblings("#b_div").append($(div)));
                 display_last_child_of_btn_delete();
             });

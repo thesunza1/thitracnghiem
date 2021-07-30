@@ -84,27 +84,28 @@
                     </div>
                     <div class="d-flex">
                         @if (Auth::user()->role->name == 'admin' || $exam->issuer_id == Auth::user()->id)
-                        @if (App\Models\ExamDetails::where('exam_id', $exam->id)->count() == 0)
-                        <form action="{{route('exam.init', ['id' => $exam->id])}}" method="post">
-                            @csrf
-                            <a href="#" class="btn btn-success init mr-1"><i class="fas fa-cogs"></i> Khởi tạo</a>
-                        </form>
-                        @else
-                        <a href="{{route('exam.detail', ['id'=>$exam->id])}}" class="btn btn-info mr-1"><i
-                                class="fas fa-sign-out-alt"></i> Đến đề thi</a>
-                        @endif
-
+                            @if (App\Models\ExamDetails::where('exam_id', $exam->id)->count() == 0)
+                                <form action="{{route('exam.init', ['id' => $exam->id])}}" method="post">
+                                    @csrf
+                                    <a href="#" class="btn btn-success init mr-1"><i class="fas fa-cogs"></i> Khởi tạo</a>
+                                </form>
+                            @else
+                                <a href="{{route('exam.detail', ['id'=>$exam->id])}}" class="btn btn-info mr-1"><i
+                                    class="fas fa-sign-out-alt"></i> Đề thi</a>
+                                @if (App\Models\ExamStaffs::where('exam_id', $exam->id)->count() !== 0)
+                                    <a href="{{route('exam.alltest', ['id'=>$exam->id])}}" class="btn btn-info mr-1"> Xem điểm</a>
+                                @endif
+                            @endif
                         @else
                             <a href="#" class="btn btn-success mr-1"><i class="fas fa-cogs"></i> you must be it issuer of admin</a>
                         @endif
-                        {{-- <a href="{{route('exam.edit', ['id' => $exam->id])}}" class="btn btn-warning mr-1"><i
-                            class="fas fa-cog"></i></a> --}}
+
                         @if (Auth::user()->role->name == 'admin' || $exam->issuer_id == Auth::user()->id)
-                        <form action="{{route('exam.delete', ['id' => $exam->id])}}" method="post">
-                            @csrf
-                            <button class="btn btn-danger mr-1" onclick="function(){$(this).find('form').submit();}"><i
-                                    class="far fa-trash-alt"></i></button>
-                        </form>
+                            <form action="{{route('exam.delete', ['id' => $exam->id])}}" method="post">
+                                @csrf
+                                <button class="btn btn-danger mr-1" onclick="function(){$(this).find('form').submit();}"><i
+                                        class="far fa-trash-alt"></i></button>
+                            </form>
                         @endif
 
                     </div>
