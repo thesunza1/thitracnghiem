@@ -4,8 +4,12 @@
 
 <style>
     .dataTable {
-        border-radius: 15px;
+        /* border-radius: 15px; */
         box-shadow: 0px 0px 25px #dccccc;
+
+    }
+    .dataTable table {
+        border-radius: 15px;
     }
 </style>
 @endsection
@@ -22,7 +26,7 @@
         </div>
     </div>
     <a href="/question/add" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Add Question</a>
-    <div>
+    <div class="dataTable ">
         <table class="table table-striped table-bordered table-hover" id="question_list">
             <thead class="">
                 <tr>
@@ -60,6 +64,8 @@
             </tbody>
         </table>
     </div>
+
+
     <div id="question_delete" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -82,6 +88,11 @@
     <div>
 
     </div>
+
+    <div class="d-flex flex-row-reverse py-3">
+         {{ $questions->links() }}
+    </div>
+
 </div>
 
 @endsection
@@ -89,8 +100,8 @@
 @section('js-content')
 <script>
     $(document).ready(function(){
-        $("#question_list").DataTable();
-        new WOW().init();
+        // $("#question_list").DataTable();
+        // new WOW().init();
         //delete button interaction
         $(document).on('click','.delete', function(e)
         {
@@ -111,43 +122,44 @@
         });
 
         //info button interaction
-        $(document).on('click','.detail', function(e)
-        {
-            e.preventDefault();
-            let id = $(this).attr("id");
-            // console.log(id);
-            $.ajax({
-                method: "GET",
-                url: "/question/detail/"+id,
-                dataType: 'json',
-                success: function(msg){
-                    let arr = [];
-                    for(var j in msg){
-                        arr.push(msg[j]);
-                    }
-                    // console.log(arr);
-                    let div = $("<div></div>").append(
-                        $("<lable></lable>").html('Id'),
-                        $("<div></div>").html(arr[0]).addClass('border border-dark rounded form-control'),
-                        $("<lable></lable>").html('Content'),
-                        $("<div></div>").html(arr[1]).addClass('border border-dark rounded p-1'),
-                        $("<lable></lable>").html('Mức độ'),
-                        $("<div></div>").html(arr[2]).addClass('border border-dark rounded form-control'),
-                        $("<lable></lable>").html('Chủ đề'),
-                        $("<div></div>").html(arr[3]).addClass('border border-dark rounded form-control'),
-                        $("<lable></lable>").html('Người tạo'),
-                        $("<div></div>").html(arr[4]).addClass('border border-dark rounded form-control'),
-                        $("<lable></lable>").html('Ngày tạo'),
-                        $("<div></div>").html(arr[5]).addClass('border border-dark rounded form-control'),
-                    );
-                    $("#question_detail").find('.modal-body').append($(div));
-                    $("#question_detail").modal('show');
-                }
-            });
-        });
+        // $(document).on('click','.detail', function(e)
+        // {
+        //     e.preventDefault();
+        //     let id = $(this).attr("id");
+        //     // console.log(id);
+        //     $.ajax({
+        //         method: "GET",
+        //         url: "/question/detail/"+id,
+        //         dataType: 'json',
+        //         success: function(msg){
+        //             let arr = [];
+        //             for(var j in msg){
+        //                 arr.push(msg[j]);
+        //             }
+        //             // console.log(arr);
+        //             let div = $("<div></div>").append(
+        //                 $("<lable></lable>").html('Id'),
+        //                 $("<div></div>").html(arr[0]).addClass('border border-dark rounded form-control'),
+        //                 $("<lable></lable>").html('Content'),
+        //                 $("<div></div>").html(arr[1]).addClass('border border-dark rounded p-1'),
+        //                 $("<lable></lable>").html('Mức độ'),
+        //                 $("<div></div>").html(arr[2]).addClass('border border-dark rounded form-control'),
+        //                 $("<lable></lable>").html('Chủ đề'),
+        //                 $("<div></div>").html(arr[3]).addClass('border border-dark rounded form-control'),
+        //                 $("<lable></lable>").html('Người tạo'),
+        //                 $("<div></div>").html(arr[4]).addClass('border border-dark rounded form-control'),
+        //                 $("<lable></lable>").html('Ngày tạo'),
+        //                 $("<div></div>").html(arr[5]).addClass('border border-dark rounded form-control'),
+        //             );
+        //             $("#question_detail").find('.modal-body').append($(div));
+        //             $("#question_detail").modal('show');
+        //         }
+        //     });
+        // });
         $("#question_detail").on('hide.bs.modal', function (){
             $("#question_detail").find(".modal-body").html('');
         });
     });
 </script>
 @endsection
+
