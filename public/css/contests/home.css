@@ -43,6 +43,7 @@ div.header h1 {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: local;
+    filter: opacity(97%)
     /**/
 }
 
