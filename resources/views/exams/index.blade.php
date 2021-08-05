@@ -54,27 +54,32 @@
                         <td class="column100 column7" data-column="column7">{{ $exam->examtime_at }}</td>
                         {{-- <td class="column100 column4" data-column="column4">{{ $exam->contest->branch->name }}</td> --}}
                         <td class="column100 column8 " data-column="column8">
-                            {{-- {{dd(App\Models\ExamStaffs::where('staff_id', Auth::user()->id)->where('exam_id', $exam->id)->first())}} --}}
-                            @if (App\Models\ExamStaffs::where('staff_id', Auth::user()->id)->where('exam_id', $exam->id)->first()->point == '-1')
-                                @if (time() < $exam->contest->begintime_at)
-                                <a class="btn btn-warning mr-1 ud-btn" name="id" value='{{ $exam->id }}' href="#">
-                                    chưa tới thời gian thi </i></a>
-                                @else
-                                    <?php $exam_staff =  App\Models\ExamStaffs::where('exam_id', $exam->id)->first();?>
-                                    @if($exam_staff->count() !== 0)
-                                    <a class="btn btn-success mr-1 ud-btn" name="id" value='{{ $exam->id }}'
-                                        href="{{route('exam.taking', ['id' => $exam->id])}}">
-                                        @if($exam_staff->time_limit == null)
-                                        bắt đầu thi </i>
-                                        @else
-                                        tiếp tục thi </i>
+                            {{-- {{dd(App\Models\ExamStaffs::where('staff_id', Auth::user()->id)->where('exam_id', $exam->id)->firt())}} --}}
+                            @php
+                                $exam_staff = App\Models\ExamStaffs::where('staff_id', Auth::user()->id)->where('exam_id', $exam->id);
+                            @endphp
+                            @if($exam_staff->count() > 0)
+                                @if ($exam_staff->first()->point == '-1')
+                                    @if (time() < $exam->contest->begintime_at)
+                                    <a class="btn btn-warning mr-1 ud-btn" name="id" value='{{ $exam->id }}' href="#">
+                                        chưa tới thời gian thi </i></a>
+                                    @else
+                                        <?php $exam_staff =  App\Models\ExamStaffs::where('exam_id', $exam->id)->first();?>
+                                        @if($exam_staff->count() !== 0)
+                                        <a class="btn btn-success mr-1 ud-btn" name="id" value='{{ $exam->id }}'
+                                            href="{{route('exam.taking', ['id' => $exam->id])}}">
+                                            @if($exam_staff->time_limit == null)
+                                            bắt đầu thi </i>
+                                            @else
+                                            tiếp tục thi </i>
+                                            @endif
+                                        </a>
                                         @endif
-                                    </a>
                                     @endif
+                                @else
+                                    <a class="btn btn-info  mr-1 ud-btn" name="id" value='{{ $exam->id }}' href="{{route('exam.result', ['id' => $exam->id])}}">
+                                        xem điểm  </i></a>
                                 @endif
-                            @else
-                                <a class="btn btn-info  mr-1 ud-btn" name="id" value='{{ $exam->id }}' href="{{route('exam.result', ['id' => $exam->id])}}">
-                                    xem điểm  </i></a>
                             @endif
                         </td>
                     </tr>

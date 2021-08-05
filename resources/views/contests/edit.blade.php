@@ -78,14 +78,21 @@
                 <p class="py-1"><strong class='text-info'>Trạng thái</strong> : Đã tạo đề mẫu</p>
                 @foreach (App\Models\Exams::where('contest_id', $contest->id)->get() as $exam)
                     @if(App\Models\ExamStaffs::where('exam_id', $exam->id)->count() !== 0)
-                        <p class='py-1'><strong class='text-danger'>Lưu ý</strong> : Ko thể thay đổi thí sinh(vì đã chia đề)</p>
+                        @php
+                            $notice = "Ko thể thay đổi thí sinh(vì đã chia đề)";
+                        @endphp
+                        {{-- <p class='py-1'><strong class='text-danger'>Lưu ý</strong> : Ko thể thay đổi thí sinh(vì đã chia đề)</p> --}}
                         <?php $modifiable = 0; ?>
                         @break
                     @else
-                        <p class='p-1'>Lưu ý : Có thể thay đổi thí sinh</p>
+                        @php
+                            $notice = "Có thể thay đổi thí sinh";
+                        @endphp
+                        {{-- <p class='p-1'>Lưu ý : Có thể thay đổi thí sinh</p> --}}
                         <?php $modifiable = true; ?>
                     @endif
                 @endforeach
+            <p class="p-1"><strong class='text-danger'>Lưu ý</strong> : {{$notice}}</p>
             @else
                 <p class="p-2">Trạng thái : Chưa tạo đề mẫu</p>
                 <p class='p-2'>Lưu ý : Có thể thay đổi thí sinh</p>
