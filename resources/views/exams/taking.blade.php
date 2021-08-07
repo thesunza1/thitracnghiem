@@ -74,7 +74,7 @@
                     {{$question->question->content}}</div>
                 <?php endif; ?>
                 <div class="answer-field">
-                    <span class="answer border p-2 mb-1" style="display:flex;align-items: center">
+                    <span class="answer border p-2 mb-1" style="display:flex;align-items: center" data='{{$question->order_question}}'>
                         <input type="radio" name="answer[{{$temp}}]"
                             class="mr-1 {{($question->chose == 1) ? 'checked' :''}}" id="{{$question->relies_id}}"
                             data="{{$question->question_id}}">
@@ -103,7 +103,7 @@
                         <?php echo 'bg-grey' ?>
                     @endif
                 @endforeach
-            ">
+            " id='bg-question-{{$i}}'>
                 <a href="<?php echo '?page='.$j.'#question_'.$i ?>"><?php echo $i ?></a></span>
         <?php endfor;?>
     </div>
@@ -125,7 +125,13 @@
             let name = $(this).find('input').attr('name');
             let id_answer = $(this).find('input').attr('id');
             let id_question = $(this).find('input').attr('data');
+            let question_number = $(this).find('.answer').attr('data');
             let id_exam = <?php echo $exam_staff[0]->id ?>;
+
+            console.log(question_number);
+            if(!$('#bg-question-'+question_number).hasClass('bg-grey')){
+                $('#bg-question-'+question_number).addClass('bg-grey');
+            }
             $('input[name="'+name+'"]').attr("checked",false);
             $(this).find('input').attr("checked",true);
             console.log('id_quiz - id_answer - id_test');
@@ -164,7 +170,7 @@
 
                 if (--timer < 0) {
                     // timer = duration;
-                    // $('#handinform').submit();
+                    $('#handinform').submit();
                 }
             }, 1000);
         }
