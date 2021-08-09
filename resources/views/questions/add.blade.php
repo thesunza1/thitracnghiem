@@ -67,34 +67,45 @@
 
         //Set limit Number of questions for Generator
         var min = 1;
-        var max = 10;
+        var max = max_questions;
         $("#quantity").change(function(){
-            if($("#quantity").val() < min)
+            var current = $("#quantity").val();
+            if(current < min)
                 $("#quantity").val(min);
-            else if($("#quantity").val() > max)
+            else if(current > max){
                 $("#quantity").val(max);
+            }
         });
 
         //Setup questions base on the input of number of questions
         $("#question_generator").click(function(){
             let quantity = parseInt($("#quantity").val());
+            if(quantity > (max_questions - questions))
+                quantity = (max_questions - questions);
             if(questions < max_questions && (questions + quantity <= max_questions)){
                 questions += quantity;
                 for(i; i <= questions; i++){
                     //button for each collapse
-                    $("<button></button>")
-                    .addClass("btn btn-primary mr-3 btn-question")
+                    let btn_question = $("<button></button>")
+                    .addClass("btn btn-primary btn-question")
                     .attr("data-toggle","collapse")
                     .attr("data-target","#my-collapse-"+i)
                     .attr("aria-expanded","true")
                     .attr("aria-controls","my-collapse")
-                    .html("Câu " + i).appendTo("#order_questions");
+                    .html("Câu " + i);
+
+                    let dlt_question = $('<button>')
+                    .addClass('btn btn-danger dlt-btn d-none')
+                    .attr('data', i)
+                    .html('X');
+
+                    let question_div = $('<span>').addClass('mr-3').append(btn_question, dlt_question).appendTo("#order_questions");
 
                     //collapse part
                     let div = $("<div></div>").addClass("collapse p-3 mt-3 container").attr("id","my-collapse-"+i).css("box-shadow","0px 0px 3px grey").css("border-radius","3px");
                     let div2 = $("<div></div>").attr("id",i).addClass("q");
                     let tit = $("<h3><b>Câu " +i+ "</b></h3>");
-                    // let form = $("<form></form>").attr("method","post").attr("action","#").attr("id","form_question_" +i).addClass("row").append('@csrf');
+
                     let b_div = $("<div></div>").addClass("row").attr({id: "b_div"});
                     let button = $("<div>").addClass("pp").append($("<button></button>").addClass("btn btn-info btn-add").attr({id:'more_answer_'+ i}).html("Thêm đáp án"));
                     let question = $("<div></div>").addClass("form-group col-md-12").append($("<input>").attr("type","text").attr("name","question[]")
@@ -116,16 +127,19 @@
                         ;
                         let delete_btn = $("<button></button>").addClass("btn text-danger border ml-1 btn-delete btn-delete-"+i).attr({id:i}).html("X").css("display","none");
                         let div = $("<div/>").addClass("d-flex").append(input, delete_btn);
-                        let checkbox = $("<input/>").attr("type","checkbox").attr({name:"iscorrect["+i+"]["+j+"]", value:"true"}).css({width:"20px", height:"20px", margin:"10px"});
-                        let label = $("<label/>").attr({for:"iscorrect_"+j}).html("Đúng").addClass("mb-3");
 
-                        $(answer).append(div, checkbox, label).appendTo($(b_div));
+                        let checkbox = $("<input/>").attr("type","checkbox").attr({name:"iscorrect["+i+"]["+j+"]", value:"true", id:"iscorrect["+i+"]["+j+"]"}).css({width:"20px", height:"20px", margin:"10px"});
+                        let label = $("<label/>").attr({for:"iscorrect["+i+"]["+j+"]"}).html("Đúng").addClass("mb-0");
+                        let correct_div = $("<div/>").addClass("d-flex align-items-center").append(checkbox, label)
+
+                        $(answer).append(div, correct_div).appendTo($(b_div));
                     }
 
                     $(div).append($(div2).append(tit, b_div, button)).appendTo("#create_form");
                 }
             }
             display_last_child_of_btn_delete();
+            display_last_child_of_btn_delete_question();
             // Add more answer for each question
             $(document).on('click','.btn-add', function(){
                 let a = $(this).closest(".collapse").find(".answer");
@@ -133,13 +147,18 @@
                 let num_q = $(this).closest(".q").attr("id");// thuộc câu hỏi số [1]
                 console.log(num_q);
                 let id = "answer["+num_q +"]["+length+"]";
-                let input = $("<input>").attr("type","text").attr("name", id).attr("id",id).attr("placeholder","Đáp án "+arr[length]).addClass("answer_"+num_q + " form-control answer").css("background-color","#ddd").css('border-color','#629bd4');
                 let b = length - 1;
+
                 let checkbox = $("<input/>").attr("type","checkbox").attr({name:"iscorrect["+num_q+"]["+length+"]", value:"true"}).css({width:"20px", height:"20px", margin:"10px"});
-                let label = $("<label/>").attr({for:"iscorrect_"+j}).html("Đúng").addClass("mb-3");
+                let label = $("<label/>").attr({for:"iscorrect_"+j}).html("Đúng").addClass("mb-0");
+                let correct_div = $("<div/>").addClass("d-flex align-items-center").append(checkbox, label)
+
+                let input = $("<input>").attr("type","text").attr("name", id).attr("id",id).attr("placeholder","Đáp án "+arr[length]).addClass("answer_"+num_q + " form-control answer").css("background-color","#ddd").css('border-color','#629bd4');
                 let delete_btn = $("<button></button>").addClass("btn text-danger border ml-1 btn-delete btn-delete-"+num_q).attr({id:num_q}).html("X").css("display","none");
                 let f_div = $("<div/>").addClass("d-flex").append(input, delete_btn);
-                let div = $("<div></div>").addClass("form-group col-md-5").append(f_div, checkbox, label);
+
+                let div = $("<div></div>").addClass("form-group col-md-5").append(f_div, correct_div);
+
                 console.log($(this).closest("div").siblings("#b_div").append($(div)));
                 display_last_child_of_btn_delete();
             });
@@ -224,7 +243,7 @@
             $(".q").each(function(){
                 let id = $(this).attr("id");
                 $(".btn-delete-"+id).css("display","none");
-                console.log($(".btn-delete-"+id).last().css("display","inline"));
+                $(".btn-delete-"+id).last().css("display","inline");
             });
         }
 
@@ -236,6 +255,31 @@
             $(".answer_"+id).each(function(){
                 console.log($(this).attr("placeholder"));
             })
+        })
+
+        /**
+         *  Display th last button of delete question btn
+         */
+        function display_last_child_of_btn_delete_question(){
+            $('.dlt-btn').each(function(){
+                if(!$(this).hasClass('d-none')){
+                    $(this).addClass('d-none');
+                }
+            })
+            $('.dlt-btn').last().removeClass('d-none');
+        }
+
+        /**
+         *  Delete question button on click
+         */
+        $(document).on('click','.dlt-btn', function(e){
+            let id = $(this).attr('data');
+            e.preventDefault();
+            $(this).closest('span').remove();
+            $('#my-collapse-'+id).remove();
+            questions--;
+            i--;
+            display_last_child_of_btn_delete_question();
         })
     });
 </script>

@@ -19,12 +19,9 @@ class QuestionsController extends Controller
     //
     public function index()
     {
-        $questions = Questions::all();
+        $questions = Questions::simplePaginate(10);
         // dd($questions);
-        $levels = Levels::all();
-        $themes = Themes::all();
-        $staffs = Staffs::all();
-        return view('questions/home')->with('levels', $levels)->with('questions', $questions)->with('themes', $themes)->with('staffs', $staffs);
+        return view('questions/home')->with('questions', $questions);
     }
 
     public function detail($id) {

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Laravel</title>
+    <title>login</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -36,6 +36,11 @@
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial !important;
             background: whitesmoke;
+            background-image: url("{{ asset('img/loginimg.png') }}") ;
+
+            background-repeat: no-repeat;
+            background-position: center;
+
         }
 
         .container {
@@ -97,6 +102,13 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+
+        div.card {
+            background: #fdffe7 !important;
+            border-radius: 15px !important ;
+            box-shadow: 0px 0px 15px #b3b2b2 !important;
+            padding-bottom: 10px;
+        }
     </style>
     @yield('style')
 </head>
@@ -104,9 +116,9 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm py-0">
         <div class="container" style="max-width: 80%;">
-            <a class="navbar-brand" href="{{ route('home') }}">
+            {{-- <a class="navbar-brand" href="{{ route('home') }}">
                 {{ config('app.name', 'Laravel') }}
-            </a>
+            </a> --}}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>

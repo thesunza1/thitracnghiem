@@ -15,8 +15,8 @@
             Contest</a>
     </div>
 <div class="limiter">
-    <div class="container-table100 bg-white">
-        <div class="table100 ver2 m-b-110 container">
+    <div class="container-table100 " style="background-color: whitesmoke !important;">
+        <div class="table100 ver2 m-b-110 container" >
             <table data-vertable="ver2" id="contest_list">
                 <thead>
                     <tr class="row100 head">
